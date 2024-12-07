@@ -14,6 +14,10 @@ import CreateExchange from "../app/dashboard/manual/Exchange/CreateExchange";
 import UpdateExchange from "../app/dashboard/manual/Exchange/UpdateExchange";
 import CreateMenu from "../app/dashboard/manual/Menu/CreateMenu";
 import UpdateMenu from "../app/dashboard/manual/Menu/UpdateMenu";
+import CreatePatient from "../UI/_organism/Form/CreatePatient";
+import UpdatePatient from "../UI/_organism/Form/UpdatePatient";
+import UniqueMenu from "../app/dashboard/manual/Menu/UniqueMenu";
+import UniqueExchange from "../app/dashboard/manual/Exchange/UniqueExchange";
 // import UpdateMenu from "../app/dashboard/manual/Menu/UpdateMenu";
 
 const router = createBrowserRouter([
@@ -45,13 +49,10 @@ const router = createBrowserRouter([
                 element: <DashboardTemplate><Dashboard /></DashboardTemplate>
             },
             {
-                path: `/dashboard/:crud`,
-                element: <DashboardTemplate><AbstractCrud /></DashboardTemplate>
+                path: `/dashboard/patient/create`,
+                element: <DashboardTemplate><CreatePatient /></DashboardTemplate>
             },
-            {
-                path: `/dashboard/:crud/unique/:id`,
-                element: <DashboardTemplate><AbstractUnique /></DashboardTemplate>
-            },
+
             // MANUALES
             {
                 path: `/dashboard/exchange/create`,
@@ -62,13 +63,35 @@ const router = createBrowserRouter([
                 element: <DashboardTemplate><UpdateExchange /></DashboardTemplate>
             },
             {
+                path: `/dashboard/exchange/unique/:id`,
+                element: <DashboardTemplate><UniqueExchange /></DashboardTemplate>
+            },
+            {
                 path: `/dashboard/menu/create`,
                 element: <DashboardTemplate><CreateMenu /></DashboardTemplate>
             },
             {
                 path: `/dashboard/menu/update/:id`,
                 element: <DashboardTemplate><UpdateMenu /></DashboardTemplate>
-            }
+            },
+            {
+                path: `/dashboard/menu/unique/:id`,
+                element: <DashboardTemplate><UniqueMenu /></DashboardTemplate>
+            },
+
+            // ABSTRACTS
+            {
+                path: `/dashboard/patient/update/:id`,
+                element: <DashboardTemplate><UpdatePatient /></DashboardTemplate>
+            },
+            {
+                path: `/dashboard/:crud`,
+                element: <DashboardTemplate><AbstractCrud /></DashboardTemplate>
+            },
+            {
+                path: `/dashboard/:crud/unique/:id`,
+                element: <DashboardTemplate><AbstractUnique /></DashboardTemplate>
+            },
         ]
     }
 ]);

@@ -26,7 +26,7 @@ export default function Sidebar() {
     return (
         <>
 
-            <div className="flex lg:hidden flex-col items-center w-16 h-full dark:text-gray-400 bg-gray-100 dark:bg-emerald-900 min-h-screen">
+            <div className="flex lg:hidden flex-col items-center w-16 h-full drk:text-gray-400 bg-gray-100 drk:bg-emerald-900 min-h-screen">
                 <a className="flex items-center justify-center mt-3" href="#">
                     <svg className="w-8 h-8 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path
@@ -98,7 +98,7 @@ export default function Sidebar() {
                 </a>
             </div>
 
-            <div className="hidden lg:grid w-56 h-full bg-emerald-300 text-gray-800 dark:text-gray-100 dark:bg-emerald-700 min-h-screen">
+            <div className="hidden lg:grid w-56 h-full bg-emerald-300 text-gray-800 drk:text-gray-100 drk:bg-emerald-700 min-h-screen">
                 <span className="flex items-center w-full px-3 mt-3">
                     <span className="text-sm font-bold m-auto">NUTRINGEST</span>
                 </span>
@@ -173,7 +173,7 @@ export default function Sidebar() {
                         </a>
                     </div>
                 </div> */}
-                <a className="flex items-center justify-center w-full h-16 mt-auto bg-emerald-300 dark:text-gray-100 text-gray-800 dark:bg-emerald-700 hover:text-gray-300"
+                <a className="flex items-center justify-center w-full h-16 mt-auto bg-emerald-300 drk:text-gray-100 text-gray-800 drk:bg-emerald-700 hover:text-gray-300"
                     href="#">
                     <svg className="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">

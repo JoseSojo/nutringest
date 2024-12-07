@@ -13,6 +13,7 @@ import AbstractCreate from "./AbstractCreate";
 import AbstractUpdate from "./AbstractUpdate";
 import AbstractDelete from "./AbstractDelete";
 import { CRUDS } from "../../../types/GlobalInterface";
+import Input from "../../../UI/_atom/Input";
 
 export default function AbstractCrud() {
 
@@ -24,6 +25,8 @@ export default function AbstractCrud() {
 
     const [reload, setReload] = useState(false);
     const CustomRelaod = () => setReload(!reload);
+
+    const [param, setParam] = useState(``);
 
     const [load, setLoad] = useState(true);
     const [actionsList, setActionsList] = useState<ActionCrudInterface[] | null>(null);
@@ -70,6 +73,16 @@ export default function AbstractCrud() {
                         <header className="flex items-center justify-between">
                             <Title customClass="text-2xl font-black" text={title ? title : ``} />
                             <ul className="flex gap-3">
+                                <li>
+                                    <Input 
+                                        change={({value}:{value:string,name:string}) => {
+                                            setParam(value);
+                                        }}
+                                        customClass="border h-full rounded outline-none px-3 text-slate-500"
+                                        name="param"
+                                        type="text"
+                                        />
+                                </li>
                                 {
                                     actionsList && actionsList.map((action) => (
                                         <li>
@@ -86,8 +99,7 @@ export default function AbstractCrud() {
                         </header>
                         {/* HEADER FIN */}
 
-                        <AbstractList change={HandleChange} reload={reload} crud={crud} actions={actionsUnique ? actionsUnique : []} />
-
+                        <AbstractList param={param} change={HandleChange} reload={reload} crud={crud} actions={actionsUnique ? actionsUnique : []} />
                     </div>
             }
         </>

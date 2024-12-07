@@ -61,7 +61,7 @@ export default function AbstractUpdate({ crud, reload, id }: Props) {
     }
 
     return (
-        <div className="w-full py-10 flex flex-col justify-center items-center bg-slate-50 dark:bg-slate-950 shadow p-3 rounded text-slate-950 dark:text-slate-50">
+        <div className="border w-full py-10 flex flex-col justify-center items-center bg-slate-50 drk:bg-slate-950 p-3 rounded text-slate-950 drk:text-slate-50">
             <form onSubmit={HandleSubmit} className="w-full">
                 {
 
@@ -73,7 +73,7 @@ export default function AbstractUpdate({ crud, reload, id }: Props) {
                                     <li>
                                         <Button
                                             type="submit"
-                                            customClass={`${ButtonHandler({ param: `create` })} btn-sm border-none`}
+                                            customClass={`${ButtonHandler({ param: `update` })} btn-sm border-none`}
                                             ico={Icono({ ico: `update` })}
                                             text={ load ? `Cargando...` : `Actualizar` }
                                         />
@@ -87,7 +87,7 @@ export default function AbstractUpdate({ crud, reload, id }: Props) {
                             </div>
                         </>
                         : <>
-                           <Paragraph customClass="text-center text-md font-mono text-slate-800 dark:text-slate-400" text="No hay formulario" /> 
+                           <Paragraph customClass="text-center text-md font-mono text-slate-800 drk:text-slate-400" text="No hay formulario" /> 
                         </>
 
                 }
