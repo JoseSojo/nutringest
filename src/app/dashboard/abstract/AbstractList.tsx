@@ -9,11 +9,13 @@ interface Props {
     crud: string;
     reload: boolean;
     actions: ActionCrudInterface[];
-    change: ({ action, id }: { action: ActionCrudInterface, id: string }) => void;
-    param: string
+    change: ({ action, id,type }: { action: ActionCrudInterface, id: string,type?:string }) => void;
+    param: string,
+    min?:boolean,
+    query?: string
 }
 
-export default function AbstractList({ crud, actions, reload, change,param }: Props) {
+export default function AbstractList({ crud, actions, reload, change,param,min,query }: Props) {
 
     const [header, setHeader] = useState<string[] | null>(null);
     const [extractBy, setExtractBy] = useState<string[] | null>(null);
@@ -29,13 +31,13 @@ export default function AbstractList({ crud, actions, reload, change,param }: Pr
     useEffect(() => {
         const ExecuteAsync = async () => {
             setLoad(true);
-            const url = `${API}/${crud}/?skip=${skip}&param=${param}`;
+            const url = `${API}/${crud}/?skip=${skip}&param=${param}${query ? `&${query}` : ``}`;
             const req = REQUETS_GET_TOKEN;
             const result = await fetch(url, req);
             const json = await result.json() as AbstractResponseListCrud;
 
-            setHeader(json.body.header);
-            setExtractBy(json.body.extrat);
+            setHeader(!min ? json.body.header : json.body.headerMin);
+            setExtractBy(!min ? json.body.extrat : json.body.extratMin);
             setList(json.body.list);
             setNow(json.body.now);
             setNext(json.body.next);
@@ -52,7 +54,7 @@ export default function AbstractList({ crud, actions, reload, change,param }: Pr
             <table className="table table-xs">
                 {/* head */}
                 <thead>
-                    <tr className="bg-slate-200 drk:bg-slate-800 text-slate-900 drk:text-slate-300">
+                    <tr className="bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-slate-300">
                         {  actions && <th></th> }
                         {
                             header && header.map((h) => <th>{h}</th>)
@@ -73,14 +75,15 @@ export default function AbstractList({ crud, actions, reload, change,param }: Pr
                                                 <select
                                                     onChange={(e) => {
                                                         const vl = Number(e.target.value) as number;
+                                                        
                                                         change({ action: actions[vl], id: item.id })
                                                     }}
-                                                    className="py-1 px-2 outline-none rounded-lg h-full text-xs font-black bg-emerald-500 hover:bg-emerald-600 drk:bg-emerald-800 drk:hover:bg-emerald-900 text-white">
+                                                    className="py-1 px-2 outline-none rounded-lg h-full text-xs font-black bg-emerald-500 hover:bg-emerald-600 dark:bg-emerald-800 dark:hover:bg-emerald-900 text-white">
 
-                                                    <option className="bg-slate-100 drk:bg-slate-900">...</option>
+                                                    <option className="bg-slate-100 dark:bg-slate-900">...</option>
                                                     {
                                                         actions.map((ac, i) => (
-                                                            <option value={i} className="bg-slate-100 text-gray-800 drk:bg-slate-900 drk:text-gray-500">
+                                                            <option value={i} className="bg-slate-100 text-gray-400 dark:bg-slate-900 drk:text-gray-500">
                                                                 {/* {Icono({ ico: ac.ico })} */}
                                                                 {ac.label}
                                                             </option>
@@ -109,15 +112,15 @@ export default function AbstractList({ crud, actions, reload, change,param }: Pr
                         <Button
                             click={() => {if(previw)setSkip(skip-take)}}
                             customClass={`
-                                ${previw ? `hover:bg-slate-300 drk:hover:bg-slate-800` : `cursor-not-allowed`}
-                                font-bold text-sm px-4 py-2 bg-slate-200 text-slate-900 drk:bg-slate-900 drk:text-slate-200 h-full rounded-l-lg
+                                ${previw ? `hover:bg-slate-300 dark:hover:bg-slate-800` : `cursor-not-allowed`}
+                                font-bold text-sm px-4 py-2 bg-slate-200 text-slate-900 dark:bg-slate-900 dark:text-slate-200 h-full rounded-l-lg
                             `}
                             text={`<<`}
                         />
                     </li>
                     <li>
                         <Button
-                            customClass="cursor-default font-bold text-sm px-3 py-2 bg-slate-200 text-slate-900 drk:bg-slate-900 drk:text-slate-200 h-full"
+                            customClass="cursor-default font-bold text-sm px-3 py-2 bg-slate-200 text-slate-900 dark:bg-slate-900 dark:text-slate-200 h-full"
                             text={`${now}`}
                         />
                     </li>
@@ -125,8 +128,8 @@ export default function AbstractList({ crud, actions, reload, change,param }: Pr
                         <Button
                             click={() => {if(next)setSkip(skip+take)}}
                             customClass={`
-                                ${next ? `hover:bg-slate-300 drk:hover:bg-slate-800` : `cursor-not-allowed`}
-                                font-bold text-sm px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-900 drk:bg-slate-900 drk:hover:bg-slate-800 drk:text-slate-200 h-full rounded-r-lg
+                                ${next ? `hover:bg-slate-300 dark:hover:bg-slate-800` : `cursor-not-allowed`}
+                                font-bold text-sm px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-900 dark:bg-slate-900 dark:hover:bg-slate-800 dark:text-slate-200 h-full rounded-r-lg
                             `}
                             text={`>>`}
                         />

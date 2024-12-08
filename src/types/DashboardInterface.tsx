@@ -46,7 +46,9 @@ export interface AbstractResponseListCrud {
     error: boolean;
     body: {
         extrat: string[];
+        extratMin: string[];
         header: string[];
+        headerMin: string[];
         list: any[];
         next: boolean;
         previw: boolean;

@@ -145,11 +145,11 @@ export default function CreatePatient() {
 
                 <label className={`form-control w-full col-span-4`}>
                     <div className="label">
-                        <span className="label-text font-semibold text-slate-900 drk:text-slate-300">Genero</span>
+                        <span className="label-text font-semibold text-slate-900 dark:text-slate-300">Genero</span>
                     </div>
                     <select onChange={(e) => {
                         HandleChange({ name: `genero`, value: e.target.value })
-                    }} className="input input-sm input-bordered w-full text-slate-700 drk:text-slate-800 ">
+                    }} className="input input-sm input-bordered w-full text-slate-700 dark:text-slate-800 ">
                         <option></option>
                         <option>Masculino</option>
                         <option>Femenino</option>
@@ -159,7 +159,7 @@ export default function CreatePatient() {
                         change={change}
                         name={field.name}
                         placeholder={field.placeholder}
-                        customClass="input input-sm input-bordered w-full text-slate-300 drk:text-slate-800"
+                        customClass="input input-sm input-bordered w-full text-slate-300 dark:text-slate-800"
                     /> */}
                     <div className="label">
                         {/* <span className="label-text-alt">Bottom Left label</span> */}

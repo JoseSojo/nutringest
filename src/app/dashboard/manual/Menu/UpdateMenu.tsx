@@ -15,7 +15,7 @@ import WarningDeleteFood from "./WarningDeleteFood";
 
 export default function UpdateMenu() {
 
-    const {id} = useParams() as {id:string};
+    const { id } = useParams() as { id: string };
 
     const modal = useModal();
     const noti = useNotification();
@@ -23,19 +23,19 @@ export default function UpdateMenu() {
     const [reload, setReload] = useState(false);
     const CustomRelaod = () => setReload(!reload);
 
-    const [data, setData] = useState<{ name?: string, description?: string, type?:string } | null>(null);
+    const [data, setData] = useState<{ name?: string, description?: string, type?: string } | null>(null);
 
     const [customFood, setCustomFood] = useState<{ unity?: { id: string, label: string }, food?: { id: string, label: string }, ration?: string | number } | null>(null);
-    const [foodSelect, setFoodSelect] = useState<{ id:string, unity?:{id:string,label:string}, food:{id:string,label:string}, quantity?: string | number }[] | null>(null);
+    const [foodSelect, setFoodSelect] = useState<{ id: string, unity?: { id: string, label: string }, food: { id: string, label: string }, quantity?: string | number }[] | null>(null);
 
     const HandleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if(!data) return noti.setMessage({ active:true,message:`Debes completar los datos.`,type:`error` });
-        if(!data.description) return noti.setMessage({ active:true,message:`Debes agregar la descripción.`,type:`error` });
-        if(!data.name) return noti.setMessage({ active:true,message:`Debes agregar el nombre`,type:`error` });
-        if(!data.type) return noti.setMessage({ active:true,message:`Debes agregar el tipo`,type:`error` });
-        if(!foodSelect || foodSelect.length === 0) return noti.setMessage({ active:true,message:`Debes agregar almenos un alimento`,type:`error` });
+        if (!data) return noti.setMessage({ active: true, message: `Debes completar los datos.`, type: `error` });
+        if (!data.description) return noti.setMessage({ active: true, message: `Debes agregar la descripción.`, type: `error` });
+        if (!data.name) return noti.setMessage({ active: true, message: `Debes agregar el nombre`, type: `error` });
+        if (!data.type) return noti.setMessage({ active: true, message: `Debes agregar el tipo`, type: `error` });
+        if (!foodSelect || foodSelect.length === 0) return noti.setMessage({ active: true, message: `Debes agregar almenos un alimento`, type: `error` });
 
         const customData: any = {
             name: data.name,
@@ -46,16 +46,16 @@ export default function UpdateMenu() {
 
         const ExecuteRequets = async () => {
             const url = `${API}/menu/${id}/update`;
-            const req = {...REQUETS_PUT_TOKEN, body:JSON.stringify(customData)}
+            const req = { ...REQUETS_PUT_TOKEN, body: JSON.stringify(customData) }
             const result = await fetch(url, req);
             const json = await result.json();
 
-            if(!result.ok || json.error) {
-                noti.setMessage({ active:true,message:`Oops. hubo un error`,type:`error` });
+            if (!result.ok || json.error) {
+                noti.setMessage({ active: true, message: `Oops. hubo un error`, type: `error` });
                 return;
             }
 
-            noti.setMessage({ active:true,message:json.message,type:`success` });
+            noti.setMessage({ active: true, message: json.message, type: `success` });
             navigate(`/dashboard/menu`);
             return;
         }
@@ -96,14 +96,14 @@ export default function UpdateMenu() {
 
         const prev = foodSelect ? foodSelect : [];
 
-        prev.push({ id:``,food: customFood.food, quantity: customFood.ration, unity: customFood.unity });
+        prev.push({ id: ``, food: customFood.food, quantity: customFood.ration, unity: customFood.unity });
         setFoodSelect(prev);
 
         setCustomFood(null);
     }
 
     const RemoveFoodSelect = (index: number) => {
-        if(!foodSelect) return;
+        if (!foodSelect) return;
         // const prev = foodSelect.filter((_, i) => i !== index);;
         // setFoodSelect(prev);
         modal.show(<WarningDeleteFood id={foodSelect[index].id} label={`Está seguro de eliminar: ${foodSelect[index].food.label}`} reload={CustomRelaod} />)
@@ -113,9 +113,9 @@ export default function UpdateMenu() {
         const RequetsAsync = async () => {
             const url = `${API}/menu/${id}/unique`;
             const req = REQUETS_GET_TOKEN;
-            const result = await fetch(url,req);
+            const result = await fetch(url, req);
             const json = await result.json();
-            
+
             const currenData = {
                 name: json.body.name,
                 description: json.body.description,
@@ -125,23 +125,16 @@ export default function UpdateMenu() {
             const currentFood: typeof foodSelect = [];
             const foods = json.body.foods as any[];
             foods.forEach((food) => {
-                currentFood.push({ 
-                    id:food.id, 
-                    unity:{id:food.unityMeasureReference.id,label:food.unityMeasureReference.name}, 
-                    food:{id:food.foodPrimitiveReference.id,label:food.foodPrimitiveReference.name}, 
-                    quantity: food.quentity 
-            })
-                // currentFood.push({ 
-                //     id: food.id,
-                //     food:{id: food.foodReference.id ,label:food.foodReference.name},
-                //     quantity:food.quantity ? food.quantity : ``,
-                //     unity:food.unityMeasureReference ? {id:food.unityMeasureReference.id,label:food.unityMeasureReference.name} : undefined
-                // })
-            })
+                currentFood.push({
+                    id: food.id,
+                    unity: { id: food.unityMeasureReference.id, label: food.unityMeasureReference.name },
+                    food: { id: food.foodPrimitiveReference.id, label: food.foodPrimitiveReference.name },
+                    quantity: food.quentity
+                });
+            });
 
             setData(currenData);
             setFoodSelect(currentFood);
-
         }
         RequetsAsync();
     }, [reload]);
@@ -167,8 +160,8 @@ export default function UpdateMenu() {
                 <div className="col-span-3 flex justify-end mt-3">
                     <Button
                         type="submit"
-                        customClass={`${ButtonHandler({param:`update`})} btn-sm border-none`}
-                        ico={Icono({ ico:`update` })}
+                        customClass={`${ButtonHandler({ param: `update` })} btn-sm border-none`}
+                        ico={Icono({ ico: `update` })}
                         text="Actualizar"
                     />
                 </div>
@@ -181,7 +174,7 @@ export default function UpdateMenu() {
                         name: `name`,
                         id: `input`,
                         label: `Nombre`,
-                        placeholder: data ? data.name ? data.name  : `` : ``,
+                        placeholder: data ? data.name ? data.name : `` : ``,
                         required: false,
                     }}
                 />
@@ -193,7 +186,7 @@ export default function UpdateMenu() {
                         name: `description`,
                         id: `input.description`,
                         label: `Descripción`,
-                        placeholder: data ? data.description ? data.description  : `` : ``,
+                        placeholder: data ? data.description ? data.description : `` : ``,
                         required: false,
                         value: data ? data.name : ``
                     }}
@@ -261,9 +254,9 @@ export default function UpdateMenu() {
                             <div className="flex-1 rounded p-1 border flex justify-between items-center">
                                 <Text customClass="text-sm font-bold" text={`${item.food.label} - ${item.quantity ? item.quantity : ``} ${item.unity ? item.unity.label : ``}`} />
                                 <Button
-                                    click={()=>RemoveFoodSelect(i)}
+                                    click={() => RemoveFoodSelect(i)}
                                     customClass="btn btn-xs btn-error text-white"
-                                    ico={Icono({ ico:`delete` })}
+                                    ico={Icono({ ico: `delete` })}
                                 />
                             </div>
                         ))

@@ -18,6 +18,9 @@ import CreatePatient from "../UI/_organism/Form/CreatePatient";
 import UpdatePatient from "../UI/_organism/Form/UpdatePatient";
 import UniqueMenu from "../app/dashboard/manual/Menu/UniqueMenu";
 import UniqueExchange from "../app/dashboard/manual/Exchange/UniqueExchange";
+import SubscriptionUnique from "../app/dashboard/manual/Subscription/SubscriptionUnique";
+import QuoteCreate from "../app/dashboard/manual/Quote/QuoteCreate";
+import QuoteFicha from "../app/dashboard/manual/Quote/QuoteFicha";
 // import UpdateMenu from "../app/dashboard/manual/Menu/UpdateMenu";
 
 const router = createBrowserRouter([
@@ -48,12 +51,24 @@ const router = createBrowserRouter([
                 path: `/dashboard`,
                 element: <DashboardTemplate><Dashboard /></DashboardTemplate>
             },
+
+            // MANUALES
             {
                 path: `/dashboard/patient/create`,
                 element: <DashboardTemplate><CreatePatient /></DashboardTemplate>
             },
-
-            // MANUALES
+            {
+                path: `/dashboard/quote/create`,
+                element: <DashboardTemplate><QuoteCreate /></DashboardTemplate>
+            },
+            {
+                path: `/dashboard/subscription/unique/:id`,
+                element: <DashboardTemplate><SubscriptionUnique /></DashboardTemplate>
+            },
+            {
+                path: `/dashboard/quote/unique/:id`,
+                element: <DashboardTemplate><QuoteFicha /></DashboardTemplate>
+            },
             {
                 path: `/dashboard/exchange/create`,
                 element: <DashboardTemplate><CreateExchange /></DashboardTemplate>

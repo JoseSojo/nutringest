@@ -8,6 +8,7 @@ export type CRUDS =
     | `payment`
     | `primitive`
     | `presentation`
+    | `subscription`
     | `supplement`
     | `unity`
     | `exchange`

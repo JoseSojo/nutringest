@@ -36,6 +36,7 @@ import {
     BsPower,
     BsReceipt,
     BsSendFill,
+    BsSignpostFill,
     BsStack,
     BsVirus,
     BsVirus2
@@ -73,6 +74,7 @@ type ICONS =
     | `master`
     | `notification`
     | `message`
+    | `assing`
     | string
 
 
@@ -122,6 +124,7 @@ export function Icono ({ico}:{ico: ICONS}) {
     if(ico === `load`) return <BsClockHistory />
     if(ico === `notification`) return <BsBellFill />
     if(ico === `message`) return <BsChatFill />
+    if(ico === `assing`) return <BsSignpostFill />
 
     return <TfiLayoutWidthDefaultAlt />
 } 

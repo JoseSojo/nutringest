@@ -1,29 +1,29 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { API } from "../../../entorno";
-import { REQUETS_GET_TOKEN } from "../../../utils/req/RequetsOptions";
-import { AbstractResponseCrud, ActionCrudInterface } from "../../../types/DashboardInterface";
-import Subtitle from "../../../UI/_atom/Subtitle";
-import Button from "../../../UI/_atom/Button";
-import { useModal } from "../../../_context/ModalContext";
-import ButtonHandler from "../../../_handler/ButtonsHandler";
-import { Icono } from "../../../_handler/IconHandler";
-import AbstractCreate from "./AbstractCreate";
-import AbstractUpdate from "./AbstractUpdate";
-import AbstractDelete from "./AbstractDelete";
-import { CRUDS } from "../../../types/GlobalInterface";
-import ExtractValue from "../../../utils/ExtractValue";
+import { useModal } from "../../../../_context/ModalContext";
+import { AbstractResponseCrud, ActionCrudInterface } from "../../../../types/DashboardInterface";
+import { API } from "../../../../entorno";
+import { REQUETS_GET_TOKEN } from "../../../../utils/req/RequetsOptions";
+import AbstractCreate from "../../abstract/AbstractCreate";
+import AbstractUpdate from "../../abstract/AbstractUpdate";
+import AbstractDelete from "../../abstract/AbstractDelete";
+import Subtitle from "../../../../UI/_atom/Subtitle";
+import Button from "../../../../UI/_atom/Button";
+import { Icono } from "../../../../_handler/IconHandler";
+import ButtonHandler from "../../../../_handler/ButtonsHandler";
+import ExtractValue from "../../../../utils/ExtractValue";
+import AsingDetail from "./AsingDetail";
 
 interface Props {
 }
 
-export default function AbstractUnique({ }: Props) {
-    const { crud, id } = useParams() as { crud: CRUDS, id: string };
+export default function SubscriptionUnique({ }: Props) {
+    const { id } = useParams() as { id: string };
 
     const modal = useModal();
     const navigate = useNavigate();
 
-    const CustomRelaod = () => navigate(`/dashboard/${crud}`);
+    const CustomRelaod = () => navigate(`/dashboard/subscription`);
 
     const [actionsList, setActionsList] = useState<ActionCrudInterface[] | null>(null);
     const [actionsUnique, setActionsUnique] = useState<ActionCrudInterface[] | null>(null);
@@ -34,12 +34,12 @@ export default function AbstractUnique({ }: Props) {
 
     useEffect(() => {
         const Execute = async () => {
-            const url = `${API}/${crud}/${id}/unique`;
+            const url = `${API}/subscription/${id}/unique`;
             const req = REQUETS_GET_TOKEN;
             const result = await fetch(url, req);
             const json = await result.json();
 
-            const urlGui = `${API}/gui/crud/${crud}`;
+            const urlGui = `${API}/gui/crud/subscription`;
             const reqGui = REQUETS_GET_TOKEN;
             const resultGui = await fetch(urlGui, reqGui);
             const jsonGui = await resultGui.json() as AbstractResponseCrud;
@@ -57,16 +57,16 @@ export default function AbstractUnique({ }: Props) {
 
     const HandleChange = ({ action }: { action: ActionCrudInterface, id: string }) => {
         if (action.use === "modal") {
-            if (action.ico === `create`) modal.show(<AbstractCreate crud={crud} reload={CustomRelaod} />);
-            else if (action.ico === `update`) modal.show(<AbstractUpdate crud={crud} reload={CustomRelaod} id={id} />);
-            else if (action.ico === `delete`) modal.show(<AbstractDelete crud={crud} reload={CustomRelaod} id={id} />);
+            if (action.ico === `create`) modal.show(<AbstractCreate crud={`subscription`} reload={CustomRelaod} />);
+            else if (action.ico === `update`) modal.show(<AbstractUpdate crud={`subscription`} reload={CustomRelaod} id={id} />);
+            else if (action.ico === `delete`) modal.show(<AbstractDelete crud={`subscription`} reload={CustomRelaod} id={id} />);
             // else if(action.ico === `unique`) modal.show(<AbstractUnique crud={crud} reload={CustomRelaod} id={id} />);
         } else if (action.use === "page") {
-            if (action.ico === `list`) navigate(`/dashboard/${crud}/`);
-            if (action.ico === `create`) navigate(`/dashboard/${crud}/create`);
-            else if (action.ico === `update`) navigate(`/dashboard/${crud}/update/${id}`);
-            else if (action.ico === `delete`) navigate(`/dashboard/${crud}/delete/${id}`);
-            else if (action.ico === `unique`) navigate(`/dashboard/${crud}/unique/${id}`);
+            if (action.ico === `list`) navigate(`/dashboard/subscription/`);
+            if (action.ico === `create`) navigate(`/dashboard/subscription/create`);
+            else if (action.ico === `update`) navigate(`/dashboard/subscription/update/${id}`);
+            else if (action.ico === `delete`) navigate(`/dashboard/subscription/delete/${id}`);
+            else if (action.ico === `unique`) navigate(`/dashboard/subscription/unique/${id}`);
         }
     }
 
@@ -121,8 +121,9 @@ export default function AbstractUnique({ }: Props) {
                     </ul>
                 </div>
                 {/* <div className="border py-3 px-5 mt-3 rounded"> */}
-                <AbstractUpdate crud={crud} id={id} reload={CustomRelaod} />
+                <AbstractUpdate crud={`subscription`} id={id} reload={CustomRelaod} />
                 {/* </div> */}
+                <AsingDetail id={id} />
             </div>
         </div>
     )
