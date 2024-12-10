@@ -13,9 +13,9 @@ export default function Button ({ico,children,click,customClass,text,type}: Prop
 
     return (
         <button type={type ? type : `button`} className={`${customClass}`} onClick={click}>
-            {children}
             {ico}
             {text}
+            {children}
         </button>
     );
 }

@@ -16,7 +16,7 @@ interface Props {
 export default function UpdateQuote({description,exercise,id,sleep}:Props) {
     const noti = useNotification();
     const [data, setData] = useState({description,exercise,sleep});
-    const clsTextarea = `min-h-20 h-24 max-h-36 input input-sm border border-gray-800 dark:border-gray-100 outline-none bg-gray-300 dark:bg-slate-900 select-none`;
+    const clsTextarea = `min-h-20 h-24 max-h-36 input input-sm border border-gray-800 drk:border-gray-100 outline-none bg-gray-300 drk:bg-slate-900 select-none`;
 
     const HandleChangeInput = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const prev = { ...data, [e.target.name]: e.target.value };

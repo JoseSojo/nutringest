@@ -15,6 +15,7 @@ import { Icono } from "../../../../_handler/IconHandler";
 import ButtonHandler from "../../../../_handler/ButtonsHandler";
 import AbstractList from "../../abstract/AbstractList";
 import AbstractAssing from "./AbstractAssing";
+import AbstractRemove from "../../abstract/AbstractRemove";
 
 interface Props {
     assing?: CRUDS;
@@ -57,13 +58,13 @@ export default function ItemQuote({pathGui,crud,quote,id,assing}: Props) {
         ExecuteAsync();
     }, [location.pathname]);
 
-
     const HandleChange = ({action,id}:{action:ActionCrudInterface,id:string}) => {
         if(action.use === "modal") {
             if(action.ico === `create`) modal.show(<AbstractCreate crud={crud} reload={CustomRelaod} />);
             else if(action.ico === `update`) modal.show(<AbstractUpdate crud={crud} reload={CustomRelaod} id={id} />);
             else if(action.ico === `delete`) modal.show(<AbstractDelete crud={crud} reload={CustomRelaod} id={id} />);
             else if(action.ico === `assing`) modal.show(<AbstractAssing pathGui={pathGui} reloadVl={reload} crud={assing ? assing : crud} reload={CustomRelaod} id={customId} />);
+            else if(action.ico === `remove`) modal.show(<AbstractRemove pathGui={pathGui} crud={assing ? assing : crud} reload={CustomRelaod} id={customId} query={`quote=${customId}&item=${id}`} />);
             // else if(action.ico === `unique`) modal.show(<AbstractUnique crud={crud} reload={CustomRelaod} id={id} />);
         } else if (action.use === "page") {
             if(action.ico === `create`) navigate(`/dashboard/${crud}/create`);
@@ -105,7 +106,8 @@ export default function ItemQuote({pathGui,crud,quote,id,assing}: Props) {
                                         </li>
                                     ))
                                 }
-                                <li>
+                                {
+                                    actionsList && actionsList.find((ac) => ac.ico === `create`) && <li>
                                     <Button
                                         click={() => HandleChange({ action:{ico:`assing`,label:`Asignar`,path:`/`,use:`modal`}, id:`` })}
                                         ico={Icono({ ico:`assing` })}
@@ -113,6 +115,7 @@ export default function ItemQuote({pathGui,crud,quote,id,assing}: Props) {
                                         text={`Asignar`}
                                     />
                                 </li>
+                                }
                             </ul>
                         </header>
                         {/* HEADER FIN */}

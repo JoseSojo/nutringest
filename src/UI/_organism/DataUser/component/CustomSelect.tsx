@@ -31,7 +31,6 @@ export default function CustomSelect({ select, change, label, filter, initSelect
             const restul = await fetch(url, req);
 
             const json = await restul.json() as { id: string, label: string }[];
-            console.log(json);
             setList(json);
             setLoad(false);
         }
@@ -41,12 +40,12 @@ export default function CustomSelect({ select, change, label, filter, initSelect
     return (
         <label className="w-full relative col-span-4">
             <div className="label">
-                <span className="label-text font-semibold text-slate-900 dark:text-slate-100">{label}</span>
+                <span className="label-text font-semibold text-slate-900 drk:text-slate-100">{label}</span>
             </div>
             <Button
                 click={() => setActive(!active)}
                 type="button"
-                customClass="w-full input input-sm border border-gray-800 dark:border-gray-100 outline-none bg-gray-300 dark:bg-slate-700 select-none"
+                customClass="w-full input input-sm border border-gray-800 drk:border-gray-100 outline-none bg-gray-300 drk:bg-slate-700 select-none"
             >
                 {
                     customSelect ? customSelect.label : initSelect && initSelect.label
@@ -55,10 +54,10 @@ export default function CustomSelect({ select, change, label, filter, initSelect
 
             {
                 active &&
-                <div className="absolute grid w-full min-h-20 max-h-36 z-10 rounded-b-xl p-1 top-16 border overflow-y-auto bg-slate-50 dark:bg-slate-700 text-slate-90">
+                <div className="absolute grid w-full min-h-20 max-h-36 z-10 rounded-b-xl p-1 top-16 border overflow-y-auto bg-slate-50 drk:bg-slate-700 text-slate-90">
                     <Input
                         change={({ value }: { name: string, value: string }) => setParam(value)}
-                        customClass="input input-sm border border-gray-800 text-gray-800 dark:text-gray-600"
+                        customClass="input input-sm border border-gray-800 text-gray-800 drk:text-gray-600"
                         type="text"
                         name="param"
                     />

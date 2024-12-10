@@ -98,7 +98,7 @@ export default function AbstractAssing({ crud, pathGui,id,reload }: Props) {
     }, [location.pathname]);
 
     return (
-        <div className="border w-full py-10 flex flex-col justify-center items-center bg-slate-50 dark:bg-slate-950 p-3 rounded text-slate-950 dark:text-slate-50">
+        <div className="border w-full py-10 flex flex-col justify-center items-center bg-slate-50 drk:bg-slate-950 p-3 rounded text-slate-950 drk:text-slate-50">
             <>
                 {
                     load

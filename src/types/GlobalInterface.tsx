@@ -15,6 +15,8 @@ export type CRUDS =
     | `menu`
     | `food`
     | `quote`
+    | `quote/exchange`
+    | `quote/menu`
     ;
 
 export interface ErrorInputStruct {

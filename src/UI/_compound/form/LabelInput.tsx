@@ -12,14 +12,14 @@ export default function LabelInput({ field, change,cls }: Props) {
     return (
         <label className={`form-control w-full ${cls ? cls : ``}`}>
             <div className="label">
-                <span className="label-text font-semibold text-slate-900 dark:text-slate-300">{field.label}</span>
+                <span className="label-text font-semibold text-slate-900 drk:text-slate-300">{field.label}</span>
             </div>
             <Input
                 type={field.beforeType}
                 change={change}
                 name={field.name}
                 placeholder={field.placeholder}
-                customClass="input input-sm input-bordered w-full text-slate-700 dark:text-slate-800"
+                customClass="input input-sm input-bordered w-full text-slate-700 drk:text-slate-800"
             />
             <div className="label">
                 {/* <span className="label-text-alt">Bottom Left label</span> */}

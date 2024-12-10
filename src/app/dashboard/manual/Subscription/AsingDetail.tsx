@@ -46,7 +46,7 @@ export default function AsingDetail({ id }: Props) {
         const HandleSubmit = async () => {
             const url = `${API}/subscription/detail/${id}/delete`;
             const req = REQUETS_PUT_TOKEN;
-            const result = await fetch(url, req);
+            await fetch(url, req);
             CustomRelaod();
         }
         HandleSubmit();
@@ -58,8 +58,6 @@ export default function AsingDetail({ id }: Props) {
             const req = REQUETS_GET_TOKEN;
             const result = await fetch(url, req);
             const json = await result.json();
-
-            console.log(json);
 
             const current: typeof customDetails = [];
             const details = json.body as any[];

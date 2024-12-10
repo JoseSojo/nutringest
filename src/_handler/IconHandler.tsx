@@ -33,6 +33,7 @@ import {
     BsPaypal,
     BsPenFill,
     BsPeopleFill,
+    BsPlus,
     BsPower,
     BsReceipt,
     BsSendFill,
@@ -75,6 +76,7 @@ type ICONS =
     | `notification`
     | `message`
     | `assing`
+    | `pluss`
     | string
 
 
@@ -125,6 +127,7 @@ export function Icono ({ico}:{ico: ICONS}) {
     if(ico === `notification`) return <BsBellFill />
     if(ico === `message`) return <BsChatFill />
     if(ico === `assing`) return <BsSignpostFill />
+    if(ico === `pluss`) return <BsPlus />
 
     return <TfiLayoutWidthDefaultAlt />
 } 

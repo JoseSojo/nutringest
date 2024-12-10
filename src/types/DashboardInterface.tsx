@@ -32,13 +32,14 @@ export interface ActionCrudInterface {
     label: string;
     ico: any;
     path: string;
-    use: `page` | `modal` | `download`
+    use: `page` | `modal` | `download`;
 }
 
 export interface AbstractResponseCrud {
     actionsList: ActionCrudInterface[];
     actionsUnique: ActionCrudInterface[];
     title: string;
+    sections?: any[] 
 }
 
 export interface AbstractResponseListCrud {

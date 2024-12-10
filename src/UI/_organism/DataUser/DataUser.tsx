@@ -89,9 +89,6 @@ export default function DataUser({ userId, update }: Props) {
     }
 
     const HandleSubmit = (e: FormEvent<HTMLFormElement>) => {
-
-        // console.log(personalData);
-        // console.log(contactData);
         e.preventDefault();
         // if (update) return NotiError(`No puedes actualizar.`);
 
@@ -146,8 +143,6 @@ export default function DataUser({ userId, update }: Props) {
             const req = { method: `GET`, headers: { "token": `${getToken()}` } };
             const result = await fetch(url, req);
             const json = await result.json() as { body: any, error: boolean, message: string };
-
-            console.log(json);
 
             if (json.body) {
                 setPersonalData2({
@@ -205,10 +200,10 @@ export default function DataUser({ userId, update }: Props) {
 
             {/* INICIO DATOS PERSONALES */}
 
-            <Subtitle customClass=" text-xl font-black text-blue-800 dark:text-blue-500" text="" />
+            <Subtitle customClass=" text-xl font-black text-blue-800 drk:text-blue-500" text="" />
 
             <div className="flex justify-between items-center col-span-12">
-                <Subtitle customClass="text-xl font-black text-blue-800 dark:text-blue-500 mt-4" text="Datos personales" />
+                <Subtitle customClass="text-xl font-black text-blue-800 drk:text-blue-500 mt-4" text="Datos personales" />
 
                 {
                     update &&
@@ -222,7 +217,7 @@ export default function DataUser({ userId, update }: Props) {
 
             <label className="flex flex-col col-span-1">
                 <span className="text-sm font-semibold">Nac.</span>
-                <select onChange={ChangePersonalData} name="nacionality" className="input input-sm border border-gray-800 dark:border-gray-100 outline-none bg-gray-300 dark:bg-slate-700 select-none">
+                <select onChange={ChangePersonalData} name="nacionality" className="input input-sm border border-gray-800 drk:border-gray-100 outline-none bg-gray-300 drk:bg-slate-700 select-none">
                     <option></option>
                     <option selected={personalData && personalData.nacionality === `V` ? true : false}>V</option>
                     <option selected={personalData && personalData.nacionality === `E` ? true : false}>E</option>
@@ -283,7 +278,7 @@ export default function DataUser({ userId, update }: Props) {
 
             {/* INICIO DATOS RECIDENCIA */}
 
-            <Subtitle customClass="col-span-12 text-xl font-black text-blue-800 dark:text-blue-500 mt-4" text="Datos Residencia" />
+            <Subtitle customClass="col-span-12 text-xl font-black text-blue-800 drk:text-blue-500 mt-4" text="Datos Residencia" />
 
             <CustomSelect
                 change={SetResidenseData}
@@ -312,7 +307,7 @@ export default function DataUser({ userId, update }: Props) {
 
             {/* INICIO DATOS CONTACTO */}
 
-            <Subtitle customClass="col-span-12 text-xl font-black text-blue-800 dark:text-blue-500 mt-4" text="Datos Contacto" />
+            <Subtitle customClass="col-span-12 text-xl font-black text-blue-800 drk:text-blue-500 mt-4" text="Datos Contacto" />
 
             <CustomInput
                 cols="3"
