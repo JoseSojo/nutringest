@@ -1,4 +1,4 @@
-import FAQSection from "./ui/FAQSection";
+// import FAQSection from "./ui/FAQSection";
 import Footer from "./ui/Footer";
 import FreeTrialSection from "./ui/FreeTrialSection";
 import Header from "./ui/Header";
