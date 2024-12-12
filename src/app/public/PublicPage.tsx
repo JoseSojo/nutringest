@@ -20,7 +20,7 @@ export default function PublicPage() {
 
             <LandingSection />
 
-            <section className="bg-white drk:bg-gray-900">
+            {/* <section className="bg-white drk:bg-gray-900">
                 <div className="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-16">
                     <div className="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 sm:grid-cols-3 lg:grid-cols-6 drk:text-gray-400">
                         <a href="#" className="flex items-center lg:justify-center">
@@ -67,7 +67,7 @@ export default function PublicPage() {
                         </a>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             <ToolsSection />
 
@@ -77,7 +77,7 @@ export default function PublicPage() {
 
             <PricingSection />
 
-            <FAQSection />
+            {/* <FAQSection /> */}
 
             <FreeTrialSection />
 

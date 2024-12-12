@@ -40,7 +40,9 @@ import {
     BsSignpostFill,
     BsStack,
     BsVirus,
-    BsVirus2
+    BsVirus2,
+    BsPersonExclamation,
+    BsPersonArmsUp
 
 } from "react-icons/bs";
 
@@ -77,6 +79,8 @@ type ICONS =
     | `message`
     | `assing`
     | `pluss`
+    | `patient`
+    | `nutricionist`
     | string
 
 
@@ -128,6 +132,8 @@ export function Icono ({ico}:{ico: ICONS}) {
     if(ico === `message`) return <BsChatFill />
     if(ico === `assing`) return <BsSignpostFill />
     if(ico === `pluss`) return <BsPlus />
+    if(ico === `nutricionist`) return <BsPersonExclamation />
+    if(ico === `patient`) return <BsPersonArmsUp />
 
     return <TfiLayoutWidthDefaultAlt />
 } 
