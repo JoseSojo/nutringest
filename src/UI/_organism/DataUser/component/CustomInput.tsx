@@ -18,7 +18,7 @@ export default function CustomInput ({change,name,value,label,type,cols}:Props) 
                     onChange={change} 
                     name={name} 
                     type={type} 
-                    className="input input-sm border border-gray-800 drk:border-gray-100 outline-none bg-gray-300 drk:bg-slate-700 select-none" 
+                    className="input input-sm border border-gray-700 drk:border-gray-100 outline-none bg-white select-none outline-none" 
                 />
             </label>
     )

@@ -45,7 +45,7 @@ export default function CustomSelect({ select, change, label, filter, initSelect
             <Button
                 click={() => setActive(!active)}
                 type="button"
-                customClass="w-full input input-sm border border-gray-800 drk:border-gray-100 outline-none bg-gray-300 drk:bg-slate-700 select-none"
+                customClass="w-full input input-sm border border-gray-700 drk:border-gray-100 outline-none bg-white select-none outline-none"
             >
                 {
                     customSelect ? customSelect.label : initSelect && initSelect.label

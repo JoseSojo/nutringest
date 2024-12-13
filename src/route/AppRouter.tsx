@@ -21,6 +21,7 @@ import UniqueExchange from "../app/dashboard/manual/Exchange/UniqueExchange";
 import SubscriptionUnique from "../app/dashboard/manual/Subscription/SubscriptionUnique";
 import QuoteCreate from "../app/dashboard/manual/Quote/QuoteCreate";
 import QuoteFicha from "../app/dashboard/manual/Quote/QuoteFicha";
+import CustomDashboardTemplate from "../UI/_template/CustomDashboardTemplate";
 // import UpdateMenu from "../app/dashboard/manual/Menu/UpdateMenu";
 
 const router = createBrowserRouter([
@@ -49,7 +50,7 @@ const router = createBrowserRouter([
             },
             {
                 path: `/dashboard`,
-                element: <DashboardTemplate><Dashboard /></DashboardTemplate>
+                element: <CustomDashboardTemplate><Dashboard /></CustomDashboardTemplate>
             },
 
             // MANUALES

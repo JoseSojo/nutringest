@@ -1,10 +1,17 @@
+import Calendar from "../UI/_organism/Dashboard/Calendar";
+import SectionCard from "../UI/_organism/Dashboard/SectionCard";
+import DrawenerContent from "../UI/_template/DrawenerContent";
 
 
 export default function Dashboard () {
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-            panel
+        <div className="">
+            <DrawenerContent/>
+            <SectionCard />
+
+            <Calendar />
+
         </div>
     )
 }

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Icono } from "../../_handler/IconHandler";
 import Button from "../_atom/Button";
+import { deleteTokenAndUser } from "../../utils/token";
 
 interface Navbar {
 
@@ -11,12 +12,12 @@ export default function Navbar() {
     const navigate = useNavigate();
 
     return (
-        <header className="w-full py-1 text-gray-700 drk:text-gray-100 bg-emerald-300 drk:bg-emerald-700 flex justify-end px-5 lg:px-10">
+        <header className="w-full py-1 flex justify-end px-5 lg:px-10 bg-slate-800">
             <ul className="flex justify-center items-center gap-5">
-                {/* <li className="text-xl p-2 rounded hover:bg-emerald-500 drk:hover:bg-emerald-500">
+                {/* <li className="text-xl p-2 rounded">
                     {Icono({ ico: `notification` })}
                 </li>
-                <li className="text-xl p-2 rounded hover:bg-emerald-500 drk:hover:bg-emerald-500">
+                <li className="text-xl p-2 rounded">
                     {Icono({ ico: `message` })}
                 </li> */}
                 <Button 
@@ -24,15 +25,15 @@ export default function Navbar() {
                         navigate(`/profile`,{ replace:true });
                     }}
                     ico={Icono({ ico: `profile` })} 
-                    customClass="text-xl p-2 rounded hover:bg-emerald-500 drk:hover:bg-emerald-500"
+                    customClass="duration-300 text-xl p-2 rounded text-slate-50"
                 />
                 <Button 
                     click={() => {
-                        window.localStorage.removeItem(`token`);
+                        deleteTokenAndUser();
                         window.location.reload();
                     }}
                     ico={Icono({ ico: `logout` })} 
-                    customClass="text-xl p-2 rounded hover:bg-emerald-500 drk:hover:bg-emerald-500 text-red-500"
+                    customClass="duration-300 text-xl p-2 rounded text-red-500"
                 />
                     
             </ul>

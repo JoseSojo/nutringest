@@ -101,7 +101,7 @@ export default function QuoteCreate() {
                     <span className="text-sm font-semibold select-none">Descripción de la cita</span>
                     <textarea
                         onChange={HandleChangeInput}
-                        className="min-h-20 h-24 max-h-36 input input-sm border border-gray-800 drk:border-gray-100 outline-none bg-gray-300 drk:bg-slate-700 select-none"
+                        className="min-h-20 h-24 max-h-36 input input-sm border border-gray-700 drk:border-gray-100 outline-none bg-white select-none outline-none"
                     ></textarea>
                 </label>
 
@@ -109,7 +109,7 @@ export default function QuoteCreate() {
                     <span className="text-sm font-semibold select-none">Recomendación de sueño/descanso</span>
                     <textarea
                         onChange={HandleChangeInput}
-                        className="min-h-20 h-24 max-h-36 input input-sm border border-gray-800 drk:border-gray-100 outline-none bg-gray-300 drk:bg-slate-700 select-none"
+                        className="min-h-20 h-24 max-h-36 input input-sm border border-gray-700 drk:border-gray-100 outline-none bg-white select-none outline-none"
                     ></textarea>
                 </label>
 
@@ -119,7 +119,7 @@ export default function QuoteCreate() {
                     </span>
                     <textarea
                         onChange={HandleChangeInput}
-                        className="min-h-20 h-24 max-h-36 input input-sm border border-gray-800 drk:border-gray-100 outline-none bg-gray-300 drk:bg-slate-700 select-none"
+                        className="min-h-20 h-24 max-h-36 input input-sm border border-gray-700 drk:border-gray-100 outline-none bg-white select-none outline-none"
                     ></textarea>
                 </label>
 

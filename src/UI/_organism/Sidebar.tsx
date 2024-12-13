@@ -98,9 +98,9 @@ export default function Sidebar() {
                 </a>
             </div>
 
-            <div className="hidden lg:grid w-56 h-full bg-emerald-300 text-gray-800 drk:text-gray-100 drk:bg-emerald-700 min-h-screen"></div>
+            <div className="hidden lg:flex flex-col pt-5  w-56 h-full bg-gray-50 min-h-screen"></div>
 
-            <div className="hidden lg:grid w-48 h-full fixed bg-emerald-300 text-gray-800 drk:text-gray-100 drk:bg-emerald-700 min-h-screen">
+            <div className="hidden lg:flex flex-col pt-5 w-48 h-full fixed bg-gray-50 border-r border-slate-800 min-h-screen">
                 <span className="flex items-center w-full px-3 mt-3">
                     <span className="text-sm font-bold m-auto">NUTRINGEST</span>
                 </span>
@@ -110,16 +110,6 @@ export default function Sidebar() {
                     }
 
                 </div>
-
-                {/* <a className="flex items-center justify-center w-full h-16 mt-auto bg-emerald-300 drk:text-gray-100 text-gray-800 drk:bg-emerald-700 hover:text-gray-300"
-                    href="#">
-                    <svg className="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span className="ml-2 text-sm font-medium">Account</span>
-                </a> */}
             </div>
 
         </>

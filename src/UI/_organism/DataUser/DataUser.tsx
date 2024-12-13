@@ -217,7 +217,7 @@ export default function DataUser({ userId, update }: Props) {
 
             <label className="flex flex-col col-span-1">
                 <span className="text-sm font-semibold">Nac.</span>
-                <select onChange={ChangePersonalData} name="nacionality" className="input input-sm border border-gray-800 drk:border-gray-100 outline-none bg-gray-300 drk:bg-slate-700 select-none">
+                <select onChange={ChangePersonalData} name="nacionality" className="input input-sm border border-gray-700 drk:border-gray-100 outline-none bg-white select-none outline-none">
                     <option></option>
                     <option selected={personalData && personalData.nacionality === `V` ? true : false}>V</option>
                     <option selected={personalData && personalData.nacionality === `E` ? true : false}>E</option>

@@ -50,7 +50,7 @@ export default function AbstractList({ crud, actions, reload, change,param,min,q
 
     return (
         <div className="w-full mt-3">
-            <table className="table table-xs">
+            <table className="table border table-xs">
                 {/* head */}
                 <thead>
                     <tr className="bg-slate-200 drk:bg-slate-800 text-slate-900 drk:text-slate-300">
@@ -82,7 +82,7 @@ export default function AbstractList({ crud, actions, reload, change,param,min,q
                                                     <option className="bg-slate-100 drk:bg-slate-900">...</option>
                                                     {
                                                         actions.map((ac, i) => (
-                                                            <option value={i} className="bg-slate-100 text-gray-400 drk:bg-slate-900 drk:text-gray-500">
+                                                            <option value={i} className="bg-slate-100 text-gray-700 drk:bg-slate-900 drk:text-gray-500">
                                                                 {/* {Icono({ ico: ac.ico })} */}
                                                                 {ac.label}
                                                             </option>
@@ -93,7 +93,7 @@ export default function AbstractList({ crud, actions, reload, change,param,min,q
                                         }
                                         {
                                             extractBy && extractBy.map(ex => (
-                                                <td className="text-gray-400">
+                                                <td className="text-gray-700">
                                                     <ExtractValue extractBy={ex} item={item} />
                                                 </td>
                                             ))

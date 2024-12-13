@@ -19,7 +19,7 @@ export default function LabelInput({ field, change,cls }: Props) {
                 change={change}
                 name={field.name}
                 placeholder={field.placeholder}
-                customClass="input input-sm input-bordered w-full text-slate-700 drk:text-slate-800"
+                customClass="input input-sm input-bordered w-full text-slate-700 bg-white"
             />
             <div className="label">
                 {/* <span className="label-text-alt">Bottom Left label</span> */}
