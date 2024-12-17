@@ -12,7 +12,7 @@ interface Props {
     change: ({ action, id,type }: { action: ActionCrudInterface, id: string,type?:string }) => void;
     param: string,
     min?:boolean,
-    query?: string
+    query?: string;
 }
 
 export default function AbstractList({ crud, actions, reload, change,param,min,query }: Props) {
@@ -54,7 +54,7 @@ export default function AbstractList({ crud, actions, reload, change,param,min,q
                 {/* head */}
                 <thead>
                     <tr className="bg-slate-200 drk:bg-slate-800 text-slate-900 drk:text-slate-300">
-                        {  actions && <th></th> }
+                        {  actions && actions.length > 0 && <th></th> }
                         {
                             header && header.map((h) => <th>{h}</th>)
                         }
@@ -70,11 +70,10 @@ export default function AbstractList({ crud, actions, reload, change,param,min,q
                                 list && list.map(item => (
                                     <tr>
                                         {
-                                            actions && <td className="">
+                                            actions && actions.length > 0 && <td className="">
                                                 <select
                                                     onChange={(e) => {
                                                         const vl = Number(e.target.value) as number;
-                                                        
                                                         change({ action: actions[vl], id: item.id })
                                                     }}
                                                     className="py-1 px-2 outline-none rounded-lg h-full text-xs font-black bg-emerald-500 hover:bg-emerald-600 drk:bg-emerald-800 drk:hover:bg-emerald-900 text-white">

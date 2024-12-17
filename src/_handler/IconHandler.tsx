@@ -42,7 +42,11 @@ import {
     BsVirus,
     BsVirus2,
     BsPersonExclamation,
-    BsPersonArmsUp
+    BsPersonArmsUp,
+    BsFillSignStopFill,
+    BsCalendar3Week,
+    BsBookmarkCheckFill,
+    BsCloudLightningFill
 
 } from "react-icons/bs";
 
@@ -81,6 +85,10 @@ type ICONS =
     | `pluss`
     | `patient`
     | `nutricionist`
+    | `cancelar`
+    | `reprogramming`
+    | `finish`
+    | `config`
     | string
 
 
@@ -134,6 +142,10 @@ export function Icono ({ico}:{ico: ICONS}) {
     if(ico === `pluss`) return <BsPlus />
     if(ico === `nutricionist`) return <BsPersonExclamation />
     if(ico === `patient`) return <BsPersonArmsUp />
+    if(ico === `cancelar`) return <BsFillSignStopFill />
+    if(ico === `reprogramming`) return <BsCalendar3Week />
+    if(ico === `finish`) return <BsBookmarkCheckFill />
+    if(ico === `config`) return <BsCloudLightningFill />
 
     return <TfiLayoutWidthDefaultAlt />
 } 

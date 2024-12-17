@@ -16,6 +16,7 @@ import UpdateQuote from "./UpdateQuote";
 import PhotoQuote from "./PhotoQuote";
 import HistoryQuote from "./HistoryQuote";
 import DetailQuote from "./DetailQuote";
+import CalendarQuote from "./CalendarQuote";
 
 export default function QuoteFicha() {
     const { id } = useParams() as { id: string };
@@ -126,6 +127,7 @@ export default function QuoteFicha() {
                                 {section === `DETAILS` && <DetailQuote description={object.description} exercise={object.exercise} id={object.id} sleep={object.sleep} />}
                                 {section === `PHOTO` && <PhotoQuote id={object.id} />}
                                 {section === `HISTORY` && <HistoryQuote id={object.id} />}
+                                {section === `CALENDAR` && <CalendarQuote id={object.id} />}
                             </div>
                         </div>
 
