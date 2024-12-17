@@ -22,6 +22,8 @@ import SubscriptionUnique from "../app/dashboard/manual/Subscription/Subscriptio
 import QuoteCreate from "../app/dashboard/manual/Quote/QuoteCreate";
 import QuoteFicha from "../app/dashboard/manual/Quote/QuoteFicha";
 import CustomDashboardTemplate from "../UI/_template/CustomDashboardTemplate";
+import Porfolio from "../UI/_organism/Settings/Settings";
+import Settings from "../UI/_organism/Porfolio/Porfolio";
 // import UpdateMenu from "../app/dashboard/manual/Menu/UpdateMenu";
 
 const router = createBrowserRouter([
@@ -47,6 +49,14 @@ const router = createBrowserRouter([
             {
                 path: `/profile`,
                 element: <DashboardTemplate><ProfilePage /></DashboardTemplate>
+            },
+            {
+                path: `/porfolio`,
+                element: <DashboardTemplate><Porfolio /></DashboardTemplate>
+            },
+            {
+                path: `/setting`,
+                element: <DashboardTemplate><Settings /></DashboardTemplate>
             },
             {
                 path: `/dashboard`,

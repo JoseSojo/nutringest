@@ -18,7 +18,7 @@ export default function SidebarItem({ item }: Props) {
     }
 
     const HandleClickPage = (path: string) => {
-        navigate(path);
+        navigate(path, { viewTransition:true,replace:false });
     }
 
     return (

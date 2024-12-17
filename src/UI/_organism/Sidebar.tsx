@@ -106,7 +106,7 @@ export default function Sidebar() {
                 </span>
                 <div className="w-full">
                     {
-                        slide && slide.map(side => <SidebarItem item={side}/>)
+                        slide && slide.map(side => <SidebarItem item={side} />)
                     }
 
                 </div>
