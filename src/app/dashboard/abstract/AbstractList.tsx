@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { AbstractResponseListCrud, ActionCrudInterface } from "../../../types/DashboardInterface";
 import { API } from "../../../entorno";
 import { REQUETS_GET_TOKEN } from "../../../utils/req/RequetsOptions";
@@ -9,13 +9,14 @@ interface Props {
     crud: string;
     reload: boolean;
     actions: ActionCrudInterface[];
+    ActionButtons?: (item: any) => ReactNode;
     change: ({ action, id,type }: { action: ActionCrudInterface, id: string,type?:string }) => void;
     param: string,
     min?:boolean,
     query?: string;
 }
 
-export default function AbstractList({ crud, actions, reload, change,param,min,query }: Props) {
+export default function AbstractList({ crud, actions, reload, change,param,min,query,ActionButtons }: Props) {
     const [header, setHeader] = useState<string[] | null>(null);
     const [extractBy, setExtractBy] = useState<string[] | null>(null);
     const [list, setList] = useState<any[] | null>(null);
@@ -55,6 +56,7 @@ export default function AbstractList({ crud, actions, reload, change,param,min,q
                 <thead>
                     <tr className="bg-slate-200 drk:bg-slate-800 text-slate-900 drk:text-slate-300">
                         {  actions && actions.length > 0 && <th></th> }
+                        {  ActionButtons && <th></th> }
                         {
                             header && header.map((h) => <th>{h}</th>)
                         }
@@ -69,6 +71,7 @@ export default function AbstractList({ crud, actions, reload, change,param,min,q
                             {
                                 list && list.map(item => (
                                     <tr>
+                                        { ActionButtons && ActionButtons(item) }
                                         {
                                             actions && actions.length > 0 && <td className="">
                                                 <select

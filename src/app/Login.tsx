@@ -39,7 +39,6 @@ export default function Login() {
         if (!data[`param`]) return setError({ input: `param`, label: `Debes completar este campo.`, active: true });
         if (!data[`password`]) return setError({ input: `password`, label: `Debes completar este campo.`, active: true });
 
-
         const ExecuteAsync = async () => {
             setLoad(true);
 
@@ -68,6 +67,7 @@ export default function Login() {
             setLoad(false);
             setError(null);
 
+            window.location.reload();
             return navigate(`/dashboard`, { replace:true });
         }
         ExecuteAsync();

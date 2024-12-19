@@ -48,8 +48,6 @@ export default function AgendRelease() {
         ExecuteAsync();
     }, []);
 
-
-
     return (
         <div className='p-3 bg-white rounded flex-1 mt-3'>
             <div className='flex justify-between'>

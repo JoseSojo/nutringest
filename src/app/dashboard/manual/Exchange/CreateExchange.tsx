@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react"
+import { FormEvent, ReactNode, useState } from "react"
 import Title from "../../../../UI/_atom/Title";
 import { useNavigate } from "react-router-dom";
 import { Icono } from "../../../../_handler/IconHandler";
@@ -10,22 +10,28 @@ import Text from "../../../../UI/_atom/Text";
 import { useNotification } from "../../../../_context/NotificationContext";
 import { API } from "../../../../entorno";
 import { REQUETS_POST_TOKEN } from "../../../../utils/req/RequetsOptions";
+import Subtitle from "../../../../UI/_atom/Subtitle";
+import Input from "../../../../UI/_atom/Input";
+import AbstractList from "../../abstract/AbstractList";
 
 export default function CreateExchange() {
 
     const noti = useNotification();
     const navigate = useNavigate();
 
+    const [param, setParam] = useState(``);
     const [data, setData] = useState<{ name?: string, unity?: { id: string, label: string }, ration?: string | number } | null>(null);
 
-    const [customFood, setCustomFood] = useState<{ unity?: { id: string, label: string }, food?: { id: string, label: string }, ration?: string | number } | null>(null);
-    const [foodSelect, setFoodSelect] = useState<{ unity?: { id: string, label: string }, food: { id: string, label: string }, ration?: string | number }[] | null>(null);
+    const [foodSelect, setFoodSelect] = useState<{ 
+        unity?: { id: string, label: string }, 
+        food: { id: string, label: string }
+    }[] | null>(null);
 
     const HandleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if(!data) return noti.setMessage({ active:true,message:`Debes completar los datos`,type:`error` });
-        if(!foodSelect || foodSelect.length === 0) return noti.setMessage({ active:true,message:`Debes agregar almenos un alimento`,type:`error` });
+        if (!data) return noti.setMessage({ active: true, message: `Debes completar los datos`, type: `error` });
+        if (!foodSelect || foodSelect.length === 0) return noti.setMessage({ active: true, message: `Debes agregar almenos un alimento`, type: `error` });
 
         const customData: any = {
             name: data.name,
@@ -36,36 +42,20 @@ export default function CreateExchange() {
 
         const ExecuteRequets = async () => {
             const url = `${API}/exchange/create`;
-            const req = {...REQUETS_POST_TOKEN, body:JSON.stringify(customData)}
+            const req = { ...REQUETS_POST_TOKEN, body: JSON.stringify(customData) }
             const result = await fetch(url, req);
             const json = await result.json();
-            
-            if(!result.ok || json.error) {
-                noti.setMessage({ active:true,message:`Oops. hubo un error`,type:`error` });
+
+            if (!result.ok || json.error) {
+                noti.setMessage({ active: true, message: `Oops. hubo un error`, type: `error` });
                 return;
             }
 
-            noti.setMessage({ active:true,message:json.message,type:`success` });
+            noti.setMessage({ active: true, message: json.message, type: `success` });
             navigate(`/dashboard/exchange`);
             return;
         }
         ExecuteRequets();
-    }
-
-    const SetCustomFood = ({ value, label }: { value: string, label: string }) => {
-        const prev = { ...customFood, food: { id: value, label } };
-        setCustomFood(prev);
-
-    }
-
-    const SetCustomUnity = ({ value, label }: { value: string, label: string }) => {
-        const prev = { ...customFood, unity: { id: value, label } };
-        setCustomFood(prev);
-    }
-
-    const SetCustomFoodByInput = ({ value }: { name: string, value: string }) => {
-        const prev = { ...customFood, ration: value };
-        setCustomFood(prev);
     }
 
     const SetDataByInput = ({ name, value }: { name: string, value: string }) => {
@@ -78,24 +68,41 @@ export default function CreateExchange() {
         setData(newData);
     }
 
-    const AddFood = () => {
-        if (!customFood) return noti.setMessage({ active: true, message: `Debes completar los campos`, type: `error` });
-        if (!customFood.food) return noti.setMessage({ active: true, message: `Debes seleccionar un alimento`, type: `error` });
-        // if(!customFood.ration) return noti.setMessage({ active:true,message:`Debes agregar la cantidad de ración`,type:`error` }); 
-        // if(!customFood.unity) return noti.setMessage({ active:true,message:`Debes seleccionar la unidad de medida`,type:`error` }); 
+    const AddUnityInFood = ({id,label,value}:{label:string,value:string,id:number}) => {
+        if(!foodSelect) return;
+        const prev = foodSelect;
+        prev[id] = { food:prev[id].food,unity:{ id:value,label } };
+        setFoodSelect(foodSelect);
+        ReloadFoodSelect();
+    }
 
-        const prev = foodSelect ? foodSelect : [];
-
-        prev.push({ food: customFood.food, ration: customFood.ration, unity: customFood.unity });
+    const AddFood = ({name,value}:{ name: string, value: string }) => {
+        const prev = foodSelect && foodSelect.length > 0 ? foodSelect : [];
+        prev.push({ food:{id:value,label:name} });
+        setFoodSelect([]);
         setFoodSelect(prev);
-
-        setCustomFood(null);
     }
 
     const RemoveFoodSelect = (index: number) => {
-        if(!foodSelect) return;
-        const prev = foodSelect.filter((_, i) => i !== index);;
+        if (!foodSelect) return;
+        const prev = foodSelect.filter((_, i) => i !== index);
         setFoodSelect(prev);
+    }
+
+    const ReloadFoodSelect = () => {
+        if (!foodSelect) return;
+        const prev = foodSelect.filter((_, i) => i !== -1);
+        setFoodSelect(prev);
+    }
+
+    function AddFoodList (item: any): ReactNode {
+        return (
+            <Button 
+                click={() => AddFood({ name:item.name,value:item.id })}
+                customClass={`${ButtonHandler({ param:`update` })} btn-sm text-xs`} 
+                text="agregar"
+                />
+        )
     }
 
     return (
@@ -119,8 +126,8 @@ export default function CreateExchange() {
                 <div className="col-span-3 flex justify-end mt-3">
                     <Button
                         type="submit"
-                        customClass={`${ButtonHandler({param:`create`})} btn-sm border-none`}
-                        ico={Icono({ ico:`create` })}
+                        customClass={`${ButtonHandler({ param: `create` })} btn-sm border-none`}
+                        ico={Icono({ ico: `create` })}
                         text="Crear"
                     />
                 </div>
@@ -133,19 +140,6 @@ export default function CreateExchange() {
                         name: `name`,
                         id: `input`,
                         label: `Nombre`,
-                        placeholder: ``,
-                        required: false,
-                        value: data ? data.name : ``
-                    }}
-                />
-                <LabelInput
-                    change={SetDataByInput}
-                    field={{
-                        beforeType: "text",
-                        type: `input`,
-                        name: `ration`,
-                        id: `input`,
-                        label: `Ración`,
                         placeholder: ``,
                         required: false,
                         value: data ? data.name : ``
@@ -165,63 +159,52 @@ export default function CreateExchange() {
 
                 <Text customClass="divider divider-success text-success lg:col-span-3" text={`Seleccionar alimentos`} />
 
-                <CustomSelect
-                    label={customFood ? customFood.food ? customFood.food.label : `` : ``}
-                    change={SetCustomFood}
-                    field={{
-                        label: `Alimentos`,
-                        select: {
-                            active: true,
-                            in: `primitive`
-                        },
-                    }}
-                />
-                <LabelInput
-                    change={SetCustomFoodByInput}
-                    field={{
-                        beforeType: "text",
-                        type: `input`,
-                        name: `ration`,
-                        id: `input`,
-                        label: `Ración`,
-                        placeholder: ``,
-                        required: false,
-                        value: customFood ? customFood.ration?.toString() : ``
-                    }}
-                />
-                <div className="grid grid-cols-[75%_25%] gap-3 place-items-center pb-4">
-                    <CustomSelect
-                        label={customFood ? customFood.unity ? customFood.unity.label : `` : ``}
-                        change={SetCustomUnity}
-                        field={{
-                            label: `Unidad de medida`,
-                            select: {
-                                active: true,
-                                in: `unity`
-                            },
-                        }}
-                    />
-                    <Button
-                        click={AddFood}
-                        customClass="btn btn-sm bg-blue-500 hover:bg-blue-600 border-none text-white mt-auto mb-2"
-                        text="Agregar"
-                    />
-                </div>
-
-                <div className="col-span-3 grid grid-cols-3  gap-3">
+                <div className="grid grid-cols-2 col-span-3 gap-3">
+                    <div className="col-span-3 flex justify-end">
+                        <Button
+                            text="Cargar alimentos seleccionados"
+                            customClass={`${ButtonHandler({param:`update`})} btn-sm`}
+                            click={() => ReloadFoodSelect()}
+                        />
+                    </div>
                     {
                         foodSelect && foodSelect.map((item, i) => (
-                            <div className="flex-1 rounded p-1 border flex justify-between items-center">
-                                <Text customClass="text-sm font-bold" text={`${item.food.label} - ${item.ration ? item.ration : ``} ${item.unity ? item.unity.label : ``}`} />
+                            <div className="rounded p-1 border flex justify-between items-center">
+                                <Text customClass="text-sm font-bold" text={`${item.food.label} ${item.unity ? item.unity.label : ``}`} />
+                                <CustomSelect
+                                    label={item ? item.unity ? item.unity.label : `` : ``}
+                                    change={({ value, label }) => {
+                                        AddUnityInFood({ id:i,label,value });
+                                    }}
+                                    field={{
+                                        label: `Unidad de medida`,
+                                        select: {
+                                            active: true,
+                                            in: `unity`
+                                        },
+                                    }}
+                                />
                                 <Button
-                                    click={()=>RemoveFoodSelect(i)}
+                                    click={() => RemoveFoodSelect(i)}
                                     customClass="btn btn-xs btn-error text-white"
-                                    ico={Icono({ ico:`delete` })}
+                                    ico={Icono({ ico: `delete` })}
                                 />
                             </div>
                         ))
                     }
+                </div> 
+
+                <div className="col-span-3">
+                    <div className="flex justify-between">
+                        <Subtitle customClass="text-2xl font-bold" text="Alimentos" />
+                        <div className="flex gap-3 justify-center">
+                            <Input change={({ value }) => setParam(value)} customClass='input input-sm border-slate-300' name='param' type='text' />
+                        </div>
+                    </div>
+                    <AbstractList ActionButtons={AddFoodList} actions={[]} change={({ }) => { }} crud="primitive" param={param} reload />
                 </div>
+
+                
 
             </form>
 

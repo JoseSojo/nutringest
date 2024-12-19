@@ -10,15 +10,15 @@ export default function DashboardTemplate({ children }: Props) {
 
     return (
         <div
-            className="flex overflow-x-hidden w-screen min-h-screen"
+            className="grid grid-cols-[15%_1fr] max-w-full min-h-screen"
         >
             <Sidebar />
 
             <div className="w-full min-h-screen flex flex-col">
                 <Navbar />
 
-                <div className="p-3 h-full">
-                    <div className="bg-white drk:bg-slate-950 shadow p-3 h-full">
+                <div className="h-full w-full p-4">
+                    <div className="bg-white drk:bg-slate-950 shadow p-3 h-full w-full">
                         {children}
                     </div>
                 </div>

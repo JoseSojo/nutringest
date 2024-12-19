@@ -24,6 +24,7 @@ import QuoteFicha from "../app/dashboard/manual/Quote/QuoteFicha";
 import CustomDashboardTemplate from "../UI/_template/CustomDashboardTemplate";
 import Porfolio from "../UI/_organism/Settings/Settings";
 import Settings from "../UI/_organism/Porfolio/Porfolio";
+import CalendarPage from "../app/Calendar";
 // import UpdateMenu from "../app/dashboard/manual/Menu/UpdateMenu";
 
 const router = createBrowserRouter([
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
             {
                 path: `/setting`,
                 element: <DashboardTemplate><Settings /></DashboardTemplate>
+            },
+            {
+                path: `/calendar`,
+                element: <CustomDashboardTemplate><CalendarPage /></CustomDashboardTemplate>
             },
             {
                 path: `/dashboard`,

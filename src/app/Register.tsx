@@ -2,21 +2,16 @@ import { useNavigate } from "react-router-dom";
 import Button from "../UI/_atom/Button";
 import Input from "../UI/_atom/Input";
 import { useNotification } from "../_context/NotificationContext";
-import { useAuth } from "../_context/auth/AuthContext";
 import Footer from "./public/ui/Footer";
 import Header from "./public/ui/Header";
 import { FormEvent, useState } from "react";
 import { ErrorInputStruct } from "../types/GlobalInterface";
 import { API } from "../entorno";
 import { REQUETS_POST } from "../utils/req/RequetsOptions";
-import { setToken } from "../utils/token";
-import { setUser } from "../utils/token copy";
-
 
 export default function Register() {
 
     const noti = useNotification();
-    const auth = useAuth();
     const navigate = useNavigate();
 
     const [data, setData] = useState<any>({});
@@ -35,14 +30,18 @@ export default function Register() {
         setError(null);
 
         // validaciones
-        if (!data[`param`]) return setError({ input: `param`, label: `Debes completar este campo.`, active: true });
-        if (!data[`password`]) return setError({ input: `password`, label: `Debes completar este campo.`, active: true });
-
+        // if (!data[`param`]) return setError({ input: `param`, label: `Debes completar este campo.`, active: true });
+        if (!data[`name`]) return noti.setMessage({ type:`error`, message: `Debes completar el Nombre.`, active: true });
+        if (!data[`lastname`]) return noti.setMessage({ type:`error`, message: `Debes completar el Apellido.`, active: true });
+        if (!data[`email`]) return noti.setMessage({ type:`error`, message: `Debes completar el Correo.`, active: true });
+        if (!data[`ref`]) return noti.setMessage({ type:`error`, message: `Debes completar el Referido.`, active: true });
+        if (!data[`password`]) return noti.setMessage({ type:`error`, message: `Debes completar el Contraseña.`, active: true });
 
         const ExecuteAsync = async () => {
             setLoad(true);
 
-            const url = `${API}/auth/login`;
+            const url = `${API}/auth/register`;
+            alert(url);
             const req = {
                 ...REQUETS_POST,
                 body: JSON.stringify(data)
@@ -57,17 +56,11 @@ export default function Register() {
                 return noti.setMessage({ active: true, message: json.message, type: `error` });
             }
 
-            const custom = json as { message: string, error: boolean, body: { user: any, token: string } };
-
-            setToken(custom.body.token);
-            setUser(custom.body.user);
-
-            auth.setSession(true);
-
             setLoad(false);
             setError(null);
 
-            return navigate(`/dashboard`, { replace: true });
+            noti.setMessage({ active:true,type:`success`,message:`Creación exitosa.` });
+            return navigate(`/login`, { replace: true, viewTransition:true  });
         }
         ExecuteAsync();
     }
@@ -120,7 +113,7 @@ export default function Register() {
                         <div className="mt-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2">Correo Electrónico</label>
                             <Input
-                                name="param"
+                                name="email"
                                 change={HandleChange}
                                 customClass="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
                                 type="email"
@@ -128,20 +121,34 @@ export default function Register() {
                             {error && error.input === `param` && <p className="text-gray-700 text-xs">{error.label}</p>}
                         </div>
 
-
-                        <div className="mt-4">
-                            <div className="flex justify-between">
-                                <label className="block text-gray-700 text-sm font-bold mb-2">Contraseña</label>
-                                <a href="#" className="text-xs text-gray-500">Recuperar Contraseña?</a>
+                        <div className="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-3">
+                            <div className="mt-4">
+                                <div className="flex justify-between">
+                                    <label className="block text-gray-700 text-sm font-bold mb-2">Referido</label>
+                                </div>
+                                <Input
+                                    name="ref"
+                                    change={HandleChange}
+                                    customClass="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                                    type="text"
+                                />
+                                {error && error.input === `param` && <p className="text-gray-700 text-xs">{error.label}</p>}
                             </div>
-                            <Input
-                                name="password"
-                                change={HandleChange}
-                                customClass="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                                type="password"
-                            />
-                            {error && error.input === `param` && <p className="text-gray-700 text-xs">{error.label}</p>}
+                            <div className="mt-4">
+                                <div className="flex justify-between">
+                                    <label className="block text-gray-700 text-sm font-bold mb-2">Contraseña</label>
+                                    <a href="#" className="text-xs text-gray-500">Recuperar Contraseña?</a>
+                                </div>
+                                <Input
+                                    name="password"
+                                    change={HandleChange}
+                                    customClass="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                                    type="password"
+                                />
+                                {error && error.input === `param` && <p className="text-gray-700 text-xs">{error.label}</p>}
+                            </div>
                         </div>
+
                         <div className="mt-8">
                             <Button
                                 type="submit"
