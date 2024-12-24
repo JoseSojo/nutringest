@@ -48,8 +48,6 @@ export default function Login() {
                 body: JSON.stringify(data)
             }
 
-            alert(url);
-
             const resutl = await fetch(url, req);
             const json = await resutl.json();
 

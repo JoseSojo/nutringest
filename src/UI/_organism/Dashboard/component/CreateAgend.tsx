@@ -40,8 +40,7 @@ export default function CreateAgend ({ quote, reload }: Props) {
             const url = `${API}/calendar/create`;
             const req = {...REQUETS_POST_TOKEN, body:JSON.stringify(CustomData)};
             const result = await fetch(url, req);
-            const json = await result.json();
-            console.log(json);
+            await result.json();
             reload();
             modal.hidden();
         }

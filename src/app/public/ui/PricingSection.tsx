@@ -11,7 +11,6 @@ export default function PricingSection() {
             const url = `${API}/subscription/public`;
             const result = await fetch(url);
             const json = await result.json();
-            console.log(json);
             setList(json.body.list);
         }
         ExecuteRequets();

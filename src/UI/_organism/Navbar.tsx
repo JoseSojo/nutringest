@@ -2,7 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { Icono } from "../../_handler/IconHandler";
 import Button from "../_atom/Button";
 import { deleteTokenAndUser } from "../../utils/token";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { API } from "../../entorno";
+import { REQUETS_GET_TOKEN } from "../../utils/req/RequetsOptions";
 
 interface Navbar {
 
@@ -13,11 +15,41 @@ export default function Navbar() {
     const navigate = useNavigate();
 
     const [active, setActive] = useState(false);
+    const [propietarySubscription, setPropietarySubscription] = useState<any | null>(null);
+
+
+    useEffect(() => {
+        const ExecuteAsync = async () => {
+            const url = `${API}/subscription/detail/my`;
+            const req = REQUETS_GET_TOKEN;
+            const result = await fetch(url, req);
+            const json = await result.json();
+
+            if (json.body) setPropietarySubscription(json.body);
+        }
+        ExecuteAsync();
+    }, [])
+
 
     return (
         <>
 
-            <header className="w-full py-1 flex justify-end px-5 lg:px-10 bg-slate-800">
+            <header className="w-full py-1 flex justify-between items-center px-5 lg:pr-10 bg-slate-800">
+                <div>
+                    {
+                        propietarySubscription &&
+                        <i 
+                            className={`
+                                badge bg-transparent 
+                                ${propietarySubscription.status === `FREE_TRIAL` && `border-yellow-600 text-yellow-600`}
+                                ${propietarySubscription.status === `ACTIVO` && `border-emerald-600 text-emerald-600`}
+                                ${propietarySubscription.status === `DISACTIVE` && `border-red-600 text-red-600`}
+                            `}
+                        >
+                            "{propietarySubscription.status}"
+                        </i>
+                    }
+                </div>
                 <ul className="flex justify-center items-center gap-5">
                     <li className="relative">
                         <Button

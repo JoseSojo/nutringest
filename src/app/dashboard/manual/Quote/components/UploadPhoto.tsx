@@ -48,7 +48,6 @@ export default function UploadPhoto({ quote, reload }: Props) {
             }
             const result = await fetch(url, req);
             const json = await result.json();
-            console.log(json);
 
             if(!result.ok || json.error) {
                 setLoad(false);

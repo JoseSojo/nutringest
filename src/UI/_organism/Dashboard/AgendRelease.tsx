@@ -41,8 +41,6 @@ export default function AgendRelease() {
             const result = await fetch(url, req);
             const json = await result.json() as AbstractResponseCrud;
 
-            console.log(json);
-
             setCustomActions(json.actionsUnique);
         }
         ExecuteAsync();

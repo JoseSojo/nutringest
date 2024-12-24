@@ -18,7 +18,7 @@ export default function ItemCard({ card }: Props) {
     const [active, setActive] = useState(false)
 
     return (
-        <div className="px-3 py-5 bg-white flex gap-3 place-items-center relative">
+        <div className="px-3 py-3 bg-white flex gap-1 place-items-center relative">
             <Text customClass="text-3xl font-mono font-bold py-1 rounded-full bg-slate-200 text-center px-3" text={more.value} />
             <Text customClass="text-md font-bold" text={more.label} />
             {

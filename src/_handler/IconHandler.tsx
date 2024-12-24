@@ -1,160 +1,110 @@
 
 import { TfiLayoutWidthDefaultAlt } from "react-icons/tfi";
-import { 
-    BsApple,
-    BsAspectRatio,
-    BsBank,
-    BsBarChartLineFill,
-    BsBellFill,
-    BsBookHalf,
-    BsCalendar2CheckFill,
-    BsCardText,
-    BsChatFill,
-    BsCheckCircleFill,
-    BsClipboard2Fill,
-    BsClipboard2Minus,
-    BsClockHistory,
-    BsCoin,
-    BsDownload,
-    BsExclamationOctagonFill,
-    BsExclamationTriangleFill,
-    BsEyeFill,
-    BsFillFilePdfFill,
-    BsFillFloppyFill,
-    BsFillPersonFill,
-    BsFillTrashFill,
-    BsFillXCircleFill,
-    BsGripHorizontal,
-    BsGripVertical,
-    BsHandIndexThumb,
-    BsListTask,
-    BsMask,
-    BsPalette,
-    BsPaypal,
-    BsPenFill,
-    BsPeopleFill,
-    BsPlus,
-    BsPower,
-    BsReceipt,
-    BsSendFill,
-    BsSignpostFill,
-    BsStack,
-    BsVirus,
-    BsPersonExclamation,
-    BsPersonArmsUp,
-    BsFillSignStopFill,
-    BsCalendar3Week,
-    BsBookmarkCheckFill,
-    BsCloudLightningFill,
-    BsFillShareFill,
-    BsCopy
-
-} from "react-icons/bs";
+import { IcoAgend, IcoAssing, IcoCancel, IcoCategory, IcoCity, IcoClose, IcoConfig, IcoCopy, IcoCountry, IcoCreate, IcoDanger, IcoDashboard, IcoDelete, IcoDoctor, IcoDownload, IcoExchange, IcoFicha, IcoFinish, IcoList, IcoLoad, IcoLogout, IcoMaste, IcoMenu, IcoMessage, IcoMoney, IcoNotification, IcoNutri, IcoOptions, IcoPatient, IcoPayment, IcoPermit, IcoPlus, IcoPresentation, IcoPrimitive, IcoProfile, IcoQuote, IcoRecovery, IcoReport, IcoReprogramming, IcoSelect, IcoSend, IcoShared, IcoState, IcoSubscription, IcoSuccess, IcoSupplement, IcoUnity, IcoUpdate, IcoUser, IcoUsers, IcoWarning } from "../UI/_compound/Icons/AllIcon";
 
 type ICONS =
-    | `category`
-    | `program`
-    | `line`
-    | `dashboard`
-    | `profile`
-    | `logout`
-    | `create`
-    | `delete`
-    | `update`
-    | `unique`
-    | `show`
-    | `list`
-    | `report`
-    | `recovery`
-    | `optionH`
-    | `optionsV`
-    | `submit`
-    | `danger`
-    | `warning`
-    | `success`
-    | `close`
-    | `download`
-    | `student`
-    | `estudiante`
-    | `load`
-    | `users`
-    | `permit`
-    | `master`
-    | `notification`
-    | `message`
-    | `assing`
-    | `pluss`
-    | `patient`
-    | `nutricionist`
-    | `cancelar`
-    | `reprogramming`
-    | `finish`
-    | `config`
-    | `share`
-    | `copy`
-    | string
+  | `category`
+  | `program`
+  | `line`
+  | `dashboard`
+  | `profile`
+  | `logout`
+  | `create`
+  | `delete`
+  | `update`
+  | `unique`
+  | `show`
+  | `list`
+  | `report`
+  | `recovery`
+  | `optionH`
+  | `optionsV`
+  | `submit`
+  | `danger`
+  | `warning`
+  | `success`
+  | `close`
+  | `download`
+  | `student`
+  | `estudiante`
+  | `load`
+  | `users`
+  | `permit`
+  | `master`
+  | `notification`
+  | `message`
+  | `assing`
+  | `pluss`
+  | `patient`
+  | `nutricionist`
+  | `cancelar`
+  | `reprogramming`
+  | `finish`
+  | `config`
+  | `share`
+  | `copy`
+  | `agend`
+  | `calendar`
+  | string
 
 
-export function Icono ({ico}:{ico: ICONS}) {
+export function Icono({ ico,size,str }: { ico: ICONS, size?: number, str?: number }) {
 
-    if(ico === `category`) return <TfiLayoutWidthDefaultAlt />
-    if(ico === `dashboard`) return <BsBarChartLineFill />
-    if(ico === `line`) return <BsBookHalf />
-    if(ico === `profile`) return <BsFillPersonFill />
-    if(ico === `program`) return <BsListTask />
-    if(ico === `logout`) return <BsPower />
-    if(ico === `create`) return <BsFillFloppyFill />
-    if(ico === `delete`) return <BsFillTrashFill />
-    if(ico === `list`) return <BsCardText />
-    if(ico === `recovery`) return <></>
-    if(ico === `report`) return <BsFillFilePdfFill />
-    if(ico === `show`) return <BsEyeFill />
-    if(ico === `unique`) return <BsEyeFill />
-    if(ico === `update`) return <BsPenFill />
-    if(ico === `optionsV`) return <BsGripVertical />
-    if(ico === `optionH`) return <BsGripHorizontal />
-    if(ico === `submit`) return <BsSendFill />
-    if(ico === `danger`) return <BsExclamationOctagonFill />
-    if(ico === `success`) return <BsCheckCircleFill />
-    if(ico === `warning`) return <BsExclamationTriangleFill />
-    if(ico === `close`) return <BsFillXCircleFill />
-    if(ico === `download`) return <BsDownload />
-    if(ico === `users`) return <BsPeopleFill />
-    if(ico === `permit`) return <BsHandIndexThumb />
-    if(ico === `master`) return <BsMask />
-    if(ico === `nutri`) return <BsApple />
-    if(ico === `country`) return <BsAspectRatio />
-    if(ico === `state`) return <BsStack />
-    if(ico === `city`) return <BsBank />
-    if(ico === `money`) return <BsCoin />
-    if(ico === `payment`) return <BsPaypal />
-    if(ico === `subscription`) return <BsClipboard2Fill />
-    if(ico === `nutri`) return <BsApple />
-    if(ico === `primitive`) return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
-    <path d="M15 2a1 1 0 0 1 .117 1.993l-.117 .007c-.693 0 -1.33 .694 -1.691 1.552a5.1 5.1 0 0 1 1.982 -.544l.265 -.008c2.982 0 5.444 3.053 5.444 6.32c0 3.547 -.606 5.862 -2.423 8.578c-1.692 2.251 -4.092 2.753 -6.41 1.234a.31 .31 0 0 0 -.317 -.01c-2.335 1.528 -4.735 1.027 -6.46 -1.27c-1.783 -2.668 -2.39 -4.984 -2.39 -8.532l.004 -.222c.108 -3.181 2.526 -6.098 5.44 -6.098c.94 0 1.852 .291 2.688 .792c.419 -1.95 1.818 -3.792 3.868 -3.792m-7.034 6.154c-1.36 .858 -1.966 2.06 -1.966 3.846a1 1 0 0 0 2 0c0 -1.125 .28 -1.678 1.034 -2.154a1 1 0 1 0 -1.068 -1.692"></path>
-  </svg>
-    if(ico === `supplement`) return <BsPalette />
-    if(ico === `presentation`) return <BsApple />
-    if(ico === `unity`) return <BsVirus />
-    if(ico === `quote`) return <BsCalendar2CheckFill />
-    if(ico === `food`) return <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
-    <path d="M15 2a1 1 0 0 1 .117 1.993l-.117 .007c-.693 0 -1.33 .694 -1.691 1.552a5.1 5.1 0 0 1 1.982 -.544l.265 -.008c2.982 0 5.444 3.053 5.444 6.32c0 3.547 -.606 5.862 -2.423 8.578c-1.692 2.251 -4.092 2.753 -6.41 1.234a.31 .31 0 0 0 -.317 -.01c-2.335 1.528 -4.735 1.027 -6.46 -1.27c-1.783 -2.668 -2.39 -4.984 -2.39 -8.532l.004 -.222c.108 -3.181 2.526 -6.098 5.44 -6.098c.94 0 1.852 .291 2.688 .792c.419 -1.95 1.818 -3.792 3.868 -3.792m-7.034 6.154c-1.36 .858 -1.966 2.06 -1.966 3.846a1 1 0 0 0 2 0c0 -1.125 .28 -1.678 1.034 -2.154a1 1 0 1 0 -1.068 -1.692"></path>
-  </svg>
-    if(ico === `menu`) return <BsReceipt />
-    if(ico === `exchange`) return <BsClipboard2Minus />
-    if(ico === `load`) return <BsClockHistory />
-    if(ico === `notification`) return <BsBellFill />
-    if(ico === `message`) return <BsChatFill />
-    if(ico === `assing`) return <BsSignpostFill />
-    if(ico === `pluss`) return <BsPlus />
-    if(ico === `nutricionist`) return <BsPersonExclamation />
-    if(ico === `patient`) return <BsPersonArmsUp />
-    if(ico === `cancelar`) return <BsFillSignStopFill />
-    if(ico === `reprogramming`) return <BsCalendar3Week />
-    if(ico === `finish`) return <BsBookmarkCheckFill />
-    if(ico === `config`) return <BsCloudLightningFill />
-    if(ico === `share`) return <BsFillShareFill />
-    if(ico === `copy`) return <BsCopy />
+  if (ico === `category`) return <IcoCategory size={size} str={str} />
+  if (ico === `dashboard`) return <IcoDashboard size={size} str={str} />
+  if (ico === `profile`) return <IcoProfile size={size} str={str} />
+  if (ico === `logout`) return <IcoLogout size={size} str={str} />
+  if (ico === `create`) return <IcoCreate size={size} str={str} />
+  if (ico === `delete`) return <IcoDelete size={size} str={str} />
+  if (ico === `list`) return <IcoList size={size} str={str} />
+  if (ico === `recovery`) return <IcoRecovery size={size} str={str} />
+  if (ico === `report`) return <IcoReport size={size} str={str} />
+  if (ico === `show`) return <IcoFicha size={size} str={str} />
+  if (ico === `unique`) return <IcoFicha size={size} str={str} />
+  if (ico === `update`) return <IcoUpdate size={size} str={str} />
+  if (ico === `optionsV`) return <IcoOptions size={size} str={str} />
+  if (ico === `optionH`) return <IcoOptions size={size} str={str} />
+  if (ico === `submit`) return <IcoSend size={size} str={str} />
+  if (ico === `danger`) return <IcoDanger size={size} str={str} />
+  if (ico === `success`) return <IcoSuccess size={size} str={str} />
+  if (ico === `warning`) return <IcoWarning size={size} str={str} />
+  if (ico === `close`) return <IcoClose size={size} str={str} />
+  if (ico === `download`) return <IcoDownload size={size} str={str} />
+  if (ico === `users`) return <IcoUsers size={size} str={str} />
+  if (ico === `user`) return <IcoUser size={size} str={str} />
+  if (ico === `permit`) return <IcoPermit size={size} str={str} />
+  if (ico === `master`) return <IcoMaste size={size} str={str} />
+  if (ico === `nutri`) return <IcoNutri size={size} str={str} />
+  if (ico === `country`) return <IcoCountry size={size} str={str} />
+  if (ico === `state`) return <IcoState size={size} str={str} />
+  if (ico === `city`) return <IcoCity size={size} str={str} />
+  if (ico === `money`) return <IcoMoney size={size} str={str} />
+  if (ico === `payment`) return <IcoPayment size={size} str={str} />
+  if (ico === `subscription`) return <IcoSubscription size={size} str={str} />
+  if (ico === `primitive`) return <IcoPrimitive size={size} str={str} />
+  if (ico === `supplement`) return <IcoSupplement size={size} str={str} />
+  if (ico === `presentation`) return <IcoPresentation size={size} str={str} />
+  if (ico === `unity`) return <IcoUnity size={size} str={str} />
+  if (ico === `quote`) return <IcoQuote size={size} str={str} />
+  if (ico === `food`) return <IcoPrimitive size={size} str={str} />
+  if (ico === `menu`) return <IcoMenu size={size} str={str} />
+  if (ico === `exchange`) return <IcoExchange size={size} str={str} />
+  if (ico === `load`) return <IcoLoad size={size} str={str} />
+  if (ico === `notification`) return <IcoNotification size={size} str={str} />
+  if (ico === `message`) return <IcoMessage size={size} str={str} />
+  if (ico === `assing`) return <IcoAssing size={size} str={str} />
+  if (ico === `pluss`) return <IcoPlus size={size} str={str} />
+  if (ico === `nutricionist`) return <IcoDoctor size={size} str={str} />
+  if (ico === `patient`) return <IcoPatient size={size} str={str} />
+  if (ico === `cancelar`) return <IcoCancel size={size} str={str} />
+  if (ico === `reprogramming`) return <IcoReprogramming size={size} str={str} />
+  if (ico === `finish`) return <IcoFinish size={size} str={str} />
+  if (ico === `config`) return <IcoConfig size={size} str={str} />
+  if (ico === `share`) return <IcoShared size={size} str={str} />
+  if (ico === `copy`) return <IcoCopy size={size} str={str} />
+  if (ico === `agend`) return <IcoAgend size={size} str={str} />
+  if (ico === `calendar`) return <IcoAgend size={size} str={str} />
+  if (ico === `select`) return <IcoSelect size={size} str={str} />
 
-    return <TfiLayoutWidthDefaultAlt />
+  return <TfiLayoutWidthDefaultAlt />
 } 

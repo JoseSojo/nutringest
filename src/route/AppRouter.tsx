@@ -22,9 +22,10 @@ import SubscriptionUnique from "../app/dashboard/manual/Subscription/Subscriptio
 import QuoteCreate from "../app/dashboard/manual/Quote/QuoteCreate";
 import QuoteFicha from "../app/dashboard/manual/Quote/QuoteFicha";
 import CustomDashboardTemplate from "../UI/_template/CustomDashboardTemplate";
-import Porfolio from "../UI/_organism/Settings/Settings";
-import Settings from "../UI/_organism/Porfolio/Porfolio";
 import CalendarPage from "../app/Calendar";
+import Porfolio from "../UI/_organism/Porfolio/Porfolio";
+import Setting from "../UI/_organism/Settings/Settings";
+import Finanzas from "../app/Finanzas";
 // import UpdateMenu from "../app/dashboard/manual/Menu/UpdateMenu";
 
 const router = createBrowserRouter([
@@ -57,11 +58,15 @@ const router = createBrowserRouter([
             },
             {
                 path: `/setting`,
-                element: <DashboardTemplate><Settings /></DashboardTemplate>
+                element: <DashboardTemplate><Setting /></DashboardTemplate>
             },
             {
                 path: `/calendar`,
                 element: <CustomDashboardTemplate><CalendarPage /></CustomDashboardTemplate>
+            },
+            {
+                path: `/finanzas`,
+                element: <CustomDashboardTemplate><Finanzas /></CustomDashboardTemplate>
             },
             {
                 path: `/dashboard`,

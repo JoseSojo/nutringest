@@ -10,7 +10,7 @@ export default function DashboardTemplate({ children }: Props) {
 
     return (
         <div
-            className="grid grid-cols-[15%_1fr] max-w-full min-h-screen"
+            className="grid md:grid-cols-[5%_1fr] lg:grid-cols-[15%_1fr] max-w-full min-h-screen"
         >
             <Sidebar />
 
