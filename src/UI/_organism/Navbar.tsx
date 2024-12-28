@@ -15,6 +15,7 @@ export default function Navbar() {
     const navigate = useNavigate();
 
     const [active, setActive] = useState(false);
+    const [tasaChange, setTasaChange] = useState<number | null>(null);
     const [propietarySubscription, setPropietarySubscription] = useState<any | null>(null);
 
 
@@ -26,6 +27,19 @@ export default function Navbar() {
             const json = await result.json();
 
             if (json.body) setPropietarySubscription(json.body);
+        }
+        ExecuteAsync();
+    }, [])
+
+    useEffect(() => {
+        const ExecuteAsync = async () => {
+            const url = `https://pydolarve.org/api/v1/dollar`;
+            const result = await fetch(url);
+            const json = await result.json();
+            if(result.ok) {
+                const tasa = json.monitors.bcv.price;
+                setTasaChange(Number(tasa));
+            }
         }
         ExecuteAsync();
     }, [])
@@ -47,6 +61,18 @@ export default function Navbar() {
                             `}
                         >
                             "{propietarySubscription.status}"
+                        </i>
+                    }
+                    {
+                        tasaChange &&
+                        <i 
+                            className={`
+                                mx-2
+                                badge bg-transparent
+                                text-gray-50
+                            `}
+                        >
+                            cambio {tasaChange} bs
                         </i>
                     }
                 </div>
