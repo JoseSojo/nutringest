@@ -57,7 +57,7 @@ export default function AgendToDay() {
                     <Button
                         click={() => modal.show(<CreateAgend reload={RelaodList} />)}
                         ico={Icono({ ico: `create` })}
-                        customClass={`${ButtonHandler({ param: `create` })} btn-sm`}
+                        customClass={`${ButtonHandler({ param: `create` })} hidden btn-sm`}
                         text='agendar'
                     />
                 </div>

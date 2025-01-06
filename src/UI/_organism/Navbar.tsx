@@ -5,6 +5,8 @@ import { deleteTokenAndUser } from "../../utils/token";
 import { useEffect, useState } from "react";
 import { API } from "../../entorno";
 import { REQUETS_GET_TOKEN } from "../../utils/req/RequetsOptions";
+import { useModal } from "../../_context/ModalContext";
+import InformationModal from "./InformationModal";
 
 interface Navbar {
 
@@ -13,6 +15,7 @@ interface Navbar {
 export default function Navbar() {
 
     const navigate = useNavigate();
+    const modal = useModal();
 
     const [active, setActive] = useState(false);
     const [tasaChange, setTasaChange] = useState<number | null>(null);
@@ -32,18 +35,18 @@ export default function Navbar() {
     }, [])
 
     useEffect(() => {
+        if (window.location.pathname != `/finanzas/`) return setTasaChange(null);
         const ExecuteAsync = async () => {
             const url = `https://pydolarve.org/api/v1/dollar`;
             const result = await fetch(url);
             const json = await result.json();
-            if(result.ok) {
+            if (result.ok) {
                 const tasa = json.monitors.bcv.price;
                 setTasaChange(Number(tasa));
             }
         }
         ExecuteAsync();
-    }, [])
-
+    }, [window.location.pathname])
 
     return (
         <>
@@ -52,7 +55,7 @@ export default function Navbar() {
                 <div>
                     {
                         propietarySubscription &&
-                        <i 
+                        <i
                             className={`
                                 badge bg-transparent 
                                 ${propietarySubscription.status === `FREE_TRIAL` && `border-yellow-600 text-yellow-600`}
@@ -65,7 +68,7 @@ export default function Navbar() {
                     }
                     {
                         tasaChange &&
-                        <i 
+                        <i
                             className={`
                                 mx-2
                                 badge bg-transparent
@@ -77,6 +80,13 @@ export default function Navbar() {
                     }
                 </div>
                 <ul className="flex justify-center items-center gap-5">
+                    <li>
+                        <Button
+                            click={() => modal.show(<InformationModal />)}
+                            ico={Icono({ ico: `information` })}
+                            customClass="duration-300 text-xl p-2 rounded text-slate-50"
+                        />
+                    </li>
                     <li className="relative">
                         <Button
                             click={() => setActive(!active)}
@@ -88,21 +98,21 @@ export default function Navbar() {
                                 <Button
                                     customClass="text-xs font-semibold hover:bg-gray-100 py-2 rounded-t"
                                     click={() => {
-                                        navigate(`/profile`, { replace:true,viewTransition:true })
+                                        navigate(`/profile`, { replace: true, viewTransition: true })
                                     }}
                                     text="Perfil"
                                 />
                                 <Button
                                     customClass="text-xs font-semibold hover:bg-gray-100 py-2"
                                     click={() => {
-                                        navigate(`/porfolio`, { replace:true,viewTransition:true })
+                                        navigate(`/porfolio`, { replace: true, viewTransition: true })
                                     }}
                                     text="Portafolio"
                                 />
                                 <Button
                                     customClass="text-xs font-semibold hover:bg-gray-100 py-2"
                                     click={() => {
-                                        navigate(`/setting`, { replace:true,viewTransition:true })
+                                        navigate(`/setting`, { replace: true, viewTransition: true })
                                     }}
                                     text="Configuraciones"
                                 />

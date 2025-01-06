@@ -57,10 +57,10 @@ export default function CustomSelect({ field, change,label }: Props) {
             </Button>
             {
                 active &&
-                <div className="absolute grid w-full h-44 z-10 rounded-b-xl p-1 top-20 border overflow-y-auto bg-slate-50 drk:bg-slate-950 text-slate-900 drk:text-slate-300">
+                <div className="absolute grid w-[100%] h-44 z-10 rounded-b-xl py-1 top-16 border overflow-y-auto bg-slate-50 drk:bg-slate-950 text-slate-900 drk:text-slate-300">
                     <Input
                         change={({value}:{name:string,value:string}) => setParam(value)}
-                        customClass="input input-sm text-gray-800 drk:text-gray-600"
+                        customClass="input input-sm text-gray-800 drk:text-gray-600 border border-slate-600"
                         type="text"
                         name="param"
                     />

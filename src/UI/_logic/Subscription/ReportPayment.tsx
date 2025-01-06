@@ -45,7 +45,7 @@ export default function ReportPayment({ reload }: Props) {
             const result = await fetch(url, req);
             await result.json();
 
-            noti.setMessage({active: true, message: `Pago reportado`, type: `success`})
+            noti.setMessage({ active: true, message: `Pago reportado`, type: `success` })
             modal.hidden();
             reload();
         }
@@ -53,7 +53,7 @@ export default function ReportPayment({ reload }: Props) {
     }
 
     const ChangeInput = ({ name, value }: { name: string, value: string }) => {
-        const prev = {...data, [name]:value};
+        const prev = { ...data, [name]: value };
         setData(prev);
     }
 
@@ -64,53 +64,60 @@ export default function ReportPayment({ reload }: Props) {
 
                 {
                     payment
-                        ? <form onSubmit={HandleSubmit} className="w-full">
-
-                            <LabelInput
-                                change={ChangeInput}
-                                field={{
-                                    beforeType: `date`,
-                                    id: `key.report.payment.date`,
-                                    label: `Fecha`,
-                                    name: `date`,
-                                    placeholder: `Fecha`,
-                                    required: true,
-                                    type: `input`
-                                }}
-                            />
-
-                            <LabelInput
-                                change={ChangeInput}
-
-                                field={{
-                                    beforeType: `number`,
-                                    id: `key.report.payment.mount`,
-                                    label: `Fecha`,
-                                    name: `mount`,
-                                    placeholder: `Monto`,
-                                    required: true,
-                                    type: `input`
-                                }}
-                            />
-
-                            <div className="flex justify-between gap-3">
-                                <Button
-                                    click={() => modal.hidden()}
-                                    ico={<IcoCancel size={20} />}
-                                    customClass={`${ButtonHandler({ param: `` })} btn-sm m-auto`}
-                                    text="Cerrar"
-                                />
-                                {
-                                    payment && <Button
-                                        type="submit"
-                                        click={() => { }}
-                                        ico={<IcoReport />}
-                                        customClass={`${ButtonHandler({ param: `report` })} btn-sm m-auto`}
-                                        text="Reportar pago"
-                                    />
-                                }
+                        ? <>
+                            <div className="w-full p-2 rounded border border-slate-400 my-2">
+                                {payment.paymentReference.description}
                             </div>
-                        </form>
+                            <p className="text-xs text-gray-700 px-5">Datos para realiar el pago a <strong>{payment.paymentReference.name}</strong></p>
+
+                            <form onSubmit={HandleSubmit} className="w-full">
+
+                                <LabelInput
+                                    change={ChangeInput}
+                                    field={{
+                                        beforeType: `date`,
+                                        id: `key.report.payment.date`,
+                                        label: `Fecha`,
+                                        name: `date`,
+                                        placeholder: `Fecha`,
+                                        required: true,
+                                        type: `input`
+                                    }}
+                                />
+
+                                <LabelInput
+                                    change={ChangeInput}
+
+                                    field={{
+                                        beforeType: `number`,
+                                        id: `key.report.payment.mount`,
+                                        label: `Fecha`,
+                                        name: `mount`,
+                                        placeholder: `Monto`,
+                                        required: true,
+                                        type: `input`
+                                    }}
+                                />
+
+                                <div className="flex justify-between gap-3">
+                                    <Button
+                                        click={() => modal.hidden()}
+                                        ico={<IcoCancel size={20} />}
+                                        customClass={`${ButtonHandler({ param: `` })} btn-sm m-auto`}
+                                        text="Cerrar"
+                                    />
+                                    {
+                                        payment && <Button
+                                            type="submit"
+                                            click={() => { }}
+                                            ico={<IcoReport />}
+                                            customClass={`${ButtonHandler({ param: `report` })} btn-sm m-auto`}
+                                            text="Reportar pago"
+                                        />
+                                    }
+                                </div>
+                            </form>
+                        </>
                         : <>
                             <AbstractList ActionButtons={HandleChange} actions={[]} change={() => { }} crud="user/payment/my" param="" reload />
 

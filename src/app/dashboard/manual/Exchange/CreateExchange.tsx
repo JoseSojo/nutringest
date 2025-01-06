@@ -80,7 +80,9 @@ export default function CreateExchange() {
         const prev = foodSelect && foodSelect.length > 0 ? foodSelect : [];
         prev.push({ food:{id:value,label:name} });
         setFoodSelect([]);
-        setFoodSelect(prev);
+        const customValue = prev;
+        setFoodSelect(customValue);
+        ReloadFoodSelect();
     }
 
     const RemoveFoodSelect = (index: number) => {
@@ -167,6 +169,7 @@ export default function CreateExchange() {
                             click={() => ReloadFoodSelect()}
                         />
                     </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 col-span-3 gap-3">
                     {
                         foodSelect && foodSelect.map((item, i) => (
                             <div className="rounded p-1 border flex justify-between items-center">
@@ -192,6 +195,7 @@ export default function CreateExchange() {
                             </div>
                         ))
                     }
+                    </div>
                 </div> 
 
                 <div className="col-span-3">

@@ -11,10 +11,11 @@ import { useModal } from "../../../_context/ModalContext";
 
 
 interface Props {
-    item: any
+    item: any;
+    reload: () => void
 }
 
-export default function CreatePayment({ }: Props) {
+export default function CreatePayment({ reload }: Props) {
     const noti = useNotification();
     const modal = useModal();
 
@@ -46,6 +47,7 @@ export default function CreatePayment({ }: Props) {
 
             if (!result.ok || json.error) return noti.setMessage({ active: true, message: `Hubo un error.`, type: "error" });
             modal.hidden();
+            reload();
             return noti.setMessage({ active: true, message: `Método creado exitosamente.`, type: "success" });
         }
         ExecuteRequets();

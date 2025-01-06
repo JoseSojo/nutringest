@@ -31,12 +31,13 @@ export default function UniqueMenu() {
                 type: json.body.type
             };
 
+            console.log(json);
+
             const currentFood: typeof foodSelect = [];
             const foods = json.body.foods as any[];
             foods.forEach((food) => {
                 currentFood.push({
                     id: food.id,
-                    unity: { id: food.unityMeasureReference.id, label: food.unityMeasureReference.name },
                     food: { id: food.foodPrimitiveReference.id, label: food.foodPrimitiveReference.name },
                     quantity: food.quentity
                 })
@@ -62,7 +63,7 @@ export default function UniqueMenu() {
                 <ul className="flex gap-3 mt-3">
                     <li>
                         <Button
-                            click={() => navigate(`/dashboard/exchange`)}
+                            click={() => navigate(`/dashboard/menu`)}
                             ico={Icono({ ico: `list` })}
                             customClass={`${ButtonHandler({ param: `list` })} btn btn-sm border-none`}
                             text="Lista"
@@ -75,15 +76,15 @@ export default function UniqueMenu() {
 
                 <Text
                     customClass="text-center text-md mt-3 text-slate-500"
-                    text={data ? data.name ? `Nombre ${data.name}` : `` : ``}
+                    text={data ? data.name ? `Nombre: ${data.name}` : `` : ``}
                 />
                 <Text
                     customClass="text-center text-md mt-3 text-slate-500"
-                    text={data ? data.description ? `Descripción ${data.description}` : `` : ``}
+                    text={data ? data.description ? `Descripción: ${data.description}` : `` : ``}
                 />
                 <Text
                     customClass="text-center text-md mt-3 text-slate-500"
-                    text={data ? data.type ? `Tipo ${data.type}` : `` : ``}
+                    text={data ? data.type ? `Tipo: ${data.type}` : `` : ``}
                 />
 
                 <Text customClass="divider divider-success text-success lg:col-span-3" text={`Alimentos`} />

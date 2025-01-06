@@ -5,10 +5,12 @@ import { IcoCreate } from "../../_compound/Icons/AllIcon";
 import Subtitle from "../../_atom/Subtitle";
 import { useModal } from "../../../_context/ModalContext";
 import CreatePayment from "./CreatePayment";
+import { useState } from "react";
 
 export default function SelectPaymentMethod() {
 
     const modal = useModal();
+    const [reload, setReload] = useState(true);
 
     return (
         <div className="grid grid-cols-1 mt-3">
@@ -17,14 +19,14 @@ export default function SelectPaymentMethod() {
 
                 <ul className="flex gap-3">
                     <Button
-                        click={()=>modal.show(<CreatePayment item={{}} />)}
+                        click={()=>modal.show(<CreatePayment reload={() => setReload(!reload)} item={{}} />)}
                         ico={<IcoCreate size={20} str={1.75} />}
                         text="agregar"
                         customClass={`${ButtonHandler({param:`create`})} btn-sm`}
                     />
                 </ul>
             </div>
-            <AbstractList actions={[]} change={() => { }} crud="user/payment/my" param="" reload />
+            <AbstractList actions={[]} change={() => { }} crud="user/payment/my" param="" reload={reload} />
         </div>
     )
 }

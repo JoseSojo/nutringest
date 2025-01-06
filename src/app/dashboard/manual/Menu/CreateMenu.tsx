@@ -71,10 +71,10 @@ export default function CreateMenu() {
     const AddFood = ({name,value}:{ name: string, value: string }) => {
         const prev = foodSelect && foodSelect.length > 0 ? foodSelect : [];
         prev.push({ food:{id:value,label:name} });
-        setFoodSelect([]);
-        setFoodSelect(prev);
+        const customValue = prev;
+        setFoodSelect(customValue);
+        ReloadFoodSelect();
     }
-
 
     const RemoveFoodSelect = (index: number) => {
         if (!foodSelect) return;
@@ -202,22 +202,6 @@ export default function CreateMenu() {
                     </div>
                     <AbstractList ActionButtons={AddFoodList} actions={[]} change={({ }) => { }} crud="primitive" param={param} reload />
                 </div>
-
-                <div className="col-span-3 grid grid-cols-3  gap-3">
-                    {
-                        foodSelect && foodSelect.map((item, i) => (
-                            <div className="flex-1 rounded p-1 border flex justify-between items-center">
-                                <Text customClass="text-sm font-bold" text={`${item.food.label} - ${item.quantity ? item.quantity : ``} ${item.unity ? item.unity.label : ``}`} />
-                                <Button
-                                    click={() => RemoveFoodSelect(i)}
-                                    customClass="btn btn-xs btn-error text-white"
-                                    ico={Icono({ ico: `delete` })}
-                                />
-                            </div>
-                        ))
-                    }
-                </div>
-
             </form>
 
         </div>

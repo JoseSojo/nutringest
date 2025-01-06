@@ -5,7 +5,6 @@ import Button from "../UI/_atom/Button";
 import { Icono } from "../_handler/IconHandler";
 import ButtonHandler from "../_handler/ButtonsHandler";
 import AbstractList from "./dashboard/abstract/AbstractList";
-import ProcessPayment from "../UI/_logic/Subscription/ProcessPayment";
 import ReportPayment from "../UI/_logic/Subscription/ReportPayment";
 import UniquePayment from "../UI/_logic/Subscription/UniquePayment";
 import { IcoSelect } from "../UI/_compound/Icons/AllIcon";
@@ -40,14 +39,6 @@ export default function Finanzas() {
                     <header className="flex items-center justify-between">
                         <Title customClass="text-2xl font-black" text={`Finanzas`} />
                         <ul className="flex gap-3">
-                            <li>
-                                <Button
-                                    click={() => modal.show(<ProcessPayment reload={CustomRelaod} />)}
-                                    ico={Icono({ ico: `create` })}
-                                    customClass={`${ButtonHandler({ param: `create` })} btn btn-sm border-none`}
-                                    text={`crear`}
-                                />
-                            </li>
                             <li>
                                 <Button
                                     click={() => modal.show(<ReportPayment reload={CustomRelaod} />)}

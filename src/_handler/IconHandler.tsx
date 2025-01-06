@@ -1,6 +1,6 @@
 
 import { TfiLayoutWidthDefaultAlt } from "react-icons/tfi";
-import { IcoAgend, IcoAssing, IcoCancel, IcoCategory, IcoCity, IcoClose, IcoConfig, IcoCopy, IcoCountry, IcoCreate, IcoDanger, IcoDashboard, IcoDelete, IcoDoctor, IcoDownload, IcoExchange, IcoFicha, IcoFinish, IcoList, IcoLoad, IcoLogout, IcoMaste, IcoMenu, IcoMessage, IcoMoney, IcoNotification, IcoNutri, IcoOptions, IcoPatient, IcoPayment, IcoPermit, IcoPlus, IcoPresentation, IcoPrimitive, IcoProfile, IcoQuote, IcoRecovery, IcoReport, IcoReprogramming, IcoSelect, IcoSend, IcoShared, IcoState, IcoSubscription, IcoSuccess, IcoSupplement, IcoUnity, IcoUpdate, IcoUser, IcoUsers, IcoWarning } from "../UI/_compound/Icons/AllIcon";
+import { IcoAgend, IcoAssing, IcoCancel, IcoCategory, IcoCity, IcoClose, IcoConfig, IcoCopy, IcoCountry, IcoCreate, IcoDanger, IcoDashboard, IcoDelete, IcoDoctor, IcoDownload, IcoExchange, IcoFicha, IcoFinish, IcoInformation, IcoList, IcoLoad, IcoLogout, IcoMaste, IcoMenu, IcoMessage, IcoMoney, IcoNotification, IcoNutri, IcoOptions, IcoPatient, IcoPayment, IcoPermit, IcoPlus, IcoPresentation, IcoPrimitive, IcoProfile, IcoQuote, IcoRecovery, IcoReport, IcoReprogramming, IcoSelect, IcoSend, IcoShared, IcoState, IcoSubscription, IcoSuccess, IcoSupplement, IcoUnity, IcoUpdate, IcoUser, IcoUsers, IcoWarning } from "../UI/_compound/Icons/AllIcon";
 
 type ICONS =
   | `category`
@@ -45,6 +45,7 @@ type ICONS =
   | `copy`
   | `agend`
   | `calendar`
+  | `information`
   | string
 
 
@@ -105,6 +106,7 @@ export function Icono({ ico,size,str }: { ico: ICONS, size?: number, str?: numbe
   if (ico === `agend`) return <IcoAgend size={size} str={str} />
   if (ico === `calendar`) return <IcoAgend size={size} str={str} />
   if (ico === `select`) return <IcoSelect size={size} str={str} />
+  if (ico === `information`) return <IcoInformation size={size} str={str} />
 
   return <TfiLayoutWidthDefaultAlt />
 } 

@@ -1,5 +1,5 @@
 
 export const VERSION_API = `v1`;
-
-export const API = `/api/${VERSION_API}`// `/api/${VERSION_API}`;
-export const API_STATIC = ``;
+const dev = ``
+export const API = `${dev}/api/${VERSION_API}`// `/api/${VERSION_API}`;
+export const API_STATIC = `${dev}`;

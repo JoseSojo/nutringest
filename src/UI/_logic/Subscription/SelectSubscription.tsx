@@ -79,7 +79,7 @@ export default function SelectSubsction() {
                                     </ul>
                                 </div>
                                 <div className="border-t w-full text-center">
-                                    <Subtitle customClass="text-md font-bold" text={`Fecha de pago`} />
+                                    <Subtitle customClass="text-md font-bold" text={`Fecha de cobro`} />
                                     <ul>
                                         <li>Día: <b>{propietarySubscription.dayEnd}</b></li>
                                         <li>Mes: <b>{propietarySubscription.monthEnd}</b></li>
