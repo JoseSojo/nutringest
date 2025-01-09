@@ -4,6 +4,7 @@ import Button from "../../../UI/_atom/Button";
 import { useModal } from "../../../_context/ModalContext";
 import { getToken } from "../../../utils/token";
 import { useNotification } from "../../../_context/NotificationContext";
+import useFormStatus from "../../../_hooks/useFormStatus";
 
 interface Props {
     crud: string;
@@ -15,16 +16,19 @@ export default function AbstractDelete({ crud,id,reload }: Props) {
 
     const modal = useModal();
     const noti = useNotification();
+    const { ButtonSubmit,EndLoad,StartLoad } = useFormStatus({ text:`Eliminar`,type:`delete` });
 
     const HandleDelete = async (e: FormEvent) => {
         e.preventDefault();
         const url = `${API}/${crud}/${id}/delete`;
         const req = { method:`PUT`,headers:{token:`${getToken()}`} };
 
+        StartLoad();
         const result = await fetch(url, req);
         const json = await result.json();
         noti.setMessage({ active:true,message:json.message,type:json.error ? `error` : `success` });
         reload();
+        EndLoad();
         modal.hidden();
     }
 
@@ -42,9 +46,7 @@ export default function AbstractDelete({ crud,id,reload }: Props) {
                             <Button click={() => modal.hidden()} type="button" customClass="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 drk:bg-gray-700 drk:text-gray-300 drk:border-gray-500 drk:hover:text-white drk:hover:bg-gray-600 drk:focus:ring-gray-600">
                                 NO
                             </Button>
-                            <Button type="submit" customClass="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 drk:bg-red-500 drk:hover:bg-red-600 drk:focus:ring-red-900">
-                                SÍ
-                            </Button>
+                            <ButtonSubmit />
                         </div>
                     </form>
                 </div>

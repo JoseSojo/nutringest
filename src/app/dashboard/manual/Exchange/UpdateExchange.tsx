@@ -13,12 +13,14 @@ import { REQUETS_GET_TOKEN, REQUETS_PUT_TOKEN } from "../../../../utils/req/Requ
 import Subtitle from "../../../../UI/_atom/Subtitle";
 import Input from "../../../../UI/_atom/Input";
 import AbstractList from "../../abstract/AbstractList";
+import useFormStatus from "../../../../_hooks/useFormStatus";
 
 export default function UpdateExchange() {
 
     const { id } = useParams() as { id: string };
     const [param, setParam] = useState(``);
     const [data, setData] = useState<{ name?: string, unity?: { id: string, label: string }, ration?: string | number } | null>(null);
+    const { ButtonSubmit,EndLoad,StartLoad } = useFormStatus({ text:`Actualizar`,type:`update` });
 
     const noti = useNotification();
     const navigate = useNavigate();
@@ -28,6 +30,7 @@ export default function UpdateExchange() {
         unity?: { id: string, label: string }, 
         food: { id: string, label: string }
     }[] | null>(null);
+
     const HandleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -44,17 +47,20 @@ export default function UpdateExchange() {
         const ExecuteRequets = async () => {
             const url = `${API}/exchange/${id}/update`;
             const req = { ...REQUETS_PUT_TOKEN, body: JSON.stringify(customData) }
-            const result = await fetch(url, req);
+            StartLoad();
+                const result = await fetch(url, req);
             const json = await result.json();
 
             if (!result.ok || json.error) {
                 noti.setMessage({ active: true, message: `Oops. hubo un error`, type: `error` });
+                EndLoad();
                 return;
             }
 
             noti.setMessage({ active: true, message: json.message, type: `success` });
             navigate(`/dashboard/exchange`);
-            return;
+                EndLoad();
+                return;
         }
         ExecuteRequets();
     }
@@ -102,7 +108,6 @@ export default function UpdateExchange() {
         const prev = foodSelect.filter((_, i) => i !== -1);
         setFoodSelect(prev);
     }
-
 
     const RemoveFoodSelect = (index: number) => {
         if (!foodSelect) return;
@@ -158,12 +163,7 @@ export default function UpdateExchange() {
             <form onSubmit={HandleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-3">
 
                 <div className="col-span-3 flex justify-end mt-3">
-                    <Button
-                        type="submit"
-                        customClass={`${ButtonHandler({param:`update`})} btn-sm border-none`}
-                        ico={Icono({ ico:`update` })}
-                        text="Actualizar"
-                    />
+                    <ButtonSubmit />
                 </div>
 
                 <LabelInput

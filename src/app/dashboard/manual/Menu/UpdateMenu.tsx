@@ -13,6 +13,7 @@ import { REQUETS_GET_TOKEN, REQUETS_PUT_TOKEN } from "../../../../utils/req/Requ
 import Subtitle from "../../../../UI/_atom/Subtitle";
 import Input from "../../../../UI/_atom/Input";
 import AbstractList from "../../abstract/AbstractList";
+import useFormStatus from "../../../../_hooks/useFormStatus";
 
 export default function UpdateMenu() {
 
@@ -21,6 +22,7 @@ export default function UpdateMenu() {
     const noti = useNotification();
     const navigate = useNavigate();
     const [reload] = useState(false);
+    const { ButtonSubmit,EndLoad,StartLoad } = useFormStatus({ text:`Actualizar`,type:`update` });
 
     const [param, setParam] = useState(``);
     const [data, setData] = useState<{ name?: string, description?: string, type?: string } | null>(null);
@@ -46,16 +48,19 @@ export default function UpdateMenu() {
         const ExecuteRequets = async () => {
             const url = `${API}/menu/${id}/update`;
             const req = { ...REQUETS_PUT_TOKEN, body: JSON.stringify(customData) }
+            StartLoad();
             const result = await fetch(url, req);
             const json = await result.json();
 
             if (!result.ok || json.error) {
                 noti.setMessage({ active: true, message: `Oops. hubo un error`, type: `error` });
+                EndLoad();
                 return;
             }
 
             noti.setMessage({ active: true, message: json.message, type: `success` });
             navigate(`/dashboard/menu`);
+            EndLoad();
             return;
         }
         ExecuteRequets();
@@ -135,12 +140,7 @@ export default function UpdateMenu() {
                 <Title customClass="text-2xl font-black" text={`Actualizar ${data?.name}`} />
                 <ul className="flex gap-3 mt-3">
                     <li>
-                        <Button
-                            click={() => navigate(`/dashboard/menu`)}
-                            ico={Icono({ ico: `list` })}
-                            customClass={`${ButtonHandler({ param: `list` })} btn btn-sm border-none`}
-                            text="Lista"
-                        />
+                        <ButtonSubmit />
                     </li>
                 </ul>
             </header>
@@ -196,13 +196,6 @@ export default function UpdateMenu() {
                 <Text customClass="divider divider-success text-success lg:col-span-3" text={`Seleccionar alimentos`} />
 
                 <div className="grid grid-cols-4 col-span-3 gap-3">
-                    <div className="col-span-4 flex justify-end">
-                        <Button
-                            text="Cargar alimentos seleccionados"
-                            customClass={`${ButtonHandler({ param: `update` })} btn-sm`}
-                            click={() => ReloadFoodSelect()}
-                        />
-                    </div>
                     {
                         foodSelect && foodSelect.map((item, i) => (
                             <div className="rounded p-1 border flex justify-between items-center">

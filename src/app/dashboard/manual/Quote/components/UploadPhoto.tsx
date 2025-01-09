@@ -1,10 +1,9 @@
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useRef } from "react";
 import Subtitle from "../../../../../UI/_atom/Subtitle"
 import { useNotification } from "../../../../../_context/NotificationContext";
-import Button from "../../../../../UI/_atom/Button";
-import ButtonHandler from "../../../../../_handler/ButtonsHandler";
 import { API } from "../../../../../entorno";
 import { getToken } from "../../../../../utils/token";
+import useFormStatus from "../../../../../_hooks/useFormStatus";
 
 interface Props {
     quote: string; // ID
@@ -14,11 +13,12 @@ interface Props {
 export default function UploadPhoto({ quote, reload }: Props) {
 
     const noti = useNotification();
-    const [load, setLoad] = useState(false);
 
     const fileRef = useRef<HTMLInputElement | null>(null);
     const descriptionRef = useRef<HTMLInputElement | null>(null);
     const dateRef = useRef<HTMLInputElement | null>(null);
+    const { ButtonSubmit,EndLoad,StartLoad } = useFormStatus({ text:`Enviar`,type:`create` });
+
 
     const HandleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -31,10 +31,10 @@ export default function UploadPhoto({ quote, reload }: Props) {
             if(!descriptionRef.current.value) return noti.setMessage({ active:true,message:`Debes agregar descripción`,type:`error` });
             if(!dateRef.current) return noti.setMessage({ active:true,message:`Debes agregar la fecha`,type:`error` });
             if(!dateRef.current.value) return noti.setMessage({ active:true,message:`Debes agregar la fecha`,type:`error` });
-            setLoad(true);
 
             const url = `${API}/quote/${quote}/upload/photo/`;
             const formData = new FormData();
+            StartLoad();
             formData.append(`file`, fileRef.current.files[0]);
             formData.append(`description`, descriptionRef.current.value);
             formData.append(`date`, dateRef.current.value);
@@ -50,14 +50,15 @@ export default function UploadPhoto({ quote, reload }: Props) {
             const json = await result.json();
 
             if(!result.ok || json.error) {
-                setLoad(false);
                 noti.setMessage({ active:true, message:`Error al cargar foto.`, type:`error` });
+                EndLoad();
                 return;
             }
 
-            setLoad(false);
             noti.setMessage({ active:true, message:`Foto cargada.`, type:`success` });
             reload();
+            EndLoad();
+            return;
         }
         ExecuteRequets();
     } 
@@ -102,16 +103,7 @@ export default function UploadPhoto({ quote, reload }: Props) {
                 />
             </div>
 
-            <Button
-                type="submit"
-                customClass={`${ButtonHandler({param:`create`})} border-none btn-sm mt-3`}
-            >
-                {
-                    load
-                    ? `Cargando...`
-                    : `Enviar`
-                }
-            </Button>
+            <ButtonSubmit />
         </form>
     );
 }

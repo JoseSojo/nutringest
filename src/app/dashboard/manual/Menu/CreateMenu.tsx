@@ -13,6 +13,7 @@ import { REQUETS_POST_TOKEN } from "../../../../utils/req/RequetsOptions";
 import Subtitle from "../../../../UI/_atom/Subtitle";
 import Input from "../../../../UI/_atom/Input";
 import AbstractList from "../../abstract/AbstractList";
+import useFormStatus from "../../../../_hooks/useFormStatus";
 
 export default function CreateMenu() {
 
@@ -21,6 +22,7 @@ export default function CreateMenu() {
 
     const [param, setParam] = useState(``);
     const [data, setData] = useState<{ name?: string, description?: string, type?: string } | null>(null);
+    const { ButtonSubmit,EndLoad,StartLoad } = useFormStatus({ text:`Crear`,type:`create` });
 
     const [foodSelect, setFoodSelect] = useState<{ unity?: { id: string, label: string }, food: { id: string, label: string }, quantity?: string | number }[] | null>(null);
 
@@ -43,16 +45,19 @@ export default function CreateMenu() {
         const ExecuteRequets = async () => {
             const url = `${API}/menu/create`;
             const req = { ...REQUETS_POST_TOKEN, body: JSON.stringify(customData) }
+            StartLoad();
             const result = await fetch(url, req);
             const json = await result.json();
 
             if (!result.ok || json.error) {
                 noti.setMessage({ active: true, message: `Oops. hubo un error`, type: `error` });
+                EndLoad();
                 return;
             }
 
             noti.setMessage({ active: true, message: json.message, type: `success` });
             navigate(`/dashboard/menu`);
+            EndLoad();
             return;
         }
         ExecuteRequets();
@@ -105,12 +110,7 @@ export default function CreateMenu() {
                 <Title customClass="text-2xl font-black" text="Crear Menú" />
                 <ul className="flex gap-3 mt-3">
                     <li>
-                        <Button
-                            click={() => navigate(`/dashboard/menu`)}
-                            ico={Icono({ ico: `list` })}
-                            customClass={`${ButtonHandler({ param: `list` })} btn btn-sm border-none`}
-                            text="Lista"
-                        />
+                        <ButtonSubmit />
                     </li>
                 </ul>
             </header>
@@ -172,13 +172,6 @@ export default function CreateMenu() {
                 <Text customClass="divider divider-success text-success lg:col-span-3" text={`Seleccionar alimentos`} />
 
                 <div className="grid grid-cols-4 col-span-3 gap-3">
-                    <div className="col-span-4 flex justify-end">
-                        <Button
-                            text="Cargar alimentos seleccionados"
-                            customClass={`${ButtonHandler({param:`update`})} btn-sm`}
-                            click={() => ReloadFoodSelect()}
-                        />
-                    </div>
                     {
                         foodSelect && foodSelect.map((item, i) => (
                             <div className="rounded p-1 border flex justify-between items-center">

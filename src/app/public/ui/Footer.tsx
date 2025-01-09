@@ -7,7 +7,7 @@ export default function Footer () {
                     <hr className="my-6 border-gray-200 sm:mx-auto drk:border-gray-700 lg:my-8" />
                     <div className="text-center">
                         <a href="/" className="flex items-center justify-center mb-5 text-2xl font-semibold text-gray-900 drk:text-white">
-                            <img src="/logo.svg" className="h-6 mr-3 sm:h-9" alt="Landwind Logo" />
+                            <img src="/android-chrome-192x192.png" className="h-6 mr-3 sm:h-9" alt="Landwind Logo" />
                             Nutringest
                         </a>
                         <span className="block text-sm text-center text-gray-500 drk:text-gray-400">Nutringest, la mejor inversión para tu práctica nutricional

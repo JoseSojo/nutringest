@@ -13,6 +13,7 @@ import { REQUETS_POST_TOKEN } from "../../../../utils/req/RequetsOptions";
 import Subtitle from "../../../../UI/_atom/Subtitle";
 import Input from "../../../../UI/_atom/Input";
 import AbstractList from "../../abstract/AbstractList";
+import useFormStatus from "../../../../_hooks/useFormStatus";
 
 export default function CreateExchange() {
 
@@ -21,6 +22,7 @@ export default function CreateExchange() {
 
     const [param, setParam] = useState(``);
     const [data, setData] = useState<{ name?: string, unity?: { id: string, label: string }, ration?: string | number } | null>(null);
+    const { ButtonSubmit,EndLoad,StartLoad } = useFormStatus({ text:`Crear`,type:`create` });
 
     const [foodSelect, setFoodSelect] = useState<{ 
         unity?: { id: string, label: string }, 
@@ -43,16 +45,19 @@ export default function CreateExchange() {
         const ExecuteRequets = async () => {
             const url = `${API}/exchange/create`;
             const req = { ...REQUETS_POST_TOKEN, body: JSON.stringify(customData) }
+            StartLoad();
             const result = await fetch(url, req);
             const json = await result.json();
 
             if (!result.ok || json.error) {
                 noti.setMessage({ active: true, message: `Oops. hubo un error`, type: `error` });
+                EndLoad();
                 return;
             }
 
             noti.setMessage({ active: true, message: json.message, type: `success` });
             navigate(`/dashboard/exchange`);
+            EndLoad();
             return;
         }
         ExecuteRequets();
@@ -126,12 +131,7 @@ export default function CreateExchange() {
             <form onSubmit={HandleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-3">
 
                 <div className="col-span-3 flex justify-end mt-3">
-                    <Button
-                        type="submit"
-                        customClass={`${ButtonHandler({ param: `create` })} btn-sm border-none`}
-                        ico={Icono({ ico: `create` })}
-                        text="Crear"
-                    />
+                    <ButtonSubmit />
                 </div>
 
                 <LabelInput
@@ -162,13 +162,6 @@ export default function CreateExchange() {
                 <Text customClass="divider divider-success text-success lg:col-span-3" text={`Seleccionar alimentos`} />
 
                 <div className="grid grid-cols-2 col-span-3 gap-3">
-                    <div className="col-span-3 flex justify-end">
-                        <Button
-                            text="Cargar alimentos seleccionados"
-                            customClass={`${ButtonHandler({param:`update`})} btn-sm`}
-                            click={() => ReloadFoodSelect()}
-                        />
-                    </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 col-span-3 gap-3">
                     {
                         foodSelect && foodSelect.map((item, i) => (

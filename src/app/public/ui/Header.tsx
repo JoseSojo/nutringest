@@ -12,7 +12,7 @@ export default function Header() {
             <nav className="bg-white border-gray-200 py-2.5 drk:bg-gray-900">
                 <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
                     <a href="/" className="flex items-center">
-                        <img src="/logo.svg" className="h-6 mr-3 sm:h-9" alt="Nutringest Logo" />
+                        <img src="/android-chrome-192x192.png" className="h-6 mr-3 sm:h-9" alt="Nutringest Logo" />
                         <span className="self-center text-xl font-semibold whitespace-nowrap drk:text-white">NUTRINGEST</span>
                     </a>
                     <div className="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">

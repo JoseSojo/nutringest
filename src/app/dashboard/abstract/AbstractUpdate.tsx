@@ -1,16 +1,14 @@
 import { FormEvent, useState } from "react";
-import { Icono } from "../../../_handler/IconHandler";
 import useCustomForm from "../../../_hooks/useCustomForm";
 import { CRUDS } from "../../../types/GlobalInterface";
 import Subtitle from "../../../UI/_atom/Subtitle";
-import Button from "../../../UI/_atom/Button";
-import ButtonHandler from "../../../_handler/ButtonsHandler";
 import HandleInput from "../../../UI/_compound/HandleInput";
 import Paragraph from "../../../UI/_atom/Paragraph";
 import { useNotification } from "../../../_context/NotificationContext";
 import { useModal } from "../../../_context/ModalContext";
 import { API } from "../../../entorno";
 import { REQUETS_PUT_TOKEN } from "../../../utils/req/RequetsOptions";
+import useFormStatus from "../../../_hooks/useFormStatus";
 
 interface Props {
     crud: CRUDS;
@@ -23,7 +21,7 @@ export default function AbstractUpdate({ crud, reload, id }: Props) {
     const noti = useNotification();
     const modal = useModal();
 
-    const [load, setLoad] = useState(false);
+    const { ButtonSubmit,EndLoad,StartLoad } = useFormStatus({ text:`Actualizar`,type:`update` });
     const [data, setData] = useState<any>({});
 
     const { form } = useCustomForm({ name: crud, auth: true, action: `update`, id });
@@ -33,7 +31,7 @@ export default function AbstractUpdate({ crud, reload, id }: Props) {
 
         const ExecuteAsync = async () => {
 
-            setLoad(true);
+            StartLoad();
             const url = `${API}/${crud}/${id}/update`;
             const req = {  ...REQUETS_PUT_TOKEN, body:JSON.stringify(data) };
             const result = await fetch(url, req);
@@ -41,14 +39,14 @@ export default function AbstractUpdate({ crud, reload, id }: Props) {
 
             if(!result.ok) {
                 noti.setMessage({ active:true,message:`Error al crear`, type:`success` });
-                setLoad(false);
+                EndLoad();
                 return;
             }
 
             noti.setMessage({ active:true,message:json.message, type:`success` });
             modal.hidden();
             setData({});
-            setLoad(false);
+            EndLoad();
             reload();
         }
         ExecuteAsync();
@@ -71,12 +69,7 @@ export default function AbstractUpdate({ crud, reload, id }: Props) {
                                 <Subtitle customClass="text-xl font-black" text={form.name} />
                                 <ul className="flex justify-end">
                                     <li>
-                                        <Button
-                                            type="submit"
-                                            customClass={`${ButtonHandler({ param: `update` })} btn-sm border-none`}
-                                            ico={Icono({ ico: `update` })}
-                                            text={ load ? `Cargando...` : `Actualizar` }
-                                        />
+                                        <ButtonSubmit />
                                     </li>
                                 </ul>
                             </div>
