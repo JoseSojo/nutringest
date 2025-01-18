@@ -6,7 +6,7 @@ import { IcoLoad } from "../UI/_compound/Icons/AllIcon";
 
 interface Props {
     type: string,
-    text: `Crear` | `Actualizar` | `Eliminar` | `Enviar`
+    text: `Crear` | `Actualizar` | `Eliminar` | `Enviar` | `Guardar`
 }
 
 export default function useFormStatus ({ type,text }: Props) {

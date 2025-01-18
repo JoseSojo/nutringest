@@ -1,5 +1,4 @@
 import AgendToDay from "../UI/_organism/Dashboard/AgendToDay";
-import Calendar from "../UI/_organism/Dashboard/Calendar";
 
 export default function CalendarPage () {
 
@@ -8,7 +7,6 @@ export default function CalendarPage () {
 
             {/* <AgendRelease /> */}
 
-            <Calendar id="" />
             <AgendToDay />
 
         </div>

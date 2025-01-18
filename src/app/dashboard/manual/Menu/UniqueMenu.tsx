@@ -31,8 +31,6 @@ export default function UniqueMenu() {
                 type: json.body.type
             };
 
-            console.log(json);
-
             const currentFood: typeof foodSelect = [];
             const foods = json.body.foods as any[];
             foods.forEach((food) => {

@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Icono } from "../../../../_handler/IconHandler";
 import ButtonHandler from "../../../../_handler/ButtonsHandler";
 import LabelInput from "../../../../UI/_compound/form/LabelInput";
-import CustomSelect from "../../../../UI/_compound/form/CustomSelect";
 import Button from "../../../../UI/_atom/Button";
 import Text from "../../../../UI/_atom/Text";
 import { useNotification } from "../../../../_context/NotificationContext";
@@ -27,7 +26,12 @@ export default function UpdateExchange() {
     const [reload] = useState(false);
 
     const [foodSelect, setFoodSelect] = useState<{ 
-        unity?: { id: string, label: string }, 
+        id?: string,
+        food: { id: string, label: string }
+    }[] | null>(null);
+
+    const [foodDelete, setFoodDelete] = useState<{ 
+        id: string,
         food: { id: string, label: string }
     }[] | null>(null);
 
@@ -39,9 +43,10 @@ export default function UpdateExchange() {
 
         const customData: any = {
             name: data.name,
-            unity: data.unity ? data.unity : null,
-            ration: data.ration ? data.ration : null,
-            foods: foodSelect
+            unity: null,
+            ration: null,
+            foods: foodSelect,
+            delete: foodDelete
         }
 
         const ExecuteRequets = async () => {
@@ -70,28 +75,14 @@ export default function UpdateExchange() {
         setData(newData);
     }
 
-    const SetDataBySeletc = ({ value, label }: { value: string, label: string }) => {
-        const newData = { ...data, unity: { id: value, label } };
-        setData(newData);
-    }
-
-    const AddUnityInFood = ({id,label,value}:{label:string,value:string,id:number}) => {
-        if(!foodSelect) return;
-        const prev = foodSelect;
-        prev[id] = { food:prev[id].food,unity:{ id:value,label } };
-        setFoodSelect(foodSelect);
-        ReloadFoodSelect();
-    }
-
-    const AddFood = ({name,value}:{ name: string, value: string }) => {
+    const AddFood = ({name,value,id}:{ name: string, value: string,id?:string }) => {
         const prev = foodSelect && foodSelect.length > 0 ? foodSelect : [];
-        prev.push({ food:{id:value,label:name} });
+        prev.push({ id,food:{id:value,label:name} });
         setFoodSelect([]);
         const customValue = prev;
         setFoodSelect(customValue);
         ReloadFoodSelect();
     }
-
 
     function AddFoodList (item: any): ReactNode {
         return (
@@ -111,6 +102,9 @@ export default function UpdateExchange() {
 
     const RemoveFoodSelect = (index: number) => {
         if (!foodSelect) return;
+        const prevDelete = foodDelete ? foodDelete : [] as any[];
+        prevDelete.push(foodSelect[index]);
+        setFoodDelete(prevDelete);
         const prev = foodSelect.filter((_, i) => i !== index);
         setFoodSelect(prev);
     }
@@ -132,8 +126,8 @@ export default function UpdateExchange() {
             const foods = json.body.foods as any[];
             foods.forEach((food) => {
                 currentFood.push({
-                    food: { id: food.foodReference.id, label: food.foodReference.name },
-                    unity: food.unityMeasureReference ? { id: food.unityMeasureReference.id, label: food.unityMeasureReference.name } : undefined
+                    id:food.id,
+                    food: { id: food.foodReference.id, label: food.foodReference.name }
                 })
             })
 
@@ -178,30 +172,6 @@ export default function UpdateExchange() {
                         required: false,
                     }}
                 />
-                <LabelInput
-                    change={SetDataByInput}
-                    field={{
-                        beforeType: "text",
-                        type: `input`,
-                        name: `ration`,
-                        id: `input`,
-                        label: `Ración`,
-                        placeholder: data ? data.ration?.toString() ? data.ration?.toString()  : `` : ``,
-                        required: false,
-                        value: data ? data.name : ``
-                    }}
-                />
-                <CustomSelect
-                    label={data ? data.unity ? data.unity.label : `` : ``}
-                    change={SetDataBySeletc}
-                    field={{
-                        label: `Unidad de medida`,
-                        select: {
-                            active: true,
-                            in: `unity`
-                        },
-                    }}
-                />
 
                 <Text customClass="divider divider-success text-success lg:col-span-3" text={`Seleccionar alimentos`} />
 
@@ -209,20 +179,8 @@ export default function UpdateExchange() {
                     {
                         foodSelect && foodSelect.map((item, i) => (
                             <div className="rounded p-1 border flex justify-between items-center">
-                                <Text customClass="text-sm font-bold" text={`${item.food.label} ${item.unity ? item.unity.label : ``}`} />
-                                <CustomSelect
-                                    label={item ? item.unity ? item.unity.label : `` : ``}
-                                    change={({ value, label }) => {
-                                        AddUnityInFood({ id:i,label,value });
-                                    }}
-                                    field={{
-                                        label: `Unidad de medida`,
-                                        select: {
-                                            active: true,
-                                            in: `unity`
-                                        },
-                                    }}
-                                />
+                                <Text customClass="text-sm font-bold" text={`${item.food.label}`} />
+                                
                                 <Button
                                     click={() => RemoveFoodSelect(i)}
                                     customClass="btn btn-xs btn-error text-white"

@@ -9,6 +9,7 @@ import ReportPayment from "../UI/_logic/Subscription/ReportPayment";
 import UniquePayment from "../UI/_logic/Subscription/UniquePayment";
 import { IcoSelect } from "../UI/_compound/Icons/AllIcon";
 import CardWallet from "../UI/_logic/Wallet/CardWallet";
+import SectionCoupon from "../UI/_organism/Dashboard/SectionCoupon";
 
 export default function Finanzas() {
 
@@ -31,7 +32,7 @@ export default function Finanzas() {
 
     return (
         <>
-                <CardWallet />
+            <CardWallet />
 
             <div className="p-3 bg-white rounded mt-3">
                 <div className="w-full">
@@ -58,6 +59,9 @@ export default function Finanzas() {
                         change={() => { }}
                         reload={reload}
                         crud={`user/finance`} />
+
+                    <SectionCoupon />
+
                 </div>
             </div>
         </>

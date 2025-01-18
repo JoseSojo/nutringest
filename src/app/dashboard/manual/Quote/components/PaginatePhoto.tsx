@@ -18,7 +18,7 @@ export default function PaginateQuote({ quote, reload }: Props) {
 
     const [load, setLoad] = useState(true);
     const [skip, setSkip] = useState(0);
-    const [take, setTake] = useState(10);
+    const [take, setTake] = useState(5);
 
     useEffect(() => {
         const ExecuteAsync = async () => {

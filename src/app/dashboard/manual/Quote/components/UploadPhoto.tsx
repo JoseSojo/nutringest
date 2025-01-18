@@ -17,7 +17,7 @@ export default function UploadPhoto({ quote, reload }: Props) {
     const fileRef = useRef<HTMLInputElement | null>(null);
     const descriptionRef = useRef<HTMLInputElement | null>(null);
     const dateRef = useRef<HTMLInputElement | null>(null);
-    const { ButtonSubmit,EndLoad,StartLoad } = useFormStatus({ text:`Enviar`,type:`create` });
+    const { ButtonSubmit,EndLoad,StartLoad } = useFormStatus({ text:`Guardar`,type:`create` });
 
 
     const HandleSubmit = (e: FormEvent<HTMLFormElement>) => {

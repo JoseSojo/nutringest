@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { Icono } from "../../../../_handler/IconHandler";
 import ButtonHandler from "../../../../_handler/ButtonsHandler";
 import LabelInput from "../../../../UI/_compound/form/LabelInput";
-import CustomSelect from "../../../../UI/_compound/form/CustomSelect";
 import Button from "../../../../UI/_atom/Button";
 import Text from "../../../../UI/_atom/Text";
 import { useNotification } from "../../../../_context/NotificationContext";
@@ -21,7 +20,7 @@ export default function CreateExchange() {
     const navigate = useNavigate();
 
     const [param, setParam] = useState(``);
-    const [data, setData] = useState<{ name?: string, unity?: { id: string, label: string }, ration?: string | number } | null>(null);
+    const [data, setData] = useState<{ name?: string, ration?: string | number } | null>(null);
     const { ButtonSubmit,EndLoad,StartLoad } = useFormStatus({ text:`Crear`,type:`create` });
 
     const [foodSelect, setFoodSelect] = useState<{ 
@@ -37,7 +36,6 @@ export default function CreateExchange() {
 
         const customData: any = {
             name: data.name,
-            unity: data.unity ? data.unity : null,
             ration: data.ration ? data.ration : null,
             foods: foodSelect
         }
@@ -66,19 +64,6 @@ export default function CreateExchange() {
     const SetDataByInput = ({ name, value }: { name: string, value: string }) => {
         const newData = { ...data, [name]: value };
         setData(newData);
-    }
-
-    const SetDataBySeletc = ({ value, label }: { value: string, label: string }) => {
-        const newData = { ...data, unity: { id: value, label } };
-        setData(newData);
-    }
-
-    const AddUnityInFood = ({id,label,value}:{label:string,value:string,id:number}) => {
-        if(!foodSelect) return;
-        const prev = foodSelect;
-        prev[id] = { food:prev[id].food,unity:{ id:value,label } };
-        setFoodSelect(foodSelect);
-        ReloadFoodSelect();
     }
 
     const AddFood = ({name,value}:{ name: string, value: string }) => {
@@ -147,17 +132,6 @@ export default function CreateExchange() {
                         value: data ? data.name : ``
                     }}
                 />
-                <CustomSelect
-                    label={data ? data.unity ? data.unity.label : `` : ``}
-                    change={SetDataBySeletc}
-                    field={{
-                        label: `Unidad de medida`,
-                        select: {
-                            active: true,
-                            in: `unity`
-                        },
-                    }}
-                />
 
                 <Text customClass="divider divider-success text-success lg:col-span-3" text={`Seleccionar alimentos`} />
 
@@ -167,19 +141,6 @@ export default function CreateExchange() {
                         foodSelect && foodSelect.map((item, i) => (
                             <div className="rounded p-1 border flex justify-between items-center">
                                 <Text customClass="text-sm font-bold" text={`${item.food.label} ${item.unity ? item.unity.label : ``}`} />
-                                <CustomSelect
-                                    label={item ? item.unity ? item.unity.label : `` : ``}
-                                    change={({ value, label }) => {
-                                        AddUnityInFood({ id:i,label,value });
-                                    }}
-                                    field={{
-                                        label: `Unidad de medida`,
-                                        select: {
-                                            active: true,
-                                            in: `unity`
-                                        },
-                                    }}
-                                />
                                 <Button
                                     click={() => RemoveFoodSelect(i)}
                                     customClass="btn btn-xs btn-error text-white"

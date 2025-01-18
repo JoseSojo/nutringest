@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNotification } from "../../_context/NotificationContext";
 import { Icono } from "../../_handler/IconHandler";
 import Button from "../_atom/Button";
@@ -5,6 +6,10 @@ import Button from "../_atom/Button";
 export function Notification() {
 
     const noti = useNotification();
+
+    useEffect(() => {
+        setTimeout(() => noti.setMessage({ active:false,message:``,type:`error` }), 6000)
+    }, [])
 
     return (
         <>

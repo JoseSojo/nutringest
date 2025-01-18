@@ -25,7 +25,6 @@ export default function ProcessSubscription({ paymentId, mount, item }: Props) {
     const ChangeSubscription = () => {
         const ExecuteAssync = async () => {
             const url = `${API}/subscription/detail/change/${item.id}`;
-            alert(url);
             const req = {...REQUETS_POST_TOKEN};
             const result = await fetch(url, req);
             const json = await result.json();

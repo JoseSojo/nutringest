@@ -18,6 +18,7 @@ interface Props {
 
 export default function CustomSelect({ field, change,label }: Props) {
 
+    const [test, setTest] = useState(false);
     const [list, setList] = useState<{ id: string, label: string }[] | null>(null)
     const [load, setLoad] = useState(true);
     const [active, setActive] = useState(false);
@@ -25,8 +26,13 @@ export default function CustomSelect({ field, change,label }: Props) {
 
     const AddSelect = (item: { id: string, label: string }) => {
         change({ label:item.label,value:item.id });
+    }
+
+    const ChangeActive = () => {
         setActive(!active);
     }
+
+    useEffect(() => setActive(false), [test])
 
     useEffect(() => {
         const ExecuteAsync = async () => {
@@ -42,12 +48,12 @@ export default function CustomSelect({ field, change,label }: Props) {
     }, [param])
 
     return (
-        <label className="form-control w-full relative">
+        <label className="w-full relative">
             <div className="label">
                 <span className="label-text font-semibold text-slate-900 drk:text-slate-300">{field.label}</span>
             </div>
             <Button
-                click={() => setActive(!active)}
+                click={ChangeActive}
                 type="button"
                 customClass="input input-sm input-bordered w-full text-slate-700 drk:text-slate-800 flex gap-3 flex-wrap"
             >
@@ -60,7 +66,7 @@ export default function CustomSelect({ field, change,label }: Props) {
                 <div className="absolute grid w-[100%] h-44 z-10 rounded-b-xl py-1 top-16 border overflow-y-auto bg-slate-50 drk:bg-slate-950 text-slate-900 drk:text-slate-300">
                     <Input
                         change={({value}:{name:string,value:string}) => setParam(value)}
-                        customClass="input input-sm text-gray-800 drk:text-gray-600 border border-slate-600"
+                        customClass="input input-sm w-full text-gray-800 drk:text-gray-600 border border-slate-600"
                         type="text"
                         name="param"
                     />
@@ -72,7 +78,10 @@ export default function CustomSelect({ field, change,label }: Props) {
                                     {
                                         list.map(item => (
                                             <Button
-                                                click={() => AddSelect(item)}
+                                                click={() => {
+                                                    AddSelect(item);
+                                                    setTest(!test);
+                                                }}
                                                 customClass="w-full border-b text-xs font-black py-2 hover:bg-slate-200 drk:hover:bg-slate-800"
                                                 text={item.label}
                                             />

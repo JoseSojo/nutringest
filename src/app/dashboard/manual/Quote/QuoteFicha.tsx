@@ -1,36 +1,35 @@
 import { useEffect, useState } from "react"
 import Subtitle from "../../../../UI/_atom/Subtitle"
-import { AbstractResponseCrud, ActionCrudInterface } from "../../../../types/DashboardInterface";
+// import { AbstractResponseCrud } from "../../../../types/DashboardInterface";
 import { API } from "../../../../entorno";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { REQUETS_GET_TOKEN } from "../../../../utils/req/RequetsOptions";
-import { useModal } from "../../../../_context/ModalContext";
-import AbstractCreate from "../../abstract/AbstractCreate";
-import AbstractUpdate from "../../abstract/AbstractUpdate";
-import AbstractDelete from "../../abstract/AbstractDelete";
+// import { useModal } from "../../../../_context/ModalContext";
+// import AbstractCreate from "../../abstract/AbstractCreate";
+// import AbstractUpdate from "../../abstract/AbstractUpdate";
+// import AbstractDelete from "../../abstract/AbstractDelete";
 import Button from "../../../../UI/_atom/Button";
-import { Icono } from "../../../../_handler/IconHandler";
-import ButtonHandler from "../../../../_handler/ButtonsHandler";
+// import { Icono } from "../../../../_handler/IconHandler";
+// import ButtonHandler from "../../../../_handler/ButtonsHandler";
 import ItemQuote from "./ItemQuote";
 import UpdateQuote from "./UpdateQuote";
 import PhotoQuote from "./PhotoQuote";
 import HistoryQuote from "./HistoryQuote";
 import DetailQuote from "./DetailQuote";
 import CalendarQuote from "./CalendarQuote";
+import PatientQuote from "./PatientQuote";
 
 export default function QuoteFicha() {
     const { id } = useParams() as { id: string };
     const [section, setSection] = useState(`FOOD`); // FOOD | EXCHANGE | MENU 
 
-    const modal = useModal();
-    const navigate = useNavigate();
+    // const modal = useModal();
+    // const navigate = useNavigate();
 
-    const [actionsList, setActionsList] = useState<ActionCrudInterface[] | null>(null);
-    const [actionsUnique, setActionsUnique] = useState<ActionCrudInterface[] | null>(null);
     const [object, setObject] = useState<any | null>(null);
     const [sections, setSections] = useState<any[] | null>(null)
 
-    const CustomRelaod = () => navigate(`/dashboard/quote`);
+    // const CustomRelaod = () => navigate(`/dashboard/quote`);
 
     useEffect(() => {
         const Execute = async () => {
@@ -39,36 +38,36 @@ export default function QuoteFicha() {
             const result = await fetch(url, req);
             const json = await result.json();
 
-            const urlGui = `${API}/gui/crud/quote`;
-            const reqGui = REQUETS_GET_TOKEN;
-            const resultGui = await fetch(urlGui, reqGui);
-            const jsonGui = await resultGui.json() as AbstractResponseCrud;
+            // const urlGui = `${API}/gui/crud/quote`;
+            // const reqGui = REQUETS_GET_TOKEN;
+            // const resultGui = await fetch(urlGui, reqGui);
+            // const jsonGui = await resultGui.json() as AbstractResponseCrud;
 
             setObject(json.body);
-            setActionsList(jsonGui.actionsList);
-            setActionsUnique(jsonGui.actionsUnique);
+            // setActionsList(jsonGui.actionsList);
+            // setActionsUnique(jsonGui.actionsUnique);
 
             if (json.sections) setSections(json.sections);
         }
         Execute();
     }, []);
 
-    const HandleChange = ({ action }: { action: ActionCrudInterface, id: string }) => {
-        if (action.use === "modal") {
-            if (action.ico === `create`) modal.show(<AbstractCreate crud={`quote`} reload={CustomRelaod} />);
-            else if (action.ico === `update`) modal.show(<AbstractUpdate crud={`quote`} reload={CustomRelaod} id={id} />);
-            else if (action.ico === `delete`) modal.show(<AbstractDelete crud={`quote`} reload={CustomRelaod} id={id} />);
-            // else if (action.ico === `remove`) modal.show(<AbstractRemove query="" pathGui="" crud={`quote`} reload={CustomRelaod} id={id} />);
-            // else if (action.ico === `assing`) modal.show(<AbstractAssing pathGui="" reloadVl={true} crud={`quote`} reload={CustomRelaod} id={id} />);
-            // else if(action.ico === `unique`) modal.show(<AbstractUnique crud={`quote`} reload={CustomRelaod} id={id} />);
-        } else if (action.use === "page") {
-            if (action.ico === `list`) navigate(`/dashboard/quote/`);
-            if (action.ico === `create`) navigate(`/dashboard/quote/create`);
-            else if (action.ico === `update`) navigate(`/dashboard/quote/update/${id}`);
-            else if (action.ico === `delete`) navigate(`/dashboard/quote/delete/${id}`);
-            else if (action.ico === `unique`) navigate(`/dashboard/quote/unique/${id}`);
-        }
-    }
+    // const HandleChange = ({ action }: { action: ActionCrudInterface, id: string }) => {
+    //     if (action.use === "modal") {
+    //         if (action.ico === `create`) modal.show(<AbstractCreate crud={`quote`} reload={CustomRelaod} />);
+    //         else if (action.ico === `update`) modal.show(<AbstractUpdate crud={`quote`} reload={CustomRelaod} id={id} />);
+    //         else if (action.ico === `delete`) modal.show(<AbstractDelete crud={`quote`} reload={CustomRelaod} id={id} />);
+    //         // else if (action.ico === `remove`) modal.show(<AbstractRemove query="" pathGui="" crud={`quote`} reload={CustomRelaod} id={id} />);
+    //         // else if (action.ico === `assing`) modal.show(<AbstractAssing pathGui="" reloadVl={true} crud={`quote`} reload={CustomRelaod} id={id} />);
+    //         // else if(action.ico === `unique`) modal.show(<AbstractUnique crud={`quote`} reload={CustomRelaod} id={id} />);
+    //     } else if (action.use === "page") {
+    //         if (action.ico === `list`) navigate(`/dashboard/quote/`);
+    //         if (action.ico === `create`) navigate(`/dashboard/quote/create`);
+    //         else if (action.ico === `update`) navigate(`/dashboard/quote/update/${id}`);
+    //         else if (action.ico === `delete`) navigate(`/dashboard/quote/delete/${id}`);
+    //         else if (action.ico === `unique`) navigate(`/dashboard/quote/unique/${id}`);
+    //     }
+    // }
 
     return (
         <>
@@ -80,33 +79,6 @@ export default function QuoteFicha() {
                                 <Subtitle customClass="text-xl text-slate-800" text={`Nutricionista: ${object.nutricionistReference.name} ${object.nutricionistReference.lastname}`} />
                                 <Subtitle customClass="text-xl text-slate-800" text={`Paciente: ${object.patientReference.name} ${object.patientReference.lastname}`} />
                             </div>
-                            <nav className="flex gap-3">
-                                {
-                                    actionsList && actionsList.map((action) => (
-                                        <Button
-                                            click={() => HandleChange({ action, id: `` })}
-                                            ico={Icono({ ico: action.ico })}
-                                            customClass={`${ButtonHandler({ param: action.ico })} btn btn-sm border-none`}
-                                            text={action.label}
-                                        />
-                                    ))
-                                }
-                                {
-                                    actionsUnique && actionsUnique.map((action) => {
-                                        if (action.ico === `show` || action.ico === `unique`) return;
-                                        if (action.ico === `update` || action.ico === `unique`) return;
-
-                                        return (
-                                            <Button
-                                                click={() => HandleChange({ action, id: `` })}
-                                                ico={Icono({ ico: action.ico })}
-                                                customClass={`${ButtonHandler({ param: action.ico })} btn btn-sm border-none`}
-                                                text={action.label}
-                                            />
-                                        )
-                                    })
-                                }
-                            </nav>
                         </div>
 
 
@@ -128,6 +100,7 @@ export default function QuoteFicha() {
                                 {section === `PHOTO` && <PhotoQuote id={object.id} />}
                                 {section === `HISTORY` && <HistoryQuote id={object.id} />}
                                 {section === `CALENDAR` && <CalendarQuote id={object.id} />}
+                                {section === `PATIENT` && <PatientQuote id={object.patientId} />}
                             </div>
                         </div>
 

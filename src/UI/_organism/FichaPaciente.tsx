@@ -1,24 +1,51 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { API } from "../../entorno";
 import { REQUETS_GET_TOKEN } from "../../utils/req/RequetsOptions";
 import Subtitle from "../_atom/Subtitle";
+import Button from "../_atom/Button";
+import ButtonHandler from "../../_handler/ButtonsHandler";
+import { Icono } from "../../_handler/IconHandler";
+import TextDefPatient from "./Form/TextDefPatient";
+import Text from "../_atom/Text";
 
-export default function FichaPaciente() {
-    const { id } = useParams() as { id: string };
+export default function FichaPaciente({customId,options}:{customId:string,options?:boolean}) {
+    const navigate = useNavigate();
 
-    const [user, setUser] = useState<any | null>(null);
     const [load, setLoad] = useState(true);
+    const [data, setData] = useState<any | null>(null);
+    const [heredofamiliares, setHeredofamiliares] = useState<any[] | null>(null);
+    const [personalesPatologicos, setPersonalesPatologicos] = useState<any[] | null>(null);
+    const [personalesNoPatologicos, setPersonalesNoPatologicos] = useState<any[] | null>(null);
+    const [ginecoObstretricos, setGinecoObstretricos] = useState<any[] | null>(null);
+    const [trastornosGastroinstestinales, setTrastornosGastroinstestinales] = useState<any[] | null>(null);
+    const [habitosAlimentacion, setHabitosAlimentacion] = useState<any[] | null>(null);
+    const [redordatorio24Horas, setRedordatorio24Horas] = useState<any[] | null>(null);
+    const [indicadorAntropometico, setIndicadorAntropometico] = useState<any[] | null>(null);
+    const [recomendaciones, setRecomendaciones] = useState<any | null>(null);
 
     useEffect(() => {
         const ExecuteRequets = async () => {
             setLoad(true);
-            const url = `${API}/patient/${id}/unique`;
+            const url = `${API}/patient/${customId}/unique`;
             const req = REQUETS_GET_TOKEN;
             const result = await fetch(url, req);
             const json = await result.json();
-            console.log(json.body.body.data);
-            setUser(json.body.body.data);
+            console.log(json.body.body);
+            const userNotPatient = { ...json.body.body.data, patientData: null }
+            const userWithData = json.body.body.data.patientData;
+
+            setData(userNotPatient);
+            setHeredofamiliares(userWithData.heredofamiliares);
+            setPersonalesPatologicos(userWithData.personalesPatologicos);
+            setPersonalesNoPatologicos(userWithData.personalesNPatologicos);
+            setGinecoObstretricos(userWithData.ginecoObstretricos);
+            setTrastornosGastroinstestinales(userWithData.trastornosGastroinstestinales);
+            setHabitosAlimentacion(userWithData.habitosAlimentacion);
+            setRedordatorio24Horas(userWithData.redordatorio24Horas);
+            setIndicadorAntropometico(userWithData.indicadorAntropometico);
+            setRecomendaciones({ diagnostico: userWithData.diagnostico, sleep: userWithData.sleep, exercises: userWithData.exercises, });
+
             setLoad(false);
         }
         ExecuteRequets();
@@ -31,24 +58,138 @@ export default function FichaPaciente() {
                     ? <div className="flex py-5 justify-center items-center">
                         <i className="loading loading-spinner"></i>
                     </div>
-                    : <div className="max-w-xl bg-white shadow py-5 px-3 m-auto rounded-lg">
-                        {
-                            user
-                                ? <>
-                                    <Subtitle customClass="text-2xl text-center font-bold text-gray-700" text={`${user.name ? user.name : `(Sin nombre)`} ${user.lastname ? user.lastname : `(Sin apellido)`}`} />
-                                    <ul className="grid gap-2">
-                                        <li className="grid border-b px-5 grid-cols-[35%_1fr]">Usuario: <b>{user.username ? user.username : `Sin definir`}</b></li>
-                                        <li className="grid border-b px-5 grid-cols-[35%_1fr]">Correo: <b>{user.email ? user.email : `Sin definir`}</b></li>
-                                        <li className="grid border-b px-5 grid-cols-[35%_1fr]">Teléfono: <b>{user.phone ? user.phone : `Sin definir`}</b></li>
-                                        <li className="grid border-b px-5 grid-cols-[35%_1fr]">Edad: <b>{user.age ? user.age : `Sin definir`}</b></li>
-                                        <li className="grid border-b px-5 grid-cols-[35%_1fr]">Creado él: <b>{user.createAt ? user.createAt : `Sin definir`}</b></li>
-                                        <li className="grid border-b px-5 grid-cols-[35%_1fr]">Última actualización: <b>{user.updateAt ? user.updateAt : `Sin definir`}</b></li>
-                                    </ul>
+                    :
+                    <div className="grid gap-4">
+                        <div className="flex justify-between">
+                            <Subtitle customClass="text-2xl font-bold" text={`Ficha: ${data.name} ${data.lastname}`} />
+                            {options && <div className="flex gap-3">
+                                <Button
+                                    click={() => navigate(`/dashboard/patient/create`, { replace: true })}
+                                    customClass={`${ButtonHandler({ param: `create` })} btn-sm`}
+                                    ico={Icono({ ico: `create` })}
+                                    text="Crear"
+                                />
+                                <Button
+                                    click={() => navigate(`/dashboard/patient/update/${customId}`, { replace: true })}
+                                    customClass={`${ButtonHandler({ param: `update` })} btn-sm`}
+                                    ico={Icono({ ico: `update` })}
+                                    text="Actualizar"
+                                />
+                                <Button
+                                    click={() => navigate(`/dashboard/patient`, { replace: true })}
+                                    customClass={`${ButtonHandler({ param: `list` })} btn-sm`}
+                                    ico={Icono({ ico: `list` })}
+                                    text="Lista"
+                                />
+                            </div>}
+                        </div>
+
+                        <div className="grid grid-cols-12 p-2 gap-2">
+                            {
+                                data && <>
+                                    <TextDefPatient item={[`Nombre`, data.name]} cols="col-span-4" />
+                                    <TextDefPatient item={[`Apellido`, data.lastname]} cols="col-span-4" />
+                                    <TextDefPatient item={[`F/N`, data.fn.split(`T`)[0]]} cols="col-span-4" />
+                                    <TextDefPatient item={[`Edad`, data.age]} cols="col-span-2" />
+
+                                    <TextDefPatient item={[`Sexo`, data.genero]} cols="col-span-2" />
+                                    <TextDefPatient item={[`Estado Civíl`, data.edoCivil]} cols="col-span-3" />
+                                    <TextDefPatient item={[`Ocupación`, data.ocupacion]} cols="col-span-3" />
+                                    <TextDefPatient item={[`Teléfono`, data.phone]} cols="col-span-2" />
                                 </>
-                                : <div>
-                                    <Subtitle customClass="text-2xl text-center font-bold text-gray-700" text={`No se encontró el paciente`} />
+                            }
+                            {/* <TextDefPatient item={[`Dirección`,data.name]} cols="col-span-2" /> */}
+
+
+                            <div className="col-span-12 grid lg:grid-cols-2 mt-4 p-2 gap-5">
+
+                                <div className="grid gap-2 border rounded">
+                                    <Subtitle customClass="bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Antecedentes Heredofamiliares" />
+
+                                    {
+                                        heredofamiliares && heredofamiliares.map((item) => <TextDefPatient cols="" item={item} />)
+                                    }
                                 </div>
-                        }
+
+                                <div className="grid gap-2 border rounded">
+                                    <Subtitle customClass="bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Antecedentes Personales Patológicos" />
+                                    {
+                                        personalesPatologicos && personalesPatologicos.map((item) => <TextDefPatient cols="col-span-1" item={item} />)
+                                    }
+                                </div>
+
+                                <div className="grid">
+                                    <div className="grid gap-2 border rounded">
+                                        <Subtitle customClass="bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Antecedentes Personales No Patológicos" />
+
+                                        {
+                                            personalesNoPatologicos && personalesNoPatologicos.map((item) => <TextDefPatient cols="col-span-1" item={item} />)
+                                        }
+                                    </div>
+                                    <div className="grid gap-2 grid-cols-12 border rounded">
+                                        <Subtitle customClass="col-span-12 bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Antecedentes Gineco-obstétricos" />
+
+                                        {
+                                            ginecoObstretricos && ginecoObstretricos.map((item) => <TextDefPatient cols="col-span-4" col item={item} />)
+                                        }
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-4 border rounded">
+                                    <Subtitle customClass="col-span-4 bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Transtornos gastrointestinales" />
+
+                                    <Text customClass="text-lg font-bold col-span-1" text={`Sintoma`} />
+                                    <Text customClass="text-lg font-bold col-span-1" text={`Frecuencia`} />
+                                    <Text customClass="text-lg font-bold col-span-1" text={`Sintoma`} />
+                                    <Text customClass="text-lg font-bold col-span-1" text={`Frecuencia`} />
+
+                                    {
+                                        trastornosGastroinstestinales && trastornosGastroinstestinales.map((item) => <TextDefPatient cols="col-span-2" item={item} />)
+                                    }
+                                </div>
+
+                                <div className="col-span-2 grid grid-cols-12 gap-2 border rounded">
+                                    <Subtitle customClass="col-span-12 bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Habitos de Alimentación" />
+
+                                    {
+                                        habitosAlimentacion && habitosAlimentacion.map((item) => <TextDefPatient cols="col-span-4" col item={item} />)
+                                    }
+                                </div>
+
+                                <div className="col-span-2 grid gap-2 border rounded">
+                                    <Subtitle customClass=" bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Recordatorio 24 horas" />
+
+                                    {
+                                        redordatorio24Horas && redordatorio24Horas.map((item) => <TextDefPatient cols="" item={item} />)
+                                    }
+                                </div>
+
+                                <div className="grid grid-cols-12 gap-2 border rounded">
+                                    <Subtitle customClass="col-span-12 bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Indicadores Antropométrico" />
+                                    {
+                                        indicadorAntropometico && indicadorAntropometico.map((item) => <TextDefPatient cols="col-span-6" col item={item} />)
+                                    }
+                                </div>
+
+                                <div className="flex flex-col bg-white rounded-b gap-2 border rounded">
+                                    <Subtitle customClass="bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Diagnostico Nutricional" />
+
+                                    <Text customClass="h-full px-3" text={recomendaciones.diagnostico} />
+                                </div>
+
+                                <div className="flex flex-col bg-white rounded-b gap-2 border rounded">
+                                    <Subtitle customClass="bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Recomendación Sueño" />
+
+                                    <Text customClass="h-full px-3" text={recomendaciones.sleep} />
+                                </div>
+
+                                <div className="flex flex-col bg-white rounded-b gap-2 border rounded">
+                                    <Subtitle customClass="bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Recomiendación Ejercicio" />
+
+                                    <Text customClass="h-full px-3 py-2" text={recomendaciones.exercises} />
+                                </div>
+                            </div>
+                        </div>
                     </div>
             }
         </div>

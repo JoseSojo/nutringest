@@ -27,7 +27,8 @@ export default function UpdateMenu() {
     const [param, setParam] = useState(``);
     const [data, setData] = useState<{ name?: string, description?: string, type?: string } | null>(null);
 
-    const [foodSelect, setFoodSelect] = useState<{ unity?: { id: string, label: string }, food: { id: string, label: string }, quantity?: string | number }[] | null>(null);
+    const [foodSelect, setFoodSelect] = useState<{ id:string, unity?: { id: string, label: string }, food: { id: string, label: string }, quantity?: string | number }[] | null>(null);
+    const [foodDelete, setFoodDelete] = useState<{ id:string, unity?: { id: string, label: string }, food: { id: string, label: string }, quantity?: string | number }[] | null>(null);
 
     const HandleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -42,7 +43,8 @@ export default function UpdateMenu() {
             name: data.name,
             description: data.description ? data.description : null,
             type: data.type ? data.type : null,
-            foods: foodSelect
+            foods: foodSelect,
+            delete: foodDelete,
         }
 
         const ExecuteRequets = async () => {
@@ -76,9 +78,9 @@ export default function UpdateMenu() {
         setData(newData);
     }
 
-    const AddFood = ({name,value}:{ name: string, value: string }) => {
+    const AddFood = ({name,value,id}:{ name: string, value: string,id:string }) => {
         const prev = foodSelect && foodSelect.length > 0 ? foodSelect : [];
-        prev.push({ food:{id:value,label:name} });
+        prev.push({ id,food:{id:value,label:name} });
         const customValue = prev;
         setFoodSelect(customValue);
         ReloadFoodSelect();
@@ -86,6 +88,10 @@ export default function UpdateMenu() {
 
     const RemoveFoodSelect = (index: number) => {
         if (!foodSelect) return;
+        const prevDelete = foodDelete ? foodDelete : [];
+        prevDelete.push(foodSelect[index]);
+        setFoodDelete(prevDelete);
+
         const prev = foodSelect.filter((_, i) => i !== index);;
         setFoodSelect(prev);
     }
@@ -99,7 +105,7 @@ export default function UpdateMenu() {
     function AddFoodList (item: any): ReactNode {
         return (
             <Button 
-                click={() => AddFood({ name:item.name,value:item.id })}
+                click={() => AddFood({ name:item.name,value:item.id,id:item.id })}
                 customClass={`${ButtonHandler({ param:`update` })} btn-sm text-xs`} 
                 text="agregar"
                 />
@@ -123,6 +129,7 @@ export default function UpdateMenu() {
             const foods = json.body.foods as any[];
             foods.forEach((food) => {
                 currentFood.push({
+                    id:food.id,
                     food: { id: food.foodPrimitiveReference.id, label: food.foodPrimitiveReference.name },
                     quantity: food.quentity
                 });
@@ -137,7 +144,7 @@ export default function UpdateMenu() {
     return (
         <div className="w-full">
             <header className="flex items-center justify-between">
-                <Title customClass="text-2xl font-black" text={`Actualizar ${data?.name}`} />
+                <Title customClass="text-2xl font-black" text={`${foodDelete?.length} Actualizar ${data?.name}`} />
                 <ul className="flex gap-3 mt-3">
                     <li>
                         <ButtonSubmit />

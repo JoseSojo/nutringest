@@ -4,11 +4,11 @@ import Button from "../../../../UI/_atom/Button";
 import { Icono } from "../../../../_handler/IconHandler";
 import ButtonHandler from "../../../../_handler/ButtonsHandler";
 import CustomInput from "../../../../UI/_organism/DataUser/component/CustomInput";
-import CustomSelect from "../../../../UI/_organism/DataUser/component/CustomSelect";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { API } from "../../../../entorno";
 import { REQUETS_POST_TOKEN } from "../../../../utils/req/RequetsOptions";
 import { useNotification } from "../../../../_context/NotificationContext";
+import CustomSelect from "../../../../UI/_compound/form/CustomSelect";
 
 export default function QuoteCreate() {
     const navigate = useNavigate();
@@ -16,8 +16,8 @@ export default function QuoteCreate() {
 
     const [data, setData] = useState<any | null>(null);
 
-    const HandleChange = ({value}:{name:string,value:string}) => {
-        const prev = {...data, patient:value};
+    const HandleChange = ({value,name}:{name:string,value:string}) => {
+        const prev = {...data, patient:value, patientName:name};
         setData(prev);
     }
 
@@ -64,7 +64,7 @@ export default function QuoteCreate() {
                 </ul>
             </header>
 
-            <form onSubmit={HandleSubmit} className="grid grid-cols-12 gap-x-3 gap-y-1">
+            <form onSubmit={HandleSubmit} className="grid grid-cols-3 gap-x-3 gap-y-1">
                 <div className="flex justify-end col-span-12 mt-3">
                     <Button
                         type="submit"
@@ -74,9 +74,17 @@ export default function QuoteCreate() {
                     />
                 </div>
                 <CustomSelect
-                    change={HandleChange}
-                    select="mypatient"
-                    label="Paciente"
+                    label={data && data.patient && data.patientName ? data.patientName : `Paciente`}
+                    change={({label,value}:{label:string,value:string}) => {
+                        HandleChange({ value,name:label })
+                    }}
+                    field={{
+                        label: `Paciente`,
+                        select: {
+                            active: true,
+                            in:`mypatient`
+                        }
+                    }}
                 />
 
                 <CustomInput
@@ -101,7 +109,7 @@ export default function QuoteCreate() {
                     <span className="text-sm font-semibold select-none">Descripción de la cita</span>
                     <textarea
                         onChange={HandleChangeInput}
-                        className="min-h-20 h-24 max-h-36 input input-sm border border-gray-700 drk:border-gray-100 outline-none bg-white select-none outline-none"
+                        className="min-h-20 h-24 max-h-36 input input-sm border border-gray-700 drk:border-gray-100 bg-white select-none outline-none"
                     ></textarea>
                 </label>
 
@@ -109,7 +117,7 @@ export default function QuoteCreate() {
                     <span className="text-sm font-semibold select-none">Recomendación de sueño/descanso</span>
                     <textarea
                         onChange={HandleChangeInput}
-                        className="min-h-20 h-24 max-h-36 input input-sm border border-gray-700 drk:border-gray-100 outline-none bg-white select-none outline-none"
+                        className="min-h-20 h-24 max-h-36 input input-sm border border-gray-700 drk:border-gray-100 bg-white select-none outline-none"
                     ></textarea>
                 </label>
 
@@ -119,7 +127,7 @@ export default function QuoteCreate() {
                     </span>
                     <textarea
                         onChange={HandleChangeInput}
-                        className="min-h-20 h-24 max-h-36 input input-sm border border-gray-700 drk:border-gray-100 outline-none bg-white select-none outline-none"
+                        className="min-h-20 h-24 max-h-36 input input-sm border border-gray-700 drk:border-gray-100 bg-white select-none outline-none"
                     ></textarea>
                 </label>
 

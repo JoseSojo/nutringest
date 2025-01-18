@@ -81,7 +81,7 @@ export default function AbstractList({ crud, actions, reload, change,param,min,q
                                                     }}
                                                     className="py-1 px-2 outline-none rounded-lg h-full text-xs font-black bg-emerald-500 hover:bg-emerald-600 drk:bg-emerald-800 drk:hover:bg-emerald-900 text-white">
 
-                                                    <option className="bg-slate-100 drk:bg-slate-900">...</option>
+                                                    <option className="bg-slate-100 drk:bg-slate-900">acciones</option>
                                                     {
                                                         actions.map((ac, i) => (
                                                             <option value={i} className="bg-slate-100 text-gray-700 drk:bg-slate-900 drk:text-gray-500">

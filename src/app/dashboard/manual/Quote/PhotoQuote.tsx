@@ -1,3 +1,4 @@
+import { useState } from "react";
 import PaginateQuote from "./components/PaginatePhoto";
 import UploadPhoto from "./components/UploadPhoto"
 
@@ -7,7 +8,8 @@ interface Props {
 
 export default function PhotoQuote({id}:Props) {
 
-    const CustomReload = () => {}
+    const [reload, setReload] = useState(false);
+    const CustomReload = () => setReload(!reload);
 
     return (
         <div className="grid grid-cols-[35%_1fr] gap-5">
@@ -15,7 +17,7 @@ export default function PhotoQuote({id}:Props) {
                 <UploadPhoto reload={CustomReload} quote={id} />
             </div>
             <div>
-                <PaginateQuote quote={id} reload />
+                <PaginateQuote quote={id} reload={reload} />
             </div>
         </div>
     )

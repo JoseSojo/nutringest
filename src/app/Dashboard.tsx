@@ -1,7 +1,8 @@
 import AgendToDay from "../UI/_organism/Dashboard/AgendToDay";
 import SectionCard from "../UI/_organism/Dashboard/SectionCard";
-import SectionCoupon from "../UI/_organism/Dashboard/SectionCoupon";
 import DrawenerContent from "../UI/_template/DrawenerContent";
+import Calendar from "../UI/_organism/Dashboard/Calendar";
+
 
 export default function Dashboard () {
 
@@ -9,8 +10,7 @@ export default function Dashboard () {
         <div className="">
             <DrawenerContent/>
             <SectionCard />
-
-            <SectionCoupon />            
+            <Calendar id="" />
 
             <AgendToDay /> 
             {/* <AgendRelease /> */}

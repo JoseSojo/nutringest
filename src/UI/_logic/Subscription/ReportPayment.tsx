@@ -77,9 +77,9 @@ export default function ReportPayment({ reload }: Props) {
                                     field={{
                                         beforeType: `date`,
                                         id: `key.report.payment.date`,
-                                        label: `Fecha`,
+                                        label: `Monto`,
                                         name: `date`,
-                                        placeholder: `Fecha`,
+                                        placeholder: `Monto`,
                                         required: true,
                                         type: `input`
                                     }}

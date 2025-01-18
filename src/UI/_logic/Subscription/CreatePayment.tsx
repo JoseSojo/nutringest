@@ -41,7 +41,6 @@ export default function CreatePayment({ reload }: Props) {
     
             const url = `${API}/user/create/payment`;
             const req = { ...REQUETS_POST_TOKEN, body: JSON.stringify({ payment: payment.id,description:refDescription.current?.value }) };
-            alert(url);
             const result = await fetch(url, req);
             const json = await result.json();
 

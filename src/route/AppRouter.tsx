@@ -26,8 +26,7 @@ import CalendarPage from "../app/Calendar";
 import Porfolio from "../UI/_organism/Porfolio/Porfolio";
 import Setting from "../UI/_organism/Settings/Settings";
 import Finanzas from "../app/Finanzas";
-import FichaPaciente from "../UI/_organism/FichaPaciente";
-// import UpdateMenu from "../app/dashboard/manual/Menu/UpdateMenu";
+import RenderPatientRoute from "../UI/_organism/RenderPatientRoute";
 
 const router = createBrowserRouter([
     {
@@ -81,7 +80,7 @@ const router = createBrowserRouter([
             },
             {
                 path: `/dashboard/patient/unique/:id`,
-                element: <CustomDashboardTemplate><FichaPaciente /></CustomDashboardTemplate>
+                element: <CustomDashboardTemplate><RenderPatientRoute /></CustomDashboardTemplate>
             },
             {
                 path: `/dashboard/quote/create`,

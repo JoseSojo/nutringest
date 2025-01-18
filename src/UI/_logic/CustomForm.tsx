@@ -12,7 +12,7 @@ export default function CustomForm({ name, auth }: Props) {
     const { form } = useCustomForm({ name, auth,action:"create" });
 
     const HandleChange = ({value, name}:{ value:string, name: string }) => {
-        alert(`${name}, ${value}`);
+        console.log(`${name}, ${value}`);
     }
 
     return (

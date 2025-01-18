@@ -41,7 +41,6 @@ export default function Register() {
             setLoad(true);
 
             const url = `${API}/auth/register`;
-            alert(url);
             const req = {
                 ...REQUETS_POST,
                 body: JSON.stringify(data)
