@@ -148,8 +148,8 @@ export default function CreatePatient() {
                     <InputDefPatient getName change={HandleChange} name="birtdate" cols="col-span-2" label="F/N" type="date" />
 
                     <InputDefPatient getName change={HandleChange} name="age" cols="col-span-2" label="Edad" type="number" />
-                    <SelectDefPatient change={HandleChange} name="genero" cols="col-span-3" label="Genero" options={[`Masculino`, `Femenino`]} />
-                    <SelectDefPatient change={HandleChange} name="edoCivil" cols="col-span-3" label="Edo Civíl" options={[`Soltero`, `Casado`, `Viudo`, `Divorciado`]} />
+                    <SelectDefPatient getName change={HandleChange} name="genero" cols="col-span-3" label="Genero" options={[`Masculino`, `Femenino`]} />
+                    <SelectDefPatient getName change={HandleChange} name="edoCivil" cols="col-span-3" label="Edo Civíl" options={[`Soltero`, `Casado`, `Viudo`, `Divorciado`]} />
                     <InputDefPatient getName change={HandleChange} name="ocupacion" cols="col-span-2" label="Ocupacion" type="text" />
                     <InputDefPatient getName change={HandleChange} name="phone" cols="col-span-2" label="Telefono" type="text" />
 

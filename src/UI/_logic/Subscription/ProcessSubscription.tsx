@@ -28,12 +28,13 @@ export default function ProcessSubscription({ paymentId, mount, item }: Props) {
             const req = {...REQUETS_POST_TOKEN};
             const result = await fetch(url, req);
             const json = await result.json();
+            console.log(json);
             if(!result.ok) {
                 noti.setMessage({ active:true,message:`Error al cambiar la subscripción`, type:`error` });
                 return;
             }
 
-            noti.setMessage({ active:true,message:json.message, type:`error` });
+            noti.setMessage({ active:true,message:json.message, type:`success` });
 
         }
         ExecuteAssync();

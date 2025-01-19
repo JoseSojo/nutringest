@@ -69,58 +69,60 @@ export default function AcceptCreate({ item }: Props) {
             <ProcessSubscription
                 item={item}
                 mount={(Number(item.defaultMount) * Number(item.countMonth)) - Number(restore)}
-                paymentId = {paymentMethod.paymentReference.id}
+                paymentId={paymentMethod.paymentReference.id}
             />
-                 
+
         );
-}
+    }
 
-return (
-    <div className="max-w-xl m-auto p-3 bg-white shadow rounded-lg grid place-items-center">
-        <Subtitle customClass="text-center text-lg font-semibold" text={`Subscripción seleccionada: ${item.name}`} />
-        <u>
-            <li className="grid grid-cols-2 gap-3 list-none">Meses aviles de la subscripción: <b>{item.countMonth}</b></li>
-            <li className="grid grid-cols-2 gap-3 list-none">Valor por mes: <b>{item.defaultMount} $</b></li>
-            <li className="grid grid-cols-2 gap-3 list-none">Total a pagar: <b>{(item.defaultMount * item.countMonth) - restore} $</b></li>
-            <li className="grid grid-cols-2 gap-3 list-none"><i className="text-sm mt-2">(cupones {restore} $)</i></li>
-        </u>
+    return (
+        <div className="max-w-xl m-auto p-3 bg-white shadow rounded-lg grid place-items-center">
+            <Subtitle customClass="text-center text-lg font-semibold" text={`Subscripción seleccionada: ${item.name}`} />
+            <u>
+                <li className="grid grid-cols-2 gap-3 list-none">Meses aviles de la subscripción: <b>{item.countMonth}</b></li>
+                <li className="grid grid-cols-2 gap-3 list-none">Valor por mes: <b>{item.defaultMount} $</b></li>
+                <li className="grid grid-cols-2 gap-3 list-none">Total a pagar: <b>{(item.defaultMount * item.countMonth) - restore} $</b></li>
+                <li className="grid grid-cols-2 gap-3 list-none"><i className="text-sm mt-2">(cupones {restore} $)</i></li>
+            </u>
 
-        {
-            paymentMethod
-                ? <>
-                    <p className="text-lg text-center mt-3">Método de pago: <b>{paymentMethod.paymentReference.name}</b></p>
-                </>
-                : <>
-                    {error && <p className="text-sm badge badge-error text-white font-bold text-center mt-3">{error}</p>}
-                    <AbstractList ActionButtons={HandleAction} actions={[]} change={() => { }} crud="user/payment/my" param="" reload />
-                </>
-        }
+            {
+                paymentMethod
+                    ? <>
+                        <p className="text-lg text-center mt-3">Método de pago: <b>{paymentMethod.paymentReference.name}</b></p>
+                    </>
+                    : <>
+                        {error && <p className="text-sm badge badge-error text-white font-bold text-center mt-3">{error}</p>}
+                        <Subtitle customClass="" text="Mis métodos de pago" />
+                        <AbstractList ActionButtons={HandleAction} actions={[]} change={() => { }} crud="user/payment/my" param="" reload />
+                    </>
+            }
 
-        {
-            coupons && coupons.length > 0 &&
-            <div className="flex justify-center items-center flex-wrap gap-3">
-                <i className="badge badge-neutral badge-sm text-xs py-3 font-bold border-slate-500">(cupones {restore} $)</i>
-                {coupons.map(cp => (<Button customClass="badge badge-xs py-3 text-xs font-bold border-slate-500">{cp.description}</Button>))}
-            </div>
-        }
+            {
+                coupons && coupons.length > 0 &&
+                <div className="flex justify-center items-center flex-wrap gap-3">
+                    <i className="badge badge-neutral badge-sm text-xs py-3 font-bold border-slate-500">(cupones {restore} $)</i>
+                    {coupons.map(cp => (<Button customClass="badge badge-xs py-3 text-xs font-bold border-slate-500">{cp.description}</Button>))}
+                </div>
+            }
 
-        <AbstractList
-            query={`?${queryIgnore}`}
-            ActionButtons={HandleCoupon}
-            min
-            actions={[]}
-            change={({ }) => { }}
-            crud="coupon"
-            param={``}
-            reload={reload}
-        />
+            <Subtitle customClass="" text="Mis cupones" />
+            <AbstractList
+                query={`?${queryIgnore}`}
+                ActionButtons={HandleCoupon}
+                min
+                actions={[]}
+                change={({ }) => { }}
+                crud="coupon"
+                param={``}
+                reload={reload}
+            />
 
-        <Button
-            click={HandleProcess}
-            customClass={`${ButtonHandler({ param: `update` })} btn-sm m-auto`}
-            text="Procesar"
-        />
+            <Button
+                click={HandleProcess}
+                customClass={`${ButtonHandler({ param: `update` })} btn-sm m-auto`}
+                text="Ver datos"
+            />
 
-    </div>
-)
+        </div>
+    )
 }

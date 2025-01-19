@@ -10,6 +10,7 @@ import UniquePayment from "../UI/_logic/Subscription/UniquePayment";
 import { IcoSelect } from "../UI/_compound/Icons/AllIcon";
 import CardWallet from "../UI/_logic/Wallet/CardWallet";
 import SectionCoupon from "../UI/_organism/Dashboard/SectionCoupon";
+import SelectPaymentMethod from "../UI/_logic/Subscription/SelectPaymentMethod";
 
 export default function Finanzas() {
 
@@ -61,6 +62,8 @@ export default function Finanzas() {
                         crud={`user/finance`} />
 
                     <SectionCoupon />
+
+                    <SelectPaymentMethod />
 
                 </div>
             </div>

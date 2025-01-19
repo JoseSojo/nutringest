@@ -24,6 +24,7 @@ type SECTIONS_INLINE =
     | `QUOTE`
     | `AGENDA`
     | `FINANZAS`
+    | `FUTURE`
 
 export default function InformationModal() {
 
@@ -52,12 +53,13 @@ export default function InformationModal() {
                     <CardInformation label="Perfil" valueChange={() => ChangeSection({ title: `Perfil`, value:`PROFILE` })} />
                     <CardInformation label="Portafolio" valueChange={() => ChangeSection({ title: `Portafolio`, value:`PORFOLIO` })} />
                     <CardInformation label="Configuración" valueChange={() => ChangeSection({ title: `Configuración`, value:`CONFIG` })} />
-                    <CardInformation label="Agenda" valueChange={() => ChangeSection({ title: `Agenda`, value:`AGENDA` })} />
+                    {/* <CardInformation label="Agenda" valueChange={() => ChangeSection({ title: `Agenda`, value:`AGENDA` })} /> */}
                     <CardInformation label="Finanzas" valueChange={() => ChangeSection({ title: `Agenda`, value:`FINANZAS` })} />
                     <CardInformation label="Mis Menús" valueChange={() => ChangeSection({ title: `Listas de intercambio`, value:`MENU` })} />
                     <CardInformation label="Listas de intercambio" valueChange={() => ChangeSection({ title: `Listas de intercambio`, value:`EXCHANGE` })} />
                     <CardInformation label="Mis Pacientes" valueChange={() => ChangeSection({ title: `Mis Pacientes`, value:`PATIENT` })} />
-                    <CardInformation label="Mis Citas" valueChange={() => ChangeSection({ title: `Mis Citas`, value:`QUOTE` })} />
+                    <CardInformation label="Mis Consultas" valueChange={() => ChangeSection({ title: `Mis Citas`, value:`QUOTE` })} />
+                    {/* <CardInformation label="Futuras Versiones" valueChange={() => ChangeSection({ title: `Futuras versiones`, value:`FUTURE` })} /> */}
                 </div>
             }
 

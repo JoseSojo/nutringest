@@ -1,6 +1,6 @@
 
 export const VERSION_API = `v1`;
-const dev = `` // 3.238.7.219
+const dev = `http://localhost:3005` // 3.238.7.219
 export const API = `${dev}/api/${VERSION_API}`// `/api/${VERSION_API}`;
 export const API_STATIC = `${dev}`;
 

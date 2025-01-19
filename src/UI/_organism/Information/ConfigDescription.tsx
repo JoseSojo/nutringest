@@ -31,14 +31,15 @@ export default function ConfigDescription() {
                 </>
                 : <>
                     <p className="mt-5">
-                        Puedes visualizar, la fecha de inicio y de fin de la subscripción, la subscripción que posees <i>(por defecto al crear la cuenta es <b>STONE</b>)</i>
+                        Puedes visualizar, la fecha de inicio y de fin de la subscripción, la subscripción que posees <i>(por defecto al crear la cuenta es <b>PRUEBA_GRATUITA</b>)</i>
                         <br />
-                        <Subtitle customClass="mt-3 text-md font-bold" text="Cambiar Subscripción" />
-                        Para cambiar la subscripción debes pulsar el botón azul "Cambiar Subscripción" al pulsarlo debes seleccionar
-                        por que subscripción quieres el cambio, luego seleccionas un método de pago, seleccionas los cupones que requieras
-                        en caso de que tengas cupones, le das procesar <i>(importante pulsar el botón procesar)</i>, luego realiza el pago
-                        correspondiente y reporta el pago, dicho pago será procesado por los administradores y se sumará el saldo a tu billetera,
-                        cuando sea el día de pago se actualizará tu subscripción y se restará el monto de la subscripción
+                        <Subtitle customClass="mt-3 text-md font-bold" text="Subscripción" />
+                        Para realizar un pago solo en esta sección solo debes pulsar el botón azul en la lista de subscripción,
+                        ahí visualizaras los datos de la subscripción el costo por mes a pagar por ella, y el total a pagar
+                        (el total a pagar variará en caso de aplicar algún cupón), luego puedes seleccionar en la lista de cupones
+                        en caso de tenerlos, y seleccionas el método de pago, pulsando el botón azul para pasar el siguiente pago
+                        debes pulsar el botón azul "Ver datos", al pulsarlo se mostrarán los datos del método que seleccionastes, 
+                        realiza el pago, luego reporta el pago seleccionando el método de pago, agregar la fecha, y el monto 
                     </p>
                 </>
         }

@@ -11,7 +11,7 @@ import { API } from "../../../entorno";
 import { REQUETS_POST_TOKEN } from "../../../utils/req/RequetsOptions";
 
 interface Props {
-    reload: () => void
+    reload: () => void;
 }
 
 export default function ReportPayment({ reload }: Props) {
@@ -38,7 +38,7 @@ export default function ReportPayment({ reload }: Props) {
 
         const ExecuteRequets = async () => {
             if (!data.date) return noti.setMessage({ active: true, message: `Debes agregar una fecha`, type: `error` });
-            if (!data.mount) return noti.setMessage({ active: true, message: `Debes agregar una fecha`, type: `error` });
+            if (!data.mount) return noti.setMessage({ active: true, message: `Debes agregar el monto`, type: `error` });
 
             const url = `${API}/user/create/finance`;
             const req = { ...REQUETS_POST_TOKEN, body: JSON.stringify({ payment: payment.id, date: data.date, mount: data.mount }) }
@@ -77,7 +77,7 @@ export default function ReportPayment({ reload }: Props) {
                                     field={{
                                         beforeType: `date`,
                                         id: `key.report.payment.date`,
-                                        label: `Monto`,
+                                        label: `Fecha`,
                                         name: `date`,
                                         placeholder: `Monto`,
                                         required: true,
@@ -91,7 +91,7 @@ export default function ReportPayment({ reload }: Props) {
                                     field={{
                                         beforeType: `number`,
                                         id: `key.report.payment.mount`,
-                                        label: `Fecha`,
+                                        label: `Monto`,
                                         name: `mount`,
                                         placeholder: `Monto`,
                                         required: true,

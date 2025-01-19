@@ -60,7 +60,7 @@ export default function CreatePayment({ reload }: Props) {
                         <Subtitle customClass="text-2xl font-bold text-center" text={`Método de pago`} />
                         <Subtitle customClass="text-xl font-bold text-center" text={`${payment.name}`} />
 
-                        <label className="mt-3 font-semibold text-lg">Sus datos</label>
+                        <label className="font-semibold text-md text-gray-600 my-5">Ingreses los datos para validar su pago, por ejemplo, correo, teléfono</label>
                         <textarea ref={refDescription} className="input w-full border border-gray-300 min-h-24 max-h-52" placeholder="Describa los datos de su método de pago (correo, cédula, teléfono)"></textarea>
                         <p className="text-xs text-start font-light text-gray-600">Describa los datos de su método de pago (correo, cédula, teléfono)</p>
 
