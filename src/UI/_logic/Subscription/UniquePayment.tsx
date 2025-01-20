@@ -22,7 +22,7 @@ export default function UniquePayment({ item,reload }: Props) {
     const [actionsUnique, setActionsUnique] = useState<ActionCrudInterface[] | null>(null);
 
     const ChangeStatus = async (status: string) => {
-        const customStatus = status === `success` ? `APROVADO` : `RECHAZADO`;
+        const customStatus = status === `success` ? `APROBADO` : `RECHAZADO`;
         const url = `${API}/user/update/${item.id}/finance/?status=${customStatus}`;
         const req = REQUETS_PUT_TOKEN;
         const result = await fetch(url, req);

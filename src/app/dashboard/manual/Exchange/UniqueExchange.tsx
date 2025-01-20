@@ -15,11 +15,12 @@ export default function UniqueExchange() {
     const navigate = useNavigate();
 
     const [data, setData] = useState<{ name?: string, unity?: { id: string, label: string }, ration?: string | number } | null>(null);
-
+    const [load, setLoad] = useState(true);
     const [foodSelect, setFoodSelect] = useState<{ id: string, unity?: { id: string, label: string }, food: { id: string, label: string }, ration?: string | number }[] | null>(null);
 
     useEffect(() => {
         const RequetsAsync = async () => {
+            setLoad(true);
             const url = `${API}/exchange/${id}/unique`;
             const req = REQUETS_GET_TOKEN;
             const result = await fetch(url, req);
@@ -44,13 +45,17 @@ export default function UniqueExchange() {
 
             setData(currenData);
             setFoodSelect(currentFood);
-
+            setLoad(false);
         }
         RequetsAsync();
     }, []);
 
-    return (
-        <div className="w-full">
+    return load 
+    ? (
+        <span className="loading loading-spinner"></span>
+    )
+    : (
+        <div className="w-full duration-200">
             <header className="flex items-center justify-between">
                 <Title customClass="text-2xl font-black" text={`Actualizar ${data?.name}`} />
                 <ul className="flex gap-3 mt-3">
@@ -93,7 +98,6 @@ export default function UniqueExchange() {
                 </div>
 
             </div>
-
         </div>
     )
 }

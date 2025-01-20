@@ -28,7 +28,7 @@ function Card() {
 
     return <p>
         En la parte superior se puede observar una tarjetas, donde puedes ver el saldo que tienes, los pagos totales realizados, 
-        los pagos APROVADOS, y los pagos RECHAZADOS, en caso de que un pago sea RECHAZADO un administrador se podrá en contacto 
+        los pagos APROBADOS, y los pagos RECHAZADOS, en caso de que un pago sea RECHAZADO un administrador se podrá en contacto 
         con usted, para determinar si fue un mal entendido, u ocurrió algún problema al realizar el pago. también se puede visualizar la 
         tasa de cambio para el banco central de venezuela.
     </p>
@@ -46,6 +46,6 @@ function List() {
 
     return <p>
         Aquí se mostrará una lista con los pagos realizados, al pulsar en el botón de la izquierda se puede visualizar los
-        datos del pago, su estado (EN ESPERA, APROVADO, RECHAZADO), la fecha, el método de pago empleado, y el monto.
+        datos del pago, su estado (EN ESPERA, APROBADO, RECHAZADO), la fecha, el método de pago empleado, y el monto.
     </p>
 }

@@ -3,33 +3,13 @@ import { Sidebar as SidebarTP } from "../../types/DashboardInterface";
 import { API } from "../../entorno";
 import { REQUETS_GET_TOKEN } from "../../utils/req/RequetsOptions";
 import SidebarItem from "../_compound/SidebarItem";
+import Image from "../_atom/Image";
 
 
 export default function Sidebar() {
 
     const [slide, setSlide] = useState<SidebarTP[] | null>(null);
     const refDiv = useRef<HTMLDivElement | null>(null);
-    const [width, setWidth] = useState(0);
-
-    useEffect(() => {
-        // Función para actualizar el ancho
-        const updateWidth = () => {
-            if (refDiv.current) {
-                setWidth(refDiv.current.offsetWidth);
-            }
-        };
-
-        // Ejecutar la función de actualización al montar el componente
-        updateWidth();
-
-        // Escuchar el evento de resize para actualizar el ancho si cambia el tamaño de la ventana
-        window.addEventListener('resize', updateWidth);
-
-        // Limpiar el efecto eliminando el event listener al desmontar el componente
-        return () => {
-            window.removeEventListener('resize', updateWidth);
-        };
-    }, []);
 
     useEffect(() => {
         const ExecuteAsync = async () => {
@@ -47,12 +27,17 @@ export default function Sidebar() {
 
     return (
         <>
-
             <div ref={refDiv} className="hidden md:block"></div>
 
             {/* SIDEBAR DESTOK START */}
-            <div style={{ width: width }} className="hidden md:flex flex-col pt-5 h-full fixed bg-gray-50 border-r border-slate-800 min-h-screen">
-                <span className="flex items-center w-full px-3 mt-3">
+            <div className="w-64 flex flex-col pt-5 h-full fixed bg-gray-50 border-r border-slate-800 min-h-screen">
+                <span className="flex items-center w-full px-3 mt-3 flex-col">
+                    <div className="avatar">
+                        <div className="w-24 rounded-full">
+                            <Image path="/android-chrome-512x512.png" alt="" customClass="avatar" />
+                        </div>
+                    </div>
+            
                     <span className="text-sm font-bold m-auto hidden lg:block">NUTRINGEST</span>
                     <span className="text-sm font-bold m-auto block lg:hidden">NNG</span>
                 </span>

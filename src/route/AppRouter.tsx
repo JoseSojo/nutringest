@@ -27,6 +27,7 @@ import Porfolio from "../UI/_organism/Porfolio/Porfolio";
 import Setting from "../UI/_organism/Settings/Settings";
 import Finanzas from "../app/Finanzas";
 import RenderPatientRoute from "../UI/_organism/RenderPatientRoute";
+import ExpirationBanner from "../UI/_organism/Dashboard/ExpirationBanner";
 
 const router = createBrowserRouter([
     {
@@ -74,6 +75,10 @@ const router = createBrowserRouter([
             },
 
             // MANUALES
+            {
+                path: `/dashboard/expiration`,
+                element: <CustomDashboardTemplate><ExpirationBanner /></CustomDashboardTemplate>
+            },
             {
                 path: `/dashboard/patient/create`,
                 element: <DashboardTemplate><CreatePatient /></DashboardTemplate>

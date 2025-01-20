@@ -187,6 +187,11 @@ export default function CreatePatient() {
 
                                 <InputDefPatient change={HandleChangePersonalesNoPatologicos} name="diabetes" cols="" label="Ejercicio o Deporte" type="text" placeholder="Fecuencia y horario" />
                                 <InputDefPatient change={HandleChangePersonalesNoPatologicos} name="cancer" cols="" label="Toxitosinas" type="text" placeholder="Frecuencia" />
+                                <InputDefPatient change={HandleChangePersonalesNoPatologicos} getName name="Fuma" cols="" label="Fuma?" type="text" placeholder="Frecuencia" />
+                                <InputDefPatient change={HandleChangePersonalesNoPatologicos} getName name="Consume Alcohol" cols="" label="Consume Alcohol?" type="text" placeholder="Frecuencia" />
+                                <SelectDefPatient change={HandleChangePersonalesNoPatologicos} getName name="Consume Cafe" cols="" label="Consume Café?" options={[`0 taza`,`1 taza`,`2 tazas`,`3 tazas o más`]} />
+                                <InputDefPatient change={HandleChangePersonalesNoPatologicos} getName name="Utiliza sustancias ilícitas" cols="" label="Utiliza sustancias ilícitas?" type="text" placeholder="Frecuencia" />
+                                <SelectDefPatient change={HandleChangePersonalesNoPatologicos} getName name="Indique horas de sueño" cols="" label="Indique horas de sueño" options={[`menos de 8 horas`,`8 horas`,`más de 8 horas`]} />
                             </div>
                             <div className="grid gap-2 grid-cols-12 border rounded">
                                 <Subtitle customClass="col-span-12 bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Antecedentes Gineco-obstétricos" />
@@ -230,7 +235,7 @@ export default function CreatePatient() {
                             <InputDefPatient change={HandleChangeHabitosAlimentacion} name="con_quien_come" label="Con quien come?" cols="col-span-4" type="text" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeHabitosAlimentacion} name="quien_prepara_alimentos" label="Quien prepara sus alimentos?" cols="col-span-5" type="text" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeHabitosAlimentacion} name="comidas_al_dia" label="Comidas al día" cols="col-span-3" type="number" placeholder="Escribir aquí" />
-                            <InputDefPatient change={HandleChangeHabitosAlimentacion} name="hace_colaciones" label="Hace colaciones" cols="col-span-3" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeHabitosAlimentacion} name="hace_meriendas" label="Hace Meriendas" cols="col-span-3" type="text" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeHabitosAlimentacion} name="con_que_alimentos" label="Con que alimentos?" cols="col-span-4" type="text" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeHabitosAlimentacion} name="horario_de_comida" label="Horario de comida" cols="col-span-5" type="text" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeHabitosAlimentacion} name="comidas_en_casa" label="Comidas en casa" cols="col-span-3" type="text" placeholder="Escribir aquí" />
@@ -250,22 +255,22 @@ export default function CreatePatient() {
                             <Subtitle customClass=" bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Recordatorio 24 horas" />
 
                             <InputDefPatient change={HandleChangeRedordatorio24Horas} name="desayuno" label="Desayuno" cols="" type="text" placeholder="Escribir aquí" />
-                            <InputDefPatient change={HandleChangeRedordatorio24Horas} name="colacion" label="Colación Matutina" cols="" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeRedordatorio24Horas} name="merienda" label="Merienda Matutina" cols="" type="text" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeRedordatorio24Horas} name="comida" label="Comida" cols="" type="text" placeholder="Escribir aquí" />
-                            <InputDefPatient change={HandleChangeRedordatorio24Horas} name="colacion" label="Colación" cols="" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeRedordatorio24Horas} name="merienda" label="Merienda" cols="" type="text" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeRedordatorio24Horas} name="cena" label="Cena" cols="" type="text" placeholder="Escribir aquí" />
                         </div>
 
                         <div className="grid grid-cols-12 gap-2 border rounded">
                             <Subtitle customClass="col-span-12 bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Indicadores Antropométrico" />
 
-                            <InputDefPatient change={HandleChangeIndicadorAntropometico} name="peso_ideal" label="Peso ideal" cols="col-span-4" type="text" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeIndicadorAntropometico} name="peso_habitual" label="Peso habitual" cols="col-span-4" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeIndicadorAntropometico} name="peso_actual" label="Peso Actual" cols="col-span-4" type="text" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeIndicadorAntropometico} name="talla" label="Talla" cols="col-span-4" type="number" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeIndicadorAntropometico} name="peso_maximo" label="Peso máximo" cols="col-span-6" type="text" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeIndicadorAntropometico} name="peso_minimo" label="Peso mínimo" cols="col-span-6" type="text" placeholder="Escribir aquí" />
-                            <InputDefPatient change={HandleChangeIndicadorAntropometico} name="peso_actual" label="Peso Actual" cols="col-span-6" type="text" placeholder="Escribir aquí" />
-                            <InputDefPatient change={HandleChangeIndicadorAntropometico} name="imc_peso_meta" label="IMC: Peso meta" cols="col-span-6" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeIndicadorAntropometico} name="peso_ideal" label="Peso ideal" cols="col-span-6" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeIndicadorAntropometico} name="imc" label="IMC:" cols="col-span-6" type="text" placeholder="Escribir aquí" />
                         </div>
 
                         <div className="grid gap-2 border rounded">
@@ -274,16 +279,10 @@ export default function CreatePatient() {
                             <TextareaDefPatient change={HandleChangeRecomendaciones} getName col name="diagnostico" label="" cols="" placeholder="Escribir aquí" />
                         </div>
 
-                        <div className="grid gap-2 border rounded">
-                            <Subtitle customClass="bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Recomendación Sueño" />
+                        <div className="grid col-span-2 gap-2 border rounded">
+                            <Subtitle customClass="bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Datos Extras" />
 
                             <TextareaDefPatient change={HandleChangeRecomendaciones} getName col name="sleep" label="" cols="" placeholder="Escribir aquí" />
-                        </div>
-
-                        <div className="grid gap-2 border rounded">
-                            <Subtitle customClass="bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Recomiendación Ejercicio" />
-
-                            <TextareaDefPatient change={HandleChangeRecomendaciones} getName col name="exercies" label="" cols="" placeholder="Escribir aquí" />
                         </div>
                     </div>
                 </div>
