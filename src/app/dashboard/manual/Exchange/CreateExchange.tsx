@@ -48,6 +48,11 @@ export default function CreateExchange() {
             const json = await result.json();
 
             if (!result.ok || json.error) {
+                if(result.status === 403) {
+                    noti.setMessage({ active: true, message: json.message, type: `error` });
+                    EndLoad();
+                    return;
+                }
                 noti.setMessage({ active: true, message: `Oops. hubo un error`, type: `error` });
                 EndLoad();
                 return;
@@ -159,7 +164,7 @@ export default function CreateExchange() {
                             <Input change={({ value }) => setParam(value)} customClass='input input-sm border-slate-300' name='param' type='text' />
                         </div>
                     </div>
-                    <AbstractList ActionButtons={AddFoodList} actions={[]} change={({ }) => { }} crud="primitive" param={param} reload />
+                    <AbstractList ActionButtons={AddFoodList} actions={[]} change={({ }) => { }} crud="primitive/exchange" param={param} reload />
                 </div>
 
                 

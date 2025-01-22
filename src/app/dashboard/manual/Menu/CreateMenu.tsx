@@ -48,6 +48,11 @@ export default function CreateMenu() {
             const json = await result.json();
 
             if (!result.ok || json.error) {
+                if(result.status === 403) {
+                    noti.setMessage({ active: true, message: json.message, type: `error` });
+                    
+                    return;
+                }
                 noti.setMessage({ active: true, message: `Oops. hubo un error`, type: `error` });
                 return;
             }

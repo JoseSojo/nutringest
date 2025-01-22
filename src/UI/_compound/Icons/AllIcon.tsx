@@ -977,6 +977,24 @@ export const IcoSelect = ({ size, str }: { size?: number, str?: number }) => {
     </svg>
 }
 
+export const IcoCheck = ({ size, str }: { size?: number, str?: number }) => {
+    return <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        width={size ? size : 20}
+        height={size ? size : 20}
+        stroke-width={str ? str : 1.75}
+    >
+        <path d="M14 7v3h3l3 -3h-3v-3z"></path>
+        <path d="M14 10l-9 9"></path>
+        <path d="M5 15v4h4"></path>
+    </svg>
+}
+
 
 export const IcoInformation = ({ size, str }: { size?: number, str?: number }) => {
     return <svg

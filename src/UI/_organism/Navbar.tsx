@@ -8,6 +8,7 @@ import { REQUETS_GET_TOKEN } from "../../utils/req/RequetsOptions";
 import { useModal } from "../../_context/ModalContext";
 import InformationModal from "./InformationModal";
 import { IcoOptions } from "../_compound/Icons/AllIcon";
+import Title from "../_atom/Title";
 
 interface Navbar {
 
@@ -53,12 +54,13 @@ export default function Navbar() {
         <>
 
             <header className="w-full py-1 flex justify-between items-center px-5 lg:pr-10 bg-slate-800">
-                <div className="border-white h-full">
-                    <Button customClass="bg-slate-800 text-white hover:bg-slate-600 px-3 cursor-pointer rounded h-full">
+                <div className="flex justify-center items-center border-white h-full">
+                    <Button customClass="gap-3 bg-slate-800 text-white hover:bg-slate-600 px-3 cursor-pointer rounded h-full">
                         <label htmlFor="my-drawer" className="">
-                            {<IcoOptions str={3} size={24} />}
+                            { <IcoOptions str={3} size={24} /> }
                         </label>
                     </Button>
+                    <Title customClass="font-bold font-mono text-md text-white" text="NUTRINGEST" />
                     {
                         propietarySubscription &&
                         <i
