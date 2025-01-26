@@ -121,7 +121,7 @@ export default function AbstractUnique({ }: Props) {
                     </ul>
                 </div>
                 {/* <div className="border py-3 px-5 mt-3 rounded"> */}
-                <AbstractUpdate crud={crud} id={id} reload={CustomRelaod} />
+                {/* <AbstractUpdate crud={crud} id={id} reload={CustomRelaod} /> */}
                 {/* </div> */}
             </div>
         </div>

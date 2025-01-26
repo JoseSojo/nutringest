@@ -3,8 +3,8 @@ import { Icono } from "../../_handler/IconHandler";
 import Button from "../_atom/Button";
 import { deleteTokenAndUser } from "../../utils/token";
 import { useEffect, useState } from "react";
-import { API } from "../../entorno";
-import { REQUETS_GET_TOKEN } from "../../utils/req/RequetsOptions";
+// import { API } from "../../entorno";
+// import { REQUETS_GET_TOKEN } from "../../utils/req/RequetsOptions";
 import { useModal } from "../../_context/ModalContext";
 import InformationModal from "./InformationModal";
 import { IcoOptions } from "../_compound/Icons/AllIcon";
@@ -21,20 +21,20 @@ export default function Navbar() {
 
     const [active, setActive] = useState(false);
     const [tasaChange, setTasaChange] = useState<number | null>(null);
-    const [propietarySubscription, setPropietarySubscription] = useState<any | null>(null);
+    // const [propietarySubscription, setPropietarySubscription] = useState<any | null>(null);
 
 
-    useEffect(() => {
-        const ExecuteAsync = async () => {
-            const url = `${API}/subscription/detail/my`;
-            const req = REQUETS_GET_TOKEN;
-            const result = await fetch(url, req);
-            const json = await result.json();
+    // useEffect(() => {
+    //     const ExecuteAsync = async () => {
+    //         const url = `${API}/subscription/detail/my`;
+    //         const req = REQUETS_GET_TOKEN;
+    //         const result = await fetch(url, req);
+    //         const json = await result.json();
 
-            if (json.body) setPropietarySubscription(json.body);
-        }
-        ExecuteAsync();
-    }, [])
+    //         // if (json.body) setPropietarySubscription(json.body);
+    //     }
+    //     ExecuteAsync();
+    // }, [])
 
     useEffect(() => {
         if (window.location.pathname != `/finanzas/`) return setTasaChange(null);
@@ -61,19 +61,6 @@ export default function Navbar() {
                         </label>
                     </Button>
                     <Title customClass="font-bold font-mono text-md text-white" text="NUTRINGEST" />
-                    {
-                        propietarySubscription &&
-                        <i
-                            className={`
-                                badge bg-transparent 
-                                ${propietarySubscription.status === `FREE_TRIAL` && `border-yellow-600 text-yellow-600`}
-                                ${propietarySubscription.status === `ACTIVO` && `border-emerald-600 text-emerald-600`}
-                                ${propietarySubscription.status === `DISACTIVE` && `border-red-600 text-red-600`}
-                            `}
-                        >
-                            "{propietarySubscription.status}"
-                        </i>
-                    }
                     {
                         tasaChange &&
                         <i

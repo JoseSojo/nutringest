@@ -1,28 +1,53 @@
-// import FAQSection from "./ui/FAQSection";
-// import Footer from "./ui/Footer";
-// import FreeTrialSection from "./ui/FreeTrialSection";
-// import Header from "./ui/Header";
-// import LandingSection from "./ui/LandingSection";
-// import PricingSection from "./ui/PricingSection";
-// import TestimonialSection from "./ui/TestimonialSection";
-// import ToolsSection from "./ui/ToolSection";
-// import TrustSection from "./ui/TrustSection";
+import FAQSection from "./ui/FAQSection";
+import Footer from "./ui/Footer";
+import FreeTrialSection from "./ui/FreeTrialSection";
+import Header from "./ui/Header";
+import LandingSection from "./ui/LandingSection";
+import PricingSection from "./ui/PricingSection";
+import TestimonialSection from "./ui/TestimonialSection";
+import ToolsSection from "./ui/ToolSection";
+import TrustSection from "./ui/TrustSection";
 
-import { useNavigate } from "react-router-dom";
-import Image from "../../UI/_atom/Image";
-import Button from "../../UI/_atom/Button";
-import Subtitle from "../../UI/_atom/Subtitle";
-import Paragraph from "../../UI/_atom/Paragraph";
-import { IcoCheck } from "../../UI/_compound/Icons/AllIcon";
+// import { useNavigate } from "react-router-dom";
+// import Image from "../../UI/_atom/Image";
+// import Button from "../../UI/_atom/Button";
+// import Subtitle from "../../UI/_atom/Subtitle";
+// import Paragraph from "../../UI/_atom/Paragraph";
+// import { IcoCheck } from "../../UI/_compound/Icons/AllIcon";
 
 
 export default function PublicPage() {
 
-    const navigate = useNavigate();
-    const aNavCls = `font-bold text-sm py-3 px-5 bg-purple-400 text-white hover:bg-purple-500 duration-200`;
+    // const navigate = useNavigate();
+    // const aNavCls = `font-bold text-sm py-3 px-5 bg-purple-400 text-white hover:bg-purple-500 duration-200`;
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-purple-50 to-purple-300 pb-10">
+        <>
+            <Header />
+
+            <LandingSection />
+
+            <ToolsSection />
+
+            <TrustSection />
+
+            <TestimonialSection />
+
+            <PricingSection />
+
+            <FAQSection />
+
+            <FreeTrialSection />
+
+            <Footer />
+        </>
+    )
+}
+
+
+/**
+ * 
+ * <div className="min-h-screen bg-gradient-to-b from-purple-50 to-purple-300 pb-10">
 
             <nav className="p-3 flex justify-between items-center m-auto max-w-5xl">
                 <ul className="flex">
@@ -198,24 +223,7 @@ export default function PublicPage() {
 
 
 
-            {/* <Header /> */}
+            
 
-            {/* <LandingSection /> */}
-
-            {/* <ToolsSection /> */}
-
-            {/* <TrustSection /> */}
-
-            {/* <TestimonialSection /> */}
-
-            {/* <PricingSection /> */}
-
-            {/* <FAQSection /> */}
-
-            {/* <FreeTrialSection /> */}
-
-            {/* <Footer /> */}
-
-        </div>
-    )
-}
+            </div>
+ */

@@ -21,10 +21,10 @@ export default function CreateExchange() {
 
     const [param, setParam] = useState(``);
     const [data, setData] = useState<{ name?: string, ration?: string | number } | null>(null);
-    const { ButtonSubmit,EndLoad,StartLoad } = useFormStatus({ text:`Crear`,type:`create` });
+    const { ButtonSubmit, EndLoad, StartLoad } = useFormStatus({ text: `Crear`, type: `create` });
 
-    const [foodSelect, setFoodSelect] = useState<{ 
-        unity?: { id: string, label: string }, 
+    const [foodSelect, setFoodSelect] = useState<{
+        unity?: { id: string, label: string },
         food: { id: string, label: string }
     }[] | null>(null);
 
@@ -48,7 +48,7 @@ export default function CreateExchange() {
             const json = await result.json();
 
             if (!result.ok || json.error) {
-                if(result.status === 403) {
+                if (result.status === 403) {
                     noti.setMessage({ active: true, message: json.message, type: `error` });
                     EndLoad();
                     return;
@@ -71,9 +71,9 @@ export default function CreateExchange() {
         setData(newData);
     }
 
-    const AddFood = ({name,value}:{ name: string, value: string }) => {
+    const AddFood = ({ name, value }: { name: string, value: string }) => {
         const prev = foodSelect && foodSelect.length > 0 ? foodSelect : [];
-        prev.push({ food:{id:value,label:name} });
+        prev.push({ food: { id: value, label: name } });
         setFoodSelect([]);
         const customValue = prev;
         setFoodSelect(customValue);
@@ -92,13 +92,13 @@ export default function CreateExchange() {
         setFoodSelect(prev);
     }
 
-    function AddFoodList (item: any): ReactNode {
+    function AddFoodList(item: any): ReactNode {
         return (
-            <Button 
-                click={() => AddFood({ name:item.name,value:item.id })}
-                customClass={`${ButtonHandler({ param:`update` })} btn-sm text-xs`} 
+            <Button
+                click={() => AddFood({ name: item.name, value: item.id })}
+                customClass={`${ButtonHandler({ param: `update` })} btn-sm text-xs`}
                 text="agregar"
-                />
+            />
         )
     }
 
@@ -108,12 +108,7 @@ export default function CreateExchange() {
                 <Title customClass="text-2xl font-black" text="Crear lista de intercambio" />
                 <ul className="flex gap-3 mt-3">
                     <li>
-                        <Button
-                            click={() => navigate(`/dashboard/exchange`)}
-                            ico={Icono({ ico: `list` })}
-                            customClass={`${ButtonHandler({ param: `list` })} btn btn-sm border-none`}
-                            text="Lista"
-                        />
+                        <ButtonSubmit />
                     </li>
                 </ul>
             </header>
@@ -142,20 +137,20 @@ export default function CreateExchange() {
 
                 <div className="grid grid-cols-2 col-span-3 gap-3">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 col-span-3 gap-3">
-                    {
-                        foodSelect && foodSelect.map((item, i) => (
-                            <div className="rounded p-1 border flex justify-between items-center">
-                                <Text customClass="text-sm font-bold" text={`${item.food.label} ${item.unity ? item.unity.label : ``}`} />
-                                <Button
-                                    click={() => RemoveFoodSelect(i)}
-                                    customClass="btn btn-xs btn-error text-white"
-                                    ico={Icono({ ico: `delete` })}
-                                />
-                            </div>
-                        ))
-                    }
+                        {
+                            foodSelect && foodSelect.map((item, i) => (
+                                <div className="rounded p-1 border flex justify-between items-center">
+                                    <Text customClass="text-sm font-bold" text={`${item.food.label} ${item.unity ? item.unity.label : ``}`} />
+                                    <Button
+                                        click={() => RemoveFoodSelect(i)}
+                                        customClass="btn btn-xs btn-error text-white"
+                                        ico={Icono({ ico: `delete` })}
+                                    />
+                                </div>
+                            ))
+                        }
                     </div>
-                </div> 
+                </div>
 
                 <div className="col-span-3">
                     <div className="flex justify-between">
@@ -167,7 +162,7 @@ export default function CreateExchange() {
                     <AbstractList ActionButtons={AddFoodList} actions={[]} change={({ }) => { }} crud="primitive/exchange" param={param} reload />
                 </div>
 
-                
+
 
             </form>
 

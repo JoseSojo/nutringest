@@ -149,12 +149,7 @@ export default function UpdateExchange() {
                 <Title customClass="text-2xl font-black" text={`Actualizar ${data?.name}`} />
                 <ul className="flex gap-3 mt-3">
                     <li>
-                        <Button
-                            click={() => navigate(`/dashboard/exchange`)}
-                            ico={Icono({ ico: `list` })}
-                            customClass={`${ButtonHandler({ param: `list` })} btn btn-sm border-none`}
-                            text="Lista"
-                        />
+                    <ButtonSubmit />
                     </li>
                 </ul>
             </header>
@@ -162,7 +157,7 @@ export default function UpdateExchange() {
             <form onSubmit={HandleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-3">
 
                 <div className="col-span-3 flex justify-end mt-3">
-                    <ButtonSubmit />
+                    
                 </div>
 
                 <LabelInput

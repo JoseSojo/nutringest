@@ -23,7 +23,7 @@ export default function CreateMenu() {
     const [param, setParam] = useState(``);
     const [data, setData] = useState<{ name?: string, description?: string, type?: string } | null>(null);
 
-    const [foodSelect, setFoodSelect] = useState<{ unity: { id: string, label: string }, food: { id: string, label: string }, quantity?: string | number }[] | null>(null);
+    const [foodSelect, setFoodSelect] = useState<{ unityDef: string, food: { id: string, label: string }, quantity?: string | number }[] | null>(null);
 
     const HandleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -48,9 +48,9 @@ export default function CreateMenu() {
             const json = await result.json();
 
             if (!result.ok || json.error) {
-                if(result.status === 403) {
+                if (result.status === 403) {
                     noti.setMessage({ active: true, message: json.message, type: `error` });
-                    
+
                     return;
                 }
                 noti.setMessage({ active: true, message: `Oops. hubo un error`, type: `error` });
@@ -74,19 +74,19 @@ export default function CreateMenu() {
         setData(newData);
     }
 
-    const AddFood = ({name,value}:{ name: string, value: string }) => {
+    const AddFood = ({ name, value }: { name: string, value: string }) => {
         const prev = foodSelect && foodSelect.length > 0 ? foodSelect : [];
-        prev.push({ food:{id:value,label:name},unity:{id:``,label:``} });
+        prev.push({ food: { id: value, label: name }, unityDef: `` });
         const customValue = prev;
         setFoodSelect(customValue);
         ReloadFoodSelect();
     }
 
-    const AddUnityInFood = ({index, unity}:{index:number,unity:{ id: string, label: string }}) => {
-        if(!foodSelect) return;
+    const AddUnityInFood = ({ index, unity }: { index: number, unity: string }) => {
+        if (!foodSelect) return;
         setFoodSelect((prev) => {
-            if(!prev) return [];
-            prev[index].unity = unity;
+            if (!prev) return [];
+            prev[index].unityDef = unity;
             setTest(!test);
             return prev;
         });
@@ -106,13 +106,13 @@ export default function CreateMenu() {
         setFoodSelect(prev);
     }
 
-    function AddFoodList (item: any): ReactNode {
+    function AddFoodList(item: any): ReactNode {
         return (
-            <Button 
-                click={() => AddFood({ name:item.name,value:item.id })}
-                customClass={`${ButtonHandler({ param:`update` })} btn-sm text-xs`} 
+            <Button
+                click={() => AddFood({ name: item.name, value: item.id })}
+                customClass={`${ButtonHandler({ param: `update` })} btn-sm text-xs`}
                 text="agregar"
-                />
+            />
         )
     }
 
@@ -183,15 +183,18 @@ export default function CreateMenu() {
                         foodSelect && foodSelect.map((item, i) => (
                             <div className="rounded p-1 border flex justify-between items-center gap-3">
                                 <Text customClass="text-sm font-bold" text={`${item.food.label}`} />
-                                <CustomSelect
-                                    change={({value,label}:{value:string,label:string})=>AddUnityInFood({ index:i,unity:{id:value,label} })}
-                                    label={item.unity ? item.unity.label : "Unidad"}
+                                <LabelInput
+                                    change={({ value }: { value: string, name: string }) => {
+                                        AddUnityInFood({ index: i, unity: value })
+                                    }}
                                     field={{
-                                        label: `Unidad de medida`,
-                                        select: {
-                                            active: true,
-                                            in: `unity`
-                                        }
+                                        type:`input`,
+                                        beforeType:`text`,
+                                        id:`field.new.id`,
+                                        label:`Medida`,
+                                        name:`unityDef`,
+                                        placeholder:`1 taza y media`,
+                                        required:true
                                     }}
                                 />
                                 <Button
@@ -202,7 +205,7 @@ export default function CreateMenu() {
                             </div>
                         ))
                     }
-                </div> 
+                </div>
 
                 <div className="col-span-3">
                     <div className="flex justify-between">

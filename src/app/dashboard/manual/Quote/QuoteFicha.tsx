@@ -18,10 +18,12 @@ import HistoryQuote from "./HistoryQuote";
 import DetailQuote from "./DetailQuote";
 import CalendarQuote from "./CalendarQuote";
 import PatientQuote from "./PatientQuote";
+import RemenberyQuote from "./RemenberyQuote";
+import ReportQuote from "./ReportQuote";
 
 export default function QuoteFicha() {
     const { id } = useParams() as { id: string };
-    const [section, setSection] = useState(`FOOD`); // FOOD | EXCHANGE | MENU 
+    const [section, setSection] = useState(`PATIENT`); // FOOD | EXCHANGE | MENU 
 
     // const modal = useModal();
     // const navigate = useNavigate();
@@ -88,6 +90,7 @@ export default function QuoteFicha() {
                                     {
                                         sections && sections.map((sc) => <Button click={() => setSection(sc.value)} customClass={`tab text-xs ${section === sc.value ? `tab-active font-black` : `text-gray-700 font-semibold`}`} text={sc.label} />)
                                     }
+                                    <Button click={() => setSection(`REPORT`)} customClass={`tab text-xs ${section === `REPORT` ? `tab-active font-black` : `text-gray-700 font-semibold`}`} text={`Reporte`} />
                                 </div>
                             </div>
 
@@ -101,6 +104,8 @@ export default function QuoteFicha() {
                                 {section === `HISTORY` && <HistoryQuote id={object.id} />}
                                 {section === `CALENDAR` && <CalendarQuote id={object.id} />}
                                 {section === `PATIENT` && <PatientQuote id={object.patientId} />}
+                                {section === `RECOMENDATIONS` && <RemenberyQuote id={object.id} />}
+                                {section === `REPORT` && <ReportQuote id={object.id} />}
                             </div>
                         </div>
 

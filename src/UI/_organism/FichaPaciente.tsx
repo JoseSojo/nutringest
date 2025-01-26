@@ -12,6 +12,10 @@ import Text from "../_atom/Text";
 export default function FichaPaciente({customId,options}:{customId:string,options?:boolean}) {
     const navigate = useNavigate();
 
+    const [proteinas, setProteinas] = useState<{porcentaje:number|String,kilo:number|string,gr:number|string,rc:number|string}>({porcentaje:0,kilo:0,gr:0,rc:0});
+    const [lipidos, setLipidos] = useState<{porcentaje:number|String,kilo:number|string,gr:number|string,rc:number|string}>({porcentaje:0,kilo:0,gr:0,rc:0});
+    const [carbohidratos, setCarbohidratos] = useState<{porcentaje:number|String,kilo:number|string,gr:number|string,rc:number|string}>({porcentaje:0,kilo:0,gr:0,rc:0});
+
     const [load, setLoad] = useState(true);
     const [data, setData] = useState<any | null>(null);
     const [heredofamiliares, setHeredofamiliares] = useState<any[] | null>(null);
@@ -31,7 +35,6 @@ export default function FichaPaciente({customId,options}:{customId:string,option
             const req = REQUETS_GET_TOKEN;
             const result = await fetch(url, req);
             const json = await result.json();
-            console.log(json.body.body);
             const userNotPatient = { ...json.body.body.data, patientData: null }
             const userWithData = json.body.body.data.patientData;
 
@@ -45,6 +48,10 @@ export default function FichaPaciente({customId,options}:{customId:string,option
             setRedordatorio24Horas(userWithData.redordatorio24Horas);
             setIndicadorAntropometico(userWithData.indicadorAntropometico);
             setRecomendaciones({ diagnostico: userWithData.diagnostico, sleep: userWithData.sleep, exercises: userWithData.exercises, });
+
+            setProteinas({ porcentaje:userWithData.proteinasPercentaje, gr:userWithData.proteinasGramos,kilo:userWithData.proteinasKilo,rc:userWithData.proteinasRacion })
+            setLipidos({ porcentaje:userWithData.lipidosPercentaje, gr:userWithData.lipidosGramos,kilo:userWithData.lipidosKilo,rc:userWithData.lipidosRacion })
+            setCarbohidratos({ porcentaje:userWithData.carbohidratosPercentaje, gr:userWithData.carbohidratosGramos,kilo:userWithData.carbohidratosKilo,rc:userWithData.carbohidratosRacion })
 
             setLoad(false);
         }
@@ -177,17 +184,52 @@ export default function FichaPaciente({customId,options}:{customId:string,option
                                     <Text customClass="h-full px-3" text={recomendaciones.diagnostico} />
                                 </div>
 
-                                <div className="flex flex-col bg-white rounded-b gap-2 border rounded">
-                                    <Subtitle customClass="bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Recomendación Sueño" />
+                                <div className="grid col-span-2 gap-2 border rounded">
+                            {/* <Subtitle customClass="bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Kilo calorías totales" /> */}
+
+                            <table className="table table-zebra">
+                                <tr className="bg-slate-800 text-white ">
+                                    <td></td>
+                                    <td>%</td>
+                                    <td>Kilo calorías</td>
+                                    <td>Gramos</td>
+                                    <td>Raciones</td>
+                                </tr>
+                                <tr>
+                                    <td>Proteínas</td>
+                                    <td><Text customClass="" text={proteinas ? proteinas.porcentaje : `-`} /></td>
+                                    <td><Text customClass="" text={proteinas ? proteinas.kilo : `-`} /></td>
+                                    <td><Text customClass="" text={proteinas ? proteinas.gr : `-`} /></td>
+                                    <td><Text customClass="" text={proteinas ? proteinas.rc : `-`} /></td>
+                                </tr>
+                                <tr>
+                                    <td>Lípidos</td>
+                                    <td><Text customClass="" text={lipidos ? lipidos.porcentaje : `-`} /></td>
+                                    <td><Text customClass="" text={lipidos ? lipidos.kilo : `-`} /></td>
+                                    <td><Text customClass="" text={lipidos ? lipidos.gr : `-`} /></td>
+                                    <td><Text customClass="" text={lipidos ? lipidos.rc : `-`} /></td>
+                                </tr>
+                                <tr>
+                                    <td>Carbohidratos</td>
+                                    <td><Text customClass="" text={carbohidratos ? carbohidratos.porcentaje : `-`} /></td>
+                                    <td><Text customClass="" text={carbohidratos ? carbohidratos.kilo : `-`} /></td>
+                                    <td><Text customClass="" text={carbohidratos ? carbohidratos.gr : `-`} /></td>
+                                    <td><Text customClass="" text={carbohidratos ? carbohidratos.rc : `-`} /></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                                <div className="col-span-2 flex flex-col bg-white rounded-b gap-2 border rounded">
+                                    <Subtitle customClass="bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Datos extras" />
 
                                     <Text customClass="h-full px-3" text={recomendaciones.sleep} />
                                 </div>
 
-                                <div className="flex flex-col bg-white rounded-b gap-2 border rounded">
+                                {/* <div className="flex flex-col bg-white rounded-b gap-2 border rounded">
                                     <Subtitle customClass="bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Recomiendación Ejercicio" />
 
                                     <Text customClass="h-full px-3 py-2" text={recomendaciones.exercises} />
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>

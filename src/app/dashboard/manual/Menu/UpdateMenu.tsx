@@ -22,13 +22,13 @@ export default function UpdateMenu() {
     const noti = useNotification();
     const navigate = useNavigate();
     const [reload] = useState(false);
-    const { ButtonSubmit,EndLoad,StartLoad } = useFormStatus({ text:`Actualizar`,type:`update` });
+    const { EndLoad,StartLoad } = useFormStatus({ text:`Actualizar`,type:`update` });
 
     const [param, setParam] = useState(``);
     const [data, setData] = useState<{ name?: string, description?: string, type?: string } | null>(null);
 
-    const [foodSelect, setFoodSelect] = useState<{ id:string, unity?: { id: string, label: string }, food: { id: string, label: string }, quantity?: string | number }[] | null>(null);
-    const [foodDelete, setFoodDelete] = useState<{ id:string, unity?: { id: string, label: string }, food: { id: string, label: string }, quantity?: string | number }[] | null>(null);
+    const [foodSelect, setFoodSelect] = useState<{ id:string, unityDef?:string, unity?: { id: string, label: string }, food: { id: string, label: string }, quantity?: string | number }[] | null>(null);
+    const [foodDelete, setFoodDelete] = useState<{ id:string, unityDef?:string, unity?: { id: string, label: string }, food: { id: string, label: string }, quantity?: string | number }[] | null>(null);
 
     const HandleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -71,6 +71,15 @@ export default function UpdateMenu() {
             return;
         }
         ExecuteRequets();
+    }
+
+    const AddUnityInFood = ({ index, unity }: { index: number, unity: string }) => {
+        if (!foodSelect) return;
+        setFoodSelect((prev) => {
+            if (!prev) return [];
+            prev[index].unityDef = unity;
+            return prev;
+        });
     }
 
     const SetDataByInput = ({ name, value }: { name: string, value: string }) => {
@@ -135,6 +144,7 @@ export default function UpdateMenu() {
             foods.forEach((food) => {
                 currentFood.push({
                     id:food.id,
+                    unityDef: food.unityDef,
                     food: { id: food.foodPrimitiveReference.id, label: food.foodPrimitiveReference.name },
                     quantity: food.quentity
                 });
@@ -150,11 +160,6 @@ export default function UpdateMenu() {
         <div className="w-full">
             <header className="flex items-center justify-between">
                 <Title customClass="text-2xl font-black" text={`${foodDelete?.length} Actualizar ${data?.name}`} />
-                <ul className="flex gap-3 mt-3">
-                    <li>
-                        <ButtonSubmit />
-                    </li>
-                </ul>
             </header>
 
             <form onSubmit={HandleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-3">
@@ -207,11 +212,26 @@ export default function UpdateMenu() {
 
                 <Text customClass="divider divider-success text-success lg:col-span-3" text={`Seleccionar alimentos`} />
 
-                <div className="grid grid-cols-4 col-span-3 gap-3">
+                <div className="grid grid-cols-3 col-span-3 gap-3">
                     {
                         foodSelect && foodSelect.map((item, i) => (
                             <div className="rounded p-1 border flex justify-between items-center">
                                 <Text customClass="text-sm font-bold" text={`${item.food.label} ${item.unity ? item.unity.label : ``}`} />
+                                <LabelInput
+                                    change={({ value }: { value: string, name: string }) => {
+                                        AddUnityInFood({ index: i, unity: value })
+                                    }}
+                                    field={{
+                                        value: `${item.unity}`,
+                                        type:`input`,
+                                        beforeType:`text`,
+                                        id:`field.new.id`,
+                                        label:`Medida`,
+                                        name:`unityDef`,
+                                        placeholder:item.unityDef ? item.unityDef : `medida aquí`,
+                                        required:true
+                                    }}
+                                />
                                 <Button
                                     click={() => RemoveFoodSelect(i)}
                                     customClass="btn btn-xs btn-error text-white"

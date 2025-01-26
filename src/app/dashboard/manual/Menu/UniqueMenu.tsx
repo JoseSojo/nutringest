@@ -16,7 +16,7 @@ export default function UniqueMenu() {
 
     const [data, setData] = useState<{ name?: string, description?: string, type?: string } | null>(null);
 
-    const [foodSelect, setFoodSelect] = useState<{ id: string, unity?: { id: string, label: string }, food: { id: string, label: string }, quantity?: string | number }[] | null>(null);
+    const [foodSelect, setFoodSelect] = useState<{ unityDef?:string,id: string, food: { id: string, label: string }, quantity?: string | number }[] | null>(null);
 
     useEffect(() => {
         const RequetsAsync = async () => {
@@ -37,7 +37,8 @@ export default function UniqueMenu() {
                 currentFood.push({
                     id: food.id,
                     food: { id: food.foodPrimitiveReference.id, label: food.foodPrimitiveReference.name },
-                    quantity: food.quentity
+                    quantity: food.quentity,
+                    unityDef: food.unityDef,
                 })
                 // currentFood.push({ 
                 //     id: food.id,
@@ -91,7 +92,7 @@ export default function UniqueMenu() {
                     {
                         foodSelect && foodSelect.map((item) => (
                             <div className="flex-1 rounded p-1 border border-slate-500 flex justify-center items-center">
-                                <Text customClass="text-sm font-bold" text={`${item.food.label} - ${item.quantity ? item.quantity : ``} ${item.unity ? item.unity.label : ``}`} />
+                                <Text customClass="text-sm font-bold" text={`${item.food.label} - ${item.unityDef ? item.unityDef : ``}`} />
                             </div>
                         ))
                     }

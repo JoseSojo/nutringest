@@ -17,6 +17,10 @@ export default function CreatePatient() {
     const navigate = useNavigate();
     const noti = useNotification();
 
+    const [proteinas, setProteinas] = useState<{porcentaje:number,kilo:number|string,gr:number|string,rc:number|string}>({porcentaje:0,kilo:0,gr:0,rc:0});
+    const [lipidos, setLipidos] = useState<{porcentaje:number,kilo:number|string,gr:number|string,rc:number|string}>({porcentaje:0,kilo:0,gr:0,rc:0});
+    const [carbohidratos, setCarbohidratos] = useState<{porcentaje:number,kilo:number|string,gr:number|string,rc:number|string}>({porcentaje:0,kilo:0,gr:0,rc:0});
+
     const [data, setData] = useState<any | null>(null);
     const [heredofamiliares, setHeredofamiliares] = useState<any | null>(null);
     const [personalesPatologicos, setPersonalesPatologicos] = useState<any | null>(null);
@@ -27,6 +31,7 @@ export default function CreatePatient() {
     const [redordatorio24Horas, setRedordatorio24Horas] = useState<any | null>(null);
     const [indicadorAntropometico, setIndicadorAntropometico] = useState<any | null>(null);
     const [recomendaciones, setRecomendaciones] = useState<any | null>(null);
+    const [evaluacionBoiquimica, setEvaluacionBoiquimica] = useState<any | null>(null);
 
     const HanldeSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -52,6 +57,12 @@ export default function CreatePatient() {
                 redordatorio24Horas,
                 indicadorAntropometico,
                 recomendaciones,
+                evaluacionBoiquimica,
+                kilocalorias: {
+                    proteinas,
+                    lipidos,
+                    carbohidratos
+                },
             }
 
             const url = `${API}/patient/create`;
@@ -73,6 +84,18 @@ export default function CreatePatient() {
     const HandleChange = ({ name, value }: { value: string, name: string }) => {
         const prev = { ...data, [name]: value }
         setData(prev);
+    }
+
+    const HandleChangeLipidos = ({ name, value }: { value: string, name: string }) => {
+        setLipidos({...lipidos, [name]:value});
+    }
+
+    const HandleChangeProteinas = ({ name, value }: { value: string, name: string }) => {
+        setProteinas({...proteinas, [name]:value});
+    }
+
+    const HandleChangeCarbohidratos = ({ name, value }: { value: string, name: string }) => {
+        setCarbohidratos({...carbohidratos, [name]:value});
     }
 
     const HandleChangeHeredoFamiliares = ({ name, value }: { value: string, name: string }) => {
@@ -108,6 +131,11 @@ export default function CreatePatient() {
     const HandleChangeRedordatorio24Horas = ({ name, value }: { value: string, name: string }) => {
         const prev = { ...redordatorio24Horas, [name]: value }
         setRedordatorio24Horas(prev);
+    }
+
+    const HandleChangeEvaluacionBioquímica = ({ name, value }: { value: string, name: string }) => {
+        const prev = { ...evaluacionBoiquimica, [name]: value }
+        setEvaluacionBoiquimica(prev);
     }
 
     const HandleChangeIndicadorAntropometico = ({ name, value }: { value: string, name: string }) => {
@@ -152,18 +180,19 @@ export default function CreatePatient() {
                     <SelectDefPatient getName change={HandleChange} name="edoCivil" cols="col-span-3" label="Edo Civíl" options={[`Soltero`, `Casado`, `Viudo`, `Divorciado`]} />
                     <InputDefPatient getName change={HandleChange} name="ocupacion" cols="col-span-2" label="Ocupacion" type="text" />
                     <InputDefPatient getName change={HandleChange} name="phone" cols="col-span-2" label="Telefono" type="text" />
+                    <InputDefPatient getName change={HandleChange} name="address" cols="col-span-10" label="Dirección" type="text" />
 
                     <div className="col-span-12 grid lg:grid-cols-2 mt-4 p-2 gap-5">
 
                         <div className="grid gap-2 border rounded">
                             <Subtitle customClass="bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Antecedentes Heredofamiliares" />
 
-                            <SelectDefPatient change={HandleChangeHeredoFamiliares} name="diabetes" cols="" label="Diabetes" options={[`Si`, `No`]} />
-                            <SelectDefPatient change={HandleChangeHeredoFamiliares} name="cancer" cols="" label="Cancer" options={[`Si`, `No`]} />
-                            <SelectDefPatient change={HandleChangeHeredoFamiliares} name="dislipidemia" cols="" label="Dislipidemia" options={[`Si`, `No`]} />
-                            <SelectDefPatient change={HandleChangeHeredoFamiliares} name="anemia" cols="" label="Anemia" options={[`Si`, `No`]} />
-                            <SelectDefPatient change={HandleChangeHeredoFamiliares} name="hipertension_arterial" cols="" label="Hipertención arterial" options={[`Si`, `No`]} />
-                            <SelectDefPatient change={HandleChangeHeredoFamiliares} name="enfermedades_renales" cols="" label="Enfermedades renales" options={[`Si`, `No`]} />
+                            <InputDefPatient change={HandleChangeHeredoFamiliares} name="diabetes" cols="" label="Diabetes" type={`text`} />
+                            <InputDefPatient change={HandleChangeHeredoFamiliares} name="cancer" cols="" label="Cancer" type={`text`} />
+                            <InputDefPatient change={HandleChangeHeredoFamiliares} name="dislipidemia" cols="" label="Dislipidemia" type={`text`} />
+                            <InputDefPatient change={HandleChangeHeredoFamiliares} name="anemia" cols="" label="Anemia" type={`text`} />
+                            <InputDefPatient change={HandleChangeHeredoFamiliares} name="hipertension_arterial" cols="" label="Hipertención arterial" type={`te`} />
+                            <InputDefPatient change={HandleChangeHeredoFamiliares} name="enfermedades_renales" cols="" label="Enfermedades renales" type={`text`} />
                             <InputDefPatient change={HandleChangeHeredoFamiliares} name="otros" cols="" label="Otros" type="text" />
 
                         </div>
@@ -171,12 +200,12 @@ export default function CreatePatient() {
                         <div className="grid gap-2 border rounded">
                             <Subtitle customClass="bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Antecedentes Personales Patológicos" />
 
-                            <SelectDefPatient change={HandleChangePersonalesPatologicos} name="diabetes" cols="" label="Diabetes" options={[`Si`, `No`]} />
-                            <SelectDefPatient change={HandleChangePersonalesPatologicos} name="cancer" cols="" label="Cancer" options={[`Si`, `No`]} />
-                            <SelectDefPatient change={HandleChangePersonalesPatologicos} name="dislipidemia" cols="" label="Dislipidemia" options={[`Si`, `No`]} />
-                            <SelectDefPatient change={HandleChangePersonalesPatologicos} name="anemia" cols="" label="Anemia" options={[`Si`, `No`]} />
-                            <SelectDefPatient change={HandleChangePersonalesPatologicos} name="hipertension_arterial" cols="" label="Hipertención arterial" options={[`Si`, `No`]} />
-                            <SelectDefPatient change={HandleChangePersonalesPatologicos} name="enfermedades_renales" cols="" label="Enfermedades renales" options={[`Si`, `No`]} />
+                            <InputDefPatient change={HandleChangePersonalesPatologicos} name="diabetes" cols="" label="Diabetes" type={`text`} />
+                            <InputDefPatient change={HandleChangePersonalesPatologicos} name="cancer" cols="" label="Cancer" type={`text`} />
+                            <InputDefPatient change={HandleChangePersonalesPatologicos} name="dislipidemia" cols="" label="Dislipidemia" type={`text`} />
+                            <InputDefPatient change={HandleChangePersonalesPatologicos} name="anemia" cols="" label="Anemia" type={`text`} />
+                            <InputDefPatient change={HandleChangePersonalesPatologicos} name="hipertension_arterial" cols="" label="Hipertención arterial" type={`te`} />
+                            <InputDefPatient change={HandleChangePersonalesPatologicos} name="enfermedades_renales" cols="" label="Enfermedades renales" type={`text`} />
                             <InputDefPatient change={HandleChangePersonalesPatologicos} name="otros" cols="" label="Otros" type="text" />
 
                         </div>
@@ -185,13 +214,13 @@ export default function CreatePatient() {
                             <div className="grid gap-2 border rounded">
                                 <Subtitle customClass="bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Antecedentes Personales No Patológicos" />
 
-                                <InputDefPatient change={HandleChangePersonalesNoPatologicos} name="diabetes" cols="" label="Ejercicio o Deporte" type="text" placeholder="Fecuencia y horario" />
-                                <InputDefPatient change={HandleChangePersonalesNoPatologicos} name="cancer" cols="" label="Toxitosinas" type="text" placeholder="Frecuencia" />
-                                <InputDefPatient change={HandleChangePersonalesNoPatologicos} getName name="Fuma" cols="" label="Fuma?" type="text" placeholder="Frecuencia" />
-                                <InputDefPatient change={HandleChangePersonalesNoPatologicos} getName name="Consume Alcohol" cols="" label="Consume Alcohol?" type="text" placeholder="Frecuencia" />
-                                <SelectDefPatient change={HandleChangePersonalesNoPatologicos} getName name="Consume Cafe" cols="" label="Consume Café?" options={[`0 taza`,`1 taza`,`2 tazas`,`3 tazas o más`]} />
-                                <InputDefPatient change={HandleChangePersonalesNoPatologicos} getName name="Utiliza sustancias ilícitas" cols="" label="Utiliza sustancias ilícitas?" type="text" placeholder="Frecuencia" />
-                                <SelectDefPatient change={HandleChangePersonalesNoPatologicos} getName name="Indique horas de sueño" cols="" label="Indique horas de sueño" options={[`menos de 8 horas`,`8 horas`,`más de 8 horas`]} />
+                                <InputDefPatient change={HandleChangePersonalesNoPatologicos} name="" cols="" label="Ejercicio o Deporte" type="text" placeholder="Fecuencia y horario" />
+                                <InputDefPatient change={HandleChangePersonalesNoPatologicos} name="" cols="" label="Toxitosinas" type="text" placeholder="Frecuencia" />
+                                <InputDefPatient change={HandleChangePersonalesNoPatologicos} name="" cols="" label="Fuma?" type="text" placeholder="Frecuencia" />
+                                <InputDefPatient change={HandleChangePersonalesNoPatologicos} name="" cols="" label="Consume Alcohol?" type="text" placeholder="Frecuencia" />
+                                <InputDefPatient change={HandleChangePersonalesNoPatologicos} name="" cols="" label="Consume Café?" type="text" />
+                                <InputDefPatient change={HandleChangePersonalesNoPatologicos} name="" cols="" label="Utiliza sustancias ilícitas?" type="text" placeholder="Frecuencia" />
+                                <InputDefPatient change={HandleChangePersonalesNoPatologicos} name="" cols="" label="Indique horas de sueño" type="text" />
                             </div>
                             <div className="grid gap-2 grid-cols-12 border rounded">
                                 <Subtitle customClass="col-span-12 bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Antecedentes Gineco-obstétricos" />
@@ -220,13 +249,13 @@ export default function CreatePatient() {
                             <InputDefPatient change={HandleChangeTrastornosGastroinstestinales} name="colitis" cols="col-span-2" label="Colitis" type="text" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeTrastornosGastroinstestinales} name="gastritis" cols="col-span-2" label="Gastritis" type="text" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeTrastornosGastroinstestinales} name="colitritis" cols="col-span-2" label="Colitritis" type="text" placeholder="Escribir aquí" />
-                            <InputDefPatient change={HandleChangeTrastornosGastroinstestinales} name="gastritis" cols="col-span-2" label="Gastritis" type="text" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeTrastornosGastroinstestinales} name="nauseas" cols="col-span-2" label="Náuseas" type="text" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeTrastornosGastroinstestinales} name="reflujo" cols="col-span-2" label="Reflujo" type="text" placeholder="Escribir aquí" />
-                            <InputDefPatient change={HandleChangeTrastornosGastroinstestinales} name="disfagia" cols="col-span-2" label="disfagia" type="text" placeholder="Escribir aquí" />
-                            <InputDefPatient change={HandleChangeTrastornosGastroinstestinales} name="flatulencias" cols="col-span-2" label="flatulencias" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeTrastornosGastroinstestinales} name="disfagia" cols="col-span-2" label="Disfagia" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeTrastornosGastroinstestinales} name="flatulencias" cols="col-span-2" label="Flatulencias" type="text" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeTrastornosGastroinstestinales} name="distencion" cols="col-span-2" label="Distención" type="text" placeholder="Escribir aquí" />
-                            <InputDefPatient change={HandleChangeTrastornosGastroinstestinales} name="pirosis" cols="col-span-2" label="piriosis" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeTrastornosGastroinstestinales} name="pirosis" cols="col-span-2" label="Piriosis" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeTrastornosGastroinstestinales} name="otros" cols="col-span-2" label="Otros" type="text" placeholder="Escribir aquí" />
                         </div>
 
                         <div className="col-span-2 grid grid-cols-12 gap-2 border rounded">
@@ -236,7 +265,6 @@ export default function CreatePatient() {
                             <InputDefPatient change={HandleChangeHabitosAlimentacion} name="quien_prepara_alimentos" label="Quien prepara sus alimentos?" cols="col-span-5" type="text" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeHabitosAlimentacion} name="comidas_al_dia" label="Comidas al día" cols="col-span-3" type="number" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeHabitosAlimentacion} name="hace_meriendas" label="Hace Meriendas" cols="col-span-3" type="text" placeholder="Escribir aquí" />
-                            <InputDefPatient change={HandleChangeHabitosAlimentacion} name="con_que_alimentos" label="Con que alimentos?" cols="col-span-4" type="text" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeHabitosAlimentacion} name="horario_de_comida" label="Horario de comida" cols="col-span-5" type="text" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeHabitosAlimentacion} name="comidas_en_casa" label="Comidas en casa" cols="col-span-3" type="text" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeHabitosAlimentacion} name="comidas_fuera_de_casa" label="Comidas fuera de casa" cols="col-span-4" type="text" placeholder="Escribir aquí" />
@@ -244,6 +272,7 @@ export default function CreatePatient() {
                             <InputDefPatient change={HandleChangeHabitosAlimentacion} name="hora_mayor_apetito" label="Hora de mayor apetito" cols="col-span-3" type="text" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeHabitosAlimentacion} name="como_considera_su_apetito" label="Como considera su apetito?" cols="col-span-4" type="text" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeHabitosAlimentacion} name="suplementos" label="Suplementos" cols="col-span-5" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeHabitosAlimentacion} name="agua" label="Agua" cols="col-span-12" type="text" placeholder="Escribir aquí" />
 
                             <InputDefPatient change={HandleChangeHabitosAlimentacion} name="alergias" label="Alergias" cols="col-span-3" col type="text" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeHabitosAlimentacion} name="intolerancias" label="Intolerancias" cols="col-span-3" col type="text" placeholder="Escribir aquí" />
@@ -259,6 +288,29 @@ export default function CreatePatient() {
                             <InputDefPatient change={HandleChangeRedordatorio24Horas} name="comida" label="Comida" cols="" type="text" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeRedordatorio24Horas} name="merienda" label="Merienda" cols="" type="text" placeholder="Escribir aquí" />
                             <InputDefPatient change={HandleChangeRedordatorio24Horas} name="cena" label="Cena" cols="" type="text" placeholder="Escribir aquí" />
+                        </div>
+
+                        <div className="col-span-2 grid grid-cols-3 gap-2 border rounded">
+                            <Subtitle customClass="col-span-3 bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Examenes de Laboratorio" />
+
+                            <InputDefPatient change={HandleChangeEvaluacionBioquímica} name="" label="Colesterol HDL" cols="" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeEvaluacionBioquímica} name="" label="Colesterol LDL" cols="" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeEvaluacionBioquímica} name="" label="Triglicéridos" cols="" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeEvaluacionBioquímica} name="" label="Glucemia en ayunas" cols="" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeEvaluacionBioquímica} name="" label="Hemoglobina" cols="" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeEvaluacionBioquímica} name="" label="Hemoglobina Glicosilada" cols="" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeEvaluacionBioquímica} name="" label="Ácido úrico" cols="" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeEvaluacionBioquímica} name="" label="Creatinina" cols="" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeEvaluacionBioquímica} name="" label="Proteína C Reactiva" cols="" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeEvaluacionBioquímica} name="" label="Ferritina" cols="" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeEvaluacionBioquímica} name="" label="Vitamina D" cols="" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeEvaluacionBioquímica} name="" label="Vitamina B12" cols="" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeEvaluacionBioquímica} name="" label="Folato" cols="" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeEvaluacionBioquímica} name="" label="Hierro" cols="" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeEvaluacionBioquímica} name="" label="Zinc" cols="" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeEvaluacionBioquímica} name="" label="Sodio" cols="" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeEvaluacionBioquímica} name="" label="Potasio" cols="" type="text" placeholder="Escribir aquí" />
+                            <InputDefPatient change={HandleChangeEvaluacionBioquímica} name="" label="Otros" cols="" type="text" placeholder="Escribir aquí" />
                         </div>
 
                         <div className="grid grid-cols-12 gap-2 border rounded">
@@ -280,10 +332,46 @@ export default function CreatePatient() {
                         </div>
 
                         <div className="grid col-span-2 gap-2 border rounded">
-                            <Subtitle customClass="bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Datos Extras" />
+                            {/* <Subtitle customClass="bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Kilo calorías totales" /> */}
+
+                            <table className="table table-zebra">
+                                <tr className="bg-slate-800 text-white ">
+                                    <td></td>
+                                    <td>%</td>
+                                    <td>Kilo calorías</td>
+                                    <td>Gramos</td>
+                                    <td>Raciones</td>
+                                </tr>
+                                <tr>
+                                    <td>Proteínas</td>
+                                    <td><InputDefPatient getName change={HandleChangeProteinas} name="porcentaje" cols="" label="Escriba aquí" type="text" /></td>
+                                    <td><InputDefPatient getName change={HandleChangeProteinas} name="kilo" cols="" label="Escriba aquí" type="text" /></td>
+                                    <td><InputDefPatient getName change={HandleChangeProteinas} name="gr" cols="" label="Escriba aquí" type="text" /></td>
+                                    <td><InputDefPatient getName change={HandleChangeProteinas} name="rc" cols="" label="Escriba aquí" type="text" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Lípidos</td>
+                                    <td><InputDefPatient getName change={HandleChangeLipidos} name="porcentaje" cols="" label="Escriba aquí" type="text" /></td>
+                                    <td><InputDefPatient getName change={HandleChangeLipidos} name="kilo" cols="" label="Escriba aquí" type="text" /></td>
+                                    <td><InputDefPatient getName change={HandleChangeLipidos} name="gr" cols="" label="Escriba aquí" type="text" /></td>
+                                    <td><InputDefPatient getName change={HandleChangeLipidos} name="rc" cols="" label="Escriba aquí" type="text" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Carbohidratos</td>
+                                    <td><InputDefPatient getName change={HandleChangeCarbohidratos} name="porcentaje" cols="" label="Escriba aquí" type="text" /></td>
+                                    <td><InputDefPatient getName change={HandleChangeCarbohidratos} name="kilo" cols="" label="Escriba aquí" type="text" /></td>
+                                    <td><InputDefPatient getName change={HandleChangeCarbohidratos} name="gr" cols="" label="Escriba aquí" type="text" /></td>
+                                    <td><InputDefPatient getName change={HandleChangeCarbohidratos} name="rc" cols="" label="Escriba aquí" type="text" /></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div className="grid gap-2 border rounded">
+                            <Subtitle customClass="bg-slate-800 text-white rounded-t py-2 text-center font-bold" text="Datos extras" />
 
                             <TextareaDefPatient change={HandleChangeRecomendaciones} getName col name="sleep" label="" cols="" placeholder="Escribir aquí" />
                         </div>
+                        
                     </div>
                 </div>
             </form>
